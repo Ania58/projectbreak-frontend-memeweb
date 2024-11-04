@@ -33,8 +33,7 @@ const Films = () => {
         {films.map((film) => (
           <div key={film._id}>
             <h2>{film.title}</h2>
-            <p>{film.description}</p>
-            {film.videoUrl && <video controls src={film.videoUrl} alt={film.title} style={{ width: '100%' }} />}
+            {film.videoUrl && <video controls src={`http://localhost:3000${film.videoUrl}`} alt={film.title} />}
           </div>
         ))}
     </div>
