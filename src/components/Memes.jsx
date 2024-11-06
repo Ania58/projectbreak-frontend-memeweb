@@ -10,7 +10,7 @@ const Memes = () => {
     const fetchMemes = async () => {
       try {
         const response = await axios.get('http://localhost:3000/memes');
-        console.log("Fetched memes:", response.data);
+        //console.log("Fetched memes:", response.data);
         setMemes(response.data);
       } catch (err) {
         console.error("Error fetching memes:", err);

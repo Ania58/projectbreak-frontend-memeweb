@@ -1,0 +1,14 @@
+.pending-content {
+    padding: 20px;
+  }
+  
+  .pending-item {
+    margin-bottom: 15px;
+  }
+  
+  .pending-item img,
+  .pending-item video {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+  }

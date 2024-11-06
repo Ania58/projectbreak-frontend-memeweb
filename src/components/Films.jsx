@@ -12,7 +12,7 @@ const Films = () => {
     setLoading(true);
     try {
       const response = await axios.get('http://localhost:3000/films'); 
-      console.log("Fetched films data:", response.data); 
+      //console.log("Fetched films data:", response.data); 
       setFilms(response.data);
     } catch (err) {
       console.error("Error fetching films:", err);

@@ -11,7 +11,7 @@ const Images = () => {
       try {
         const response = await axios.get('http://localhost:3000/images');
         setImages(response.data);
-        console.log("Fetched images:", response.data);
+        //console.log("Fetched images:", response.data);
       } catch (err) {
         console.error("Error fetching images:", err);
         setError(err.message);

@@ -10,7 +10,7 @@ const Quizzes = () => {
     const fetchQuizzes = async () => {
       try {
         const response = await axios.get('http://localhost:3000/quizzes');
-        console.log("Fetched quizzes:", response.data);
+        //console.log("Fetched quizzes:", response.data);
         setQuizzes(response.data);
       } catch (err) {
         console.error("Error fetching quizzes:", err);
