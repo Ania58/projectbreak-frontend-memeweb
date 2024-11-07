@@ -1,14 +1,29 @@
 .pending-content {
-    padding: 20px;
-  }
-  
-  .pending-item {
-    margin-bottom: 15px;
-  }
-  
-  .pending-item img,
-  .pending-item video {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-  }
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.pending-item {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.pending-item img,
+.pending-item video {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.pending-item h3 {
+  margin-top: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
