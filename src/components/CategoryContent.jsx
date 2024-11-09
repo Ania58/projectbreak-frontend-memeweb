@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import CategoryNavigation from './CategoryNavigation'; 
+import TopNavigation from './TopNavigation';
 import '../css/CategoryContent.css';
 
 const CategoryContent = () => {
@@ -33,6 +35,8 @@ const CategoryContent = () => {
 
   return (
     <div className="category-content">
+       <TopNavigation /> 
+       <CategoryNavigation />
     <h2>{category}</h2>
     {content.map((item, index) => (
     <div key={index} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>

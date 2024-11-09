@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import CategoryNavigation from './CategoryNavigation'; 
+import TopNavigation from './TopNavigation';
 import '../css/PendingContent.css';
 
 const PendingContent = () => {
@@ -43,6 +45,8 @@ const PendingContent = () => {
 
   return (
     <div className="pending-content">
+       <TopNavigation /> 
+       <CategoryNavigation /> 
       <h2>Pending Items</h2>
       {error && <p>{error}</p>}
       {pendingItems.map((item) => (
