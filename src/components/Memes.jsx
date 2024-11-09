@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import '../css/Memes.css';
 
-const Memes = () => {
-  const [memes, setMemes] = useState([]);
+const Memes = ({memes}) => {
+  /*const [memes, setMemes] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -19,11 +18,11 @@ const Memes = () => {
     };
 
     fetchMemes();
-  }, []);
+  }, []);*/
 
   return (
     <div className="memes-container">
-      {error && <p>Error fetching memes: {error}</p>}
+      {/*{error && <p>Error fetching memes: {error}</p>}*/}
       {memes.map((meme) => (
         <div className="meme-item" key={meme._id}>
             <p className="meme-title">{meme.title}</p>
