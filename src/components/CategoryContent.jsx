@@ -7,6 +7,7 @@ const CategoryContent = () => {
   const { category } = useParams();
   const [content, setContent] = useState([]);
   const [error, setError] = useState(null); 
+  const [selectedAnswers, setSelectedAnswers] = useState({});
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -23,12 +24,18 @@ const CategoryContent = () => {
     fetchContent();
   }, [category]);
 
+  const handleAnswerClick = (quizId, questionIndex, isCorrect) => {
+    setSelectedAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [`${quizId}-${questionIndex}`]: isCorrect
+    }));
+  };
 
   return (
     <div className="category-content">
     <h2>{category}</h2>
     {content.map((item, index) => (
-    <div key={index} className="content-item">
+    <div key={index} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
       <h3>{item.title}</h3>
       {item.imageUrl && (
       <img src={`http://localhost:3000${item.imageUrl}`} alt={item.title} />
@@ -38,7 +45,32 @@ const CategoryContent = () => {
         <source src={`http://localhost:3000${item.videoUrl}`} type="video/mp4" />
      </video>
         )}
-    </div>
+          {item.questions && item.questions.length > 0 && (
+            <div className="questions-container">
+              {item.questions.map((question, qIndex) => (
+                <div className="question-item" key={qIndex}>
+                  <p className="question-text">{question.questionText}</p>
+                  <ul className="answers-container">
+                    {question.answers.map((answer, aIndex) => (
+                      <li
+                        key={aIndex}
+                        onClick={() => handleAnswerClick(item._id, qIndex, answer.isCorrect)}
+                        className="answer-button"
+                      >
+                        {answer.answerText}
+                      </li>
+                    ))}
+                  </ul>
+                  {selectedAnswers[`${item._id}-${qIndex}`] !== undefined && (
+                    <p className="feedback">
+                      {selectedAnswers[`${item._id}-${qIndex}`] ? "Correct!" : "Incorrect, try again!"}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
     ))}
     </div>
   );

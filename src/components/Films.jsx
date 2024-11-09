@@ -1,9 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
-const Films = () => {
-  const [films, setFilms] = useState([]);
+const Films = ({films}) => {
+  /*const [films, setFilms] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -24,12 +22,12 @@ const Films = () => {
 
   useEffect(() => {
     fetchFilms();
-  }, []);
+  }, []);*/
 
   return (
     <div>
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {/*{loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}*/}
         {films.map((film) => (
           <div key={film._id}>
             <h2>{film.title}</h2>
