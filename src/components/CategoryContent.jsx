@@ -13,6 +13,9 @@ const CategoryContent = () => {
 
   useEffect(() => {
     const fetchContent = async () => {
+      setContent([]);
+      setError(null);
+      
       try {
         const response = await axios.get(`/content?category=${category}`);
         //console.log('Fetched data:', response.data); 
