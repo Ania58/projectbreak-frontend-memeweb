@@ -1,28 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../css/Images.css';
 
-const Images = ({images}) => {
-  /*const [images, setImages] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/images');
-        setImages(response.data);
-        //console.log("Fetched images:", response.data);
-      } catch (err) {
-        console.error("Error fetching images:", err);
-        setError(err.message);
-      }
-    };
-
-    fetchImages();
-  }, []);*/
-
+const Images = ({images, onVote }) => {
   return (
     <div className="images-container">
-      {/*{error && <p>Error fetching images: {error}</p>}*/}
       {images.map((image) => (
         <div className="image-item" key={image._id}>
             <p className="image-title">{image.title}</p>
@@ -31,6 +12,9 @@ const Images = ({images}) => {
             alt={image.title}
             className="image" 
           />
+          <p>Upvotes: {image.upvotes} | Downvotes: {image.downvotes}</p>
+          <button onClick={() => onVote(1)}>+</button>
+          <button onClick={() => onVote(-1)}>-</button>
         </div>
       ))}
     </div>

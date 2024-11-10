@@ -1,25 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../css/Quizzes.css';
 
-const Quizzes = ({quizzes}) => {
-  /*const [quizzes, setQuizzes] = useState([]);
-  const [error, setError] = useState(null);*/
-  const [selectedAnswers, setSelectedAnswers] = useState({});
-
-  /*useEffect(() => {
-    const fetchQuizzes = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/quizzes');
-        //console.log("Fetched quizzes:", response.data);
-        setQuizzes(response.data);
-      } catch (err) {
-        console.error("Error fetching quizzes:", err);
-        setError(err.message);
-      }
-    };
-
-    fetchQuizzes();
-  }, []);*/
+const Quizzes = ({quizzes, onVote}) => {
+ const [selectedAnswers, setSelectedAnswers] = useState({});
 
   const handleAnswerClick = (quizId, questionIndex, isCorrect) => {
     setSelectedAnswers((prevAnswers) => ({
@@ -30,7 +13,6 @@ const Quizzes = ({quizzes}) => {
 
   return (
   <div className="quizzes-container">
-      {/*{error && <p>Error fetching quizzes: {error}</p>}*/}
       {quizzes.map((quiz) => (
         <div className="quiz-item" key={quiz._id}>
           {quiz.questions.map((question, index) => (
@@ -61,6 +43,11 @@ const Quizzes = ({quizzes}) => {
               )}
             </div>
           ))}
+          <div className="voting-container">
+            <p>Upvotes: {quiz.upvotes} | Downvotes: {quiz.downvotes}</p>
+            <button onClick={() => onVote(1)}>+</button>
+            <button onClick={() => onVote(-1)}>-</button>
+          </div>
         </div>
       ))}
     </div>

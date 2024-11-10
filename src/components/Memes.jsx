@@ -1,28 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import '../css/Memes.css';
 
-const Memes = ({memes}) => {
-  /*const [memes, setMemes] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchMemes = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/memes');
-        //console.log("Fetched memes:", response.data);
-        setMemes(response.data);
-      } catch (err) {
-        console.error("Error fetching memes:", err);
-        setError(err.message);
-      }
-    };
-
-    fetchMemes();
-  }, []);*/
-
+const Memes = ({memes, onVote}) => {
   return (
     <div className="memes-container">
-      {/*{error && <p>Error fetching memes: {error}</p>}*/}
       {memes.map((meme) => (
         <div className="meme-item" key={meme._id}>
             <p className="meme-title">{meme.title}</p>
@@ -31,6 +11,9 @@ const Memes = ({memes}) => {
             alt={meme.title}
             className="meme-image" 
           />
+          <p>Upvotes: {meme.upvotes} | Downvotes: {meme.downvotes}</p>
+          <button onClick={() => onVote(1)}>+</button>
+          <button onClick={() => onVote(-1)}>-</button>
         </div>
       ))}
     </div>
