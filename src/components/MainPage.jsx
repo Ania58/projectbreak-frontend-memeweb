@@ -63,7 +63,11 @@ const MainPage = () => {
 
   const handleVote = async (contentId, vote, type) => {
     try {
-      const endpoint = `http://localhost:3000/${type}s/${contentId}/vote`;
+      //const endpoint = `http://localhost:3000/${type}s/${contentId}/vote`;
+      const endpoint = `http://localhost:3000/${
+        type === 'quiz' ? 'quizzes' : `${type}s`
+      }/${contentId}/vote`;
+      
       const response = await axios.post(endpoint, { vote });
       setContent((prevContent) =>
         prevContent.map((item) =>
