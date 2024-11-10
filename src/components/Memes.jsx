@@ -1,4 +1,5 @@
 import '../css/Memes.css';
+import '../css/Votings.css';
 
 const Memes = ({memes, onVote}) => {
   return (
@@ -11,9 +12,11 @@ const Memes = ({memes, onVote}) => {
             alt={meme.title}
             className="meme-image" 
           />
-          <p>Upvotes: {meme.upvotes} | Downvotes: {meme.downvotes}</p>
-          <button onClick={() => onVote(1)}>+</button>
-          <button onClick={() => onVote(-1)}>-</button>
+          <div className="voting-container">
+            <p>Upvotes: {meme.upvotes} | Downvotes: {meme.downvotes}</p>
+            <button className="upvote-button" onClick={() => onVote(1)}>+</button>
+            <button className="downvote-button" onClick={() => onVote(-1)}>-</button>
+          </div>
         </div>
       ))}
     </div>

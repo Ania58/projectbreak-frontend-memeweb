@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../css/Quizzes.css';
+import '../css/Votings.css';
 
 const Quizzes = ({quizzes, onVote}) => {
  const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -45,8 +46,8 @@ const Quizzes = ({quizzes, onVote}) => {
           ))}
           <div className="voting-container">
             <p>Upvotes: {quiz.upvotes} | Downvotes: {quiz.downvotes}</p>
-            <button onClick={() => onVote(1)}>+</button>
-            <button onClick={() => onVote(-1)}>-</button>
+            <button className="upvote-button" onClick={() => onVote(1)}>+</button>
+            <button className="downvote-button" onClick={() => onVote(-1)}>-</button>
           </div>
         </div>
       ))}

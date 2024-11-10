@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/Images.css';
+import '../css/Votings.css';
 
 const Images = ({images, onVote }) => {
   return (
@@ -12,9 +13,11 @@ const Images = ({images, onVote }) => {
             alt={image.title}
             className="image" 
           />
-          <p>Upvotes: {image.upvotes} | Downvotes: {image.downvotes}</p>
-          <button onClick={() => onVote(1)}>+</button>
-          <button onClick={() => onVote(-1)}>-</button>
+          <div className="voting-container">
+            <p>Upvotes: {image.upvotes} | Downvotes: {image.downvotes}</p>
+            <button className="upvote-button" onClick={() => onVote(1)}>+</button>
+            <button className="downvote-button" onClick={() => onVote(-1)}>-</button>
+          </div>
         </div>
       ))}
     </div>
