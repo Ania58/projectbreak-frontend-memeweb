@@ -1,29 +1,4 @@
-.images-container, .films-container, .memes-container, .quizzes-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .image-item, .film-item, .meme-item, .quiz-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 700px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .image, .film, .meme-image, .quiz-image {
-    max-width: 100%;
-    border-radius: 8px;
-    margin-top: 10px;
-  }
-  
-  .voting-container {
+    .voting-container {
     display: flex;
     align-items: center;
     justify-content: center;

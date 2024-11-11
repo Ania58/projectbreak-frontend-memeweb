@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../css/Quizzes.css';
+import '../css/ContentStyles.css';
 import '../css/Votings.css';
 
 const Quizzes = ({quizzes, onVote}) => {
@@ -13,16 +13,16 @@ const Quizzes = ({quizzes, onVote}) => {
   };
 
   return (
-  <div className="quizzes-container">
+  <div className="content-container">
       {quizzes.map((quiz) => (
-        <div className="quiz-item" key={quiz._id}>
+        <div className="content-item" key={quiz._id}>
           {quiz.questions.map((question, index) => (
             <div className="question-container" key={index}>
               <p className="question-text">{question.questionText}</p>
               <img 
                 src={`http://localhost:3000${quiz.imageUrl}`} 
                 alt={quiz.title}
-                className="quiz-image" 
+                className="content-image" 
               />
               <div className="answers-container">
                 {question.answers.map((answer, aIndex) => (

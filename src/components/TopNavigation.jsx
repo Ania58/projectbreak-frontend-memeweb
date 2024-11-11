@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../css/TopNavigation.css';
 
 const TopNavigation = () => {
   const location = useLocation();

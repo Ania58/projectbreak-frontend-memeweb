@@ -9,6 +9,7 @@ import CategoryNavigation from './CategoryNavigation';
 import TopNavigation from './TopNavigation';
 import Pagination from './Pagination';
 import '../css/MainPage.css';
+import '../css/ContentStyles.css'
 
 const MainPage = () => {
   const navigate = useNavigate();

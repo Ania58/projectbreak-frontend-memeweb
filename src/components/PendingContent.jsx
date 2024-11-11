@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CategoryNavigation from './CategoryNavigation'; 
 import TopNavigation from './TopNavigation';
-import '../css/PendingContent.css';
+import '../css/ContentStyles.css';
 
 const PendingContent = () => {
   const [pendingItems, setPendingItems] = useState([]);
@@ -44,17 +44,17 @@ const PendingContent = () => {
   };
 
   return (
-    <div className="pending-content">
+    <div className="content-container">
        <TopNavigation /> 
        <CategoryNavigation /> 
       <h2>Pending Items</h2>
       {error && <p>{error}</p>}
       {pendingItems.map((item) => (
-        <div key={item._id} className={`pending-item ${item.questions ? 'quiz-item' : ''}`}>
-          <h3>{item.title}</h3>
-          {item.imageUrl && <img src={`http://localhost:3000${item.imageUrl}`} alt={item.title} />}
+        <div key={item._id} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
+          <h3 className="content-title">{item.title}</h3>
+          {item.imageUrl && <img src={`http://localhost:3000${item.imageUrl}`} alt={item.title}  className="content-image" />}
           {item.videoUrl && (
-            <video controls>
+            <video controls className="content-video">
               <source src={`http://localhost:3000${item.videoUrl}`} type="video/mp4" />
             </video>
           )}

@@ -4,7 +4,7 @@ import axios from 'axios';
 import CategoryNavigation from './CategoryNavigation'; 
 import TopNavigation from './TopNavigation';
 import Pagination from './Pagination';
-import '../css/CategoryContent.css';
+import '../css/ContentStyles.css';
 
 const CategoryContent = () => {
   const { category } = useParams();
@@ -26,13 +26,23 @@ const CategoryContent = () => {
         //setContent(response.data);
         //setContent(Array.isArray(response.data) ? response.data : []);
 
-        const contentWithTypes = response.data.map((item) => {
-          if (item.imageUrl) return { ...item, type: 'image' };
-          if (item.videoUrl) return { ...item, type: 'film' };
-          if (item.memeUrl) return { ...item, type: 'meme' };
-          if (item.questions) return { ...item, type: 'quiz' };
-          return item;
-        });
+      const contentWithTypes = response.data.map((item) => {
+        let type;
+    
+        if (item.questions && item.questions.length > 0) {
+            type = 'quiz';
+        } else if (item.isUserGenerated || item.hasOwnProperty('templateId') || (item.imageUrl && item.category === 'memes')) {
+            type = 'meme';
+        } else if (item.imageUrl) {
+            type = 'image';
+        } else if (item.videoUrl) {
+            type = 'film';
+        }
+    
+        console.log(`Item ID: ${item._id}, Detected Type: ${type}`);
+        return { ...item, type };
+    });
+
   
         setContent(contentWithTypes);
       } catch (error) {
@@ -68,6 +78,8 @@ const CategoryContent = () => {
         type === 'quiz' ? 'quizzes' : `${type}s`
       }/${contentId}/vote`;
 
+      console.log("Type:", type, "Endpoint:", endpoint);
+
       const response = await axios.post(endpoint, { vote });
       setContent((prevContent) =>
         prevContent.map((item) =>
@@ -82,18 +94,18 @@ const CategoryContent = () => {
   };
 
   return (
-    <div className="category-content">
+    <div className="content-container">
        <TopNavigation /> 
        <CategoryNavigation />
     <h2>{category}</h2>
     {paginatedContent.map((item, index) => (
     <div key={index} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
-      <h3>{item.title}</h3>
+      <h3 className="content-title">{item.title}</h3>
       {item.imageUrl && (
-      <img src={`http://localhost:3000${item.imageUrl}`} alt={item.title} />
+      <img src={`http://localhost:3000${item.imageUrl}`} alt={item.title} className="content-image"/>
     )}
         {item.videoUrl && (
-      <video controls>
+      <video controls className="content-video">
         <source src={`http://localhost:3000${item.videoUrl}`} type="video/mp4" />
      </video>
         )}
