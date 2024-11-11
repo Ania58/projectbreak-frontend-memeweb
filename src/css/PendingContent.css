@@ -1,3 +1,25 @@
+.top-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  background-color: #333;
+  padding: 5px;
+  width: 100%;
+  max-width: 1280px; 
+  margin: 0 auto;
+}
+
+.top-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+.top-link:hover {
+  color: #ccc;
+}
+
 .pending-content {
   padding: 20px;
   }
