@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import CategoryNavigation from './CategoryNavigation'; 
 import TopNavigation from './TopNavigation';
+import Pagination from './Pagination';
 import '../css/CategoryContent.css';
 
 const CategoryContent = () => {
   const { category } = useParams();
+  const navigate = useNavigate();
   const [content, setContent] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
   const [error, setError] = useState(null); 
   const [selectedAnswers, setSelectedAnswers] = useState({});
 
@@ -29,6 +33,13 @@ const CategoryContent = () => {
     fetchContent();
   }, [category]);
 
+  const totalPages = Math.ceil(content.length / itemsPerPage);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    navigate(`/category/${category}?page=${page}`); 
+  };
+
   const handleAnswerClick = (quizId, questionIndex, isCorrect) => {
     setSelectedAnswers((prevAnswers) => ({
       ...prevAnswers,
@@ -36,12 +47,17 @@ const CategoryContent = () => {
     }));
   };
 
+  const paginatedContent = content.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <div className="category-content">
        <TopNavigation /> 
        <CategoryNavigation />
     <h2>{category}</h2>
-    {content.map((item, index) => (
+    {paginatedContent.map((item, index) => (
     <div key={index} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
       <h3>{item.title}</h3>
       {item.imageUrl && (
@@ -79,6 +95,11 @@ const CategoryContent = () => {
           )}
         </div>
     ))}
+     <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };
