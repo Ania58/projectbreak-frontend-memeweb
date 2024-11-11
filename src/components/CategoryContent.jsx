@@ -24,7 +24,17 @@ const CategoryContent = () => {
         const response = await axios.get(`/content?category=${category}`);
         //console.log('Fetched data:', response.data); 
         //setContent(response.data);
-        setContent(Array.isArray(response.data) ? response.data : []);
+        //setContent(Array.isArray(response.data) ? response.data : []);
+
+        const contentWithTypes = response.data.map((item) => {
+          if (item.imageUrl) return { ...item, type: 'image' };
+          if (item.videoUrl) return { ...item, type: 'film' };
+          if (item.memeUrl) return { ...item, type: 'meme' };
+          if (item.questions) return { ...item, type: 'quiz' };
+          return item;
+        });
+  
+        setContent(contentWithTypes);
       } catch (error) {
         console.error('Error fetching category content:', error);
         setError('Failed to fetch content.');
@@ -51,6 +61,25 @@ const CategoryContent = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const handleVote = async (contentId, vote, type) => {
+    try {
+      const endpoint = `http://localhost:3000/${
+        type === 'quiz' ? 'quizzes' : `${type}s`
+      }/${contentId}/vote`;
+
+      const response = await axios.post(endpoint, { vote });
+      setContent((prevContent) =>
+        prevContent.map((item) =>
+          item._id === contentId
+            ? { ...item, upvotes: response.data.upvotes, downvotes: response.data.downvotes }
+            : item
+        )
+      );
+    } catch (error) {
+      console.error("Error updating vote:", error);
+    }
+  };
 
   return (
     <div className="category-content">
@@ -93,6 +122,11 @@ const CategoryContent = () => {
               ))}
             </div>
           )}
+            <div className="voting-container">
+              <p>Upvotes: {item.upvotes} | Downvotes: {item.downvotes}</p>
+              <button onClick={() => handleVote(item._id, 1, item.type)} className="upvote-button">+</button>
+              <button onClick={() => handleVote(item._id, -1, item.type)} className="downvote-button">-</button>
+            </div>
         </div>
     ))}
      <Pagination
