@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import CategoryNavigation from './CategoryNavigation'; 
 import TopNavigation from './TopNavigation';
@@ -9,6 +9,7 @@ import '../css/ContentStyles.css';
 const CategoryContent = () => {
   const { category } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [content, setContent] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -45,19 +46,24 @@ const CategoryContent = () => {
 
   
         setContent(contentWithTypes);
+
+        const totalPages = Math.ceil(contentWithTypes.length / itemsPerPage);
+        const queryPage = new URLSearchParams(location.search).get("page");
+        setCurrentPage(queryPage ? parseInt(queryPage) : totalPages);
       } catch (error) {
         console.error('Error fetching category content:', error);
         setError('Failed to fetch content.');
       }
     };
     fetchContent();
-  }, [category]);
+  }, [category, location.search]);
 
   const totalPages = Math.ceil(content.length / itemsPerPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
     navigate(`/category/${category}?page=${page}`); 
+    window.scrollTo(0, 0);
   };
 
   const handleAnswerClick = (quizId, questionIndex, isCorrect) => {

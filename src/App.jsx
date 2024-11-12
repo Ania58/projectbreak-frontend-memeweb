@@ -11,7 +11,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/category/:category" element={<CategoryContent />} />
+        <Route path="/category/:category/page/:pageNumber" element={<CategoryContent />} />
         <Route path="/pending" element={<PendingContent />} />
+        <Route path="/pending/page/:pageNumber" element={<PendingContent />} />
         <Route path="/page/:pageNumber" element={<MainPage />} />
       </Routes>
     </Router>
