@@ -7,6 +7,14 @@ const Memes = ({memes, onVote}) => {
       {memes.map((meme) => (
         <div className="content-item" key={meme._id}>
             <p className="content-title">{meme.title}</p>
+            <div className="content-info">
+            <p className="content-category">Category: {meme.category}</p>
+            <p className="content-tags">
+            Tags: {meme.tags?.slice(0, 5).map((tag, i) => ( 
+            <span key={i} className="tag-badge">
+              #{tag}</span> ))|| 'No tags available'}
+            </p>
+          </div>
           <img 
             src={`http://localhost:3000${meme.imageUrl}`} 
             alt={meme.title}

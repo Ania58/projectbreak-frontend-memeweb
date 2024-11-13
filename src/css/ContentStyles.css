@@ -106,3 +106,42 @@
     color: #4caf50;
     text-align: center;
   }
+  .content-info {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+  }
+  
+  
+  .content-category {
+    font-weight: bold;
+    color: #007BFF; 
+    margin-bottom: 4px;
+  }
+  
+  
+  .content-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 4px;
+  }
+  
+  .tag-badge {
+    display: inline-block;
+    background-color: #f1f1f1;
+    color: #007BFF; 
+    font-size: 0.85em;
+    padding: 4px 8px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .tag-badge:hover {
+    background-color: #007BFF;
+    color: #fff;
+  }
