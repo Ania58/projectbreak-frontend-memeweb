@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/ContentStyles.css'
 import '../css/Votings.css';
+import ContentInfo from './ContentInfo';
 
 const Images = ({images, onVote }) => {
   return (
@@ -8,14 +9,7 @@ const Images = ({images, onVote }) => {
       {images.map((image) => (
         <div className="content-item" key={image._id}>
             <p className="content-title">{image.title}</p>
-            <div className="content-info">
-            <p className="content-category">Category: {image.category}</p>
-            <p className="content-tags">
-            Tags: {image.tags?.slice(0, 5).map((tag, i) => ( 
-            <span key={i} className="tag-badge">
-              #{tag}</span> ))|| 'No tags available'}
-            </p>
-          </div>
+            <ContentInfo category={image.category} tags={image.tags} />
           <img 
             src={`http://localhost:3000${image.imageUrl}`} 
             alt={image.title}

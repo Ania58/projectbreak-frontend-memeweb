@@ -49,6 +49,7 @@ const MainPage = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
     navigate(`/page/${page}`);
+    window.scrollTo(0, 0);
   };
 
   const handleVote = async (contentId, vote, type) => {

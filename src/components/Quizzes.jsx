@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../css/ContentStyles.css';
 import '../css/Votings.css';
+import ContentInfo from './ContentInfo';
 
 const Quizzes = ({quizzes, onVote}) => {
  const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -16,14 +17,7 @@ const Quizzes = ({quizzes, onVote}) => {
   <div className="content-container">
       {quizzes.map((quiz) => (
         <div className="content-item" key={quiz._id}>
-          <div className="content-info">
-            <p className="content-category">Category: {quiz.category}</p>
-            <p className="content-tags">
-            Tags: {quiz.tags?.slice(0, 5).map((tag, i) => ( 
-            <span key={i} className="tag-badge">
-              #{tag}</span> ))|| 'No tags available'}
-            </p>
-          </div>
+          <ContentInfo category={quiz.category} tags={quiz.tags} />
           {quiz.questions.map((question, index) => (
             <div className="question-container" key={index}>
               <p className="question-text">{question.questionText}</p>

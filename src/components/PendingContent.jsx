@@ -4,6 +4,7 @@ import axios from 'axios';
 import CategoryNavigation from './CategoryNavigation'; 
 import TopNavigation from './TopNavigation';
 import Pagination from './Pagination';
+import ContentInfo from './ContentInfo';
 import '../css/ContentStyles.css';
 
 const PendingContent = () => {
@@ -96,14 +97,7 @@ const PendingContent = () => {
       {paginatedContent.map((item) => (
         <div key={item._id} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
           <h3 className="content-title">{item.title}</h3>
-          <div className="content-info">
-            <p className="content-category">Category: {item.category}</p>
-            <p className="content-tags">
-            Tags: {item.tags?.slice(0, 5).map((tag, i) => ( 
-            <span key={i} className="tag-badge">
-              #{tag}</span> ))|| 'No tags available'}
-            </p>
-          </div>
+          <ContentInfo category={item.category} tags={item.tags} />
 
           {item.imageUrl && <img src={`http://localhost:3000${item.imageUrl}`} alt={item.title}  className="content-image" />}
           {item.videoUrl && (
