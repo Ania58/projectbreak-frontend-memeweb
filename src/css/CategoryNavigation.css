@@ -28,7 +28,7 @@
     color: white;
   }
   
-  .search-button {
+  .show-button {
     padding: 8px 15px;
     font-size: 14px;
     background-color: #007BFF;
@@ -39,6 +39,6 @@
     transition: background-color 0.2s;
   }
   
-  .search-button:hover {
+  .show-button:hover {
     background-color: #0056b3;
   }

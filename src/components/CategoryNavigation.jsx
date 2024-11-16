@@ -28,8 +28,8 @@ const CategoryNavigation = () => {
           </Link>
         ))}
       </div>
-      <button onClick={handleSearchClick} className="search-button">
-        {showAllCategories ? 'Hide All Categories' : 'Search'}
+      <button onClick={handleSearchClick} className="show-button">
+        {showAllCategories ? 'Hide All Categories' : 'Show All'}
       </button>
     </div>
   );
