@@ -105,8 +105,8 @@ const CategoryContent = () => {
        <TopNavigation /> 
        <CategoryNavigation />
     <h2>{category}</h2>
-    {paginatedContent.map((item, index) => (
-    <div key={index} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
+    {paginatedContent.map((item) => (
+    <div key={item._id} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
       <h3 className="content-title">{item.title}</h3>
       <ContentInfo category={item.category} tags={item.tags} />
       {item.imageUrl && (
