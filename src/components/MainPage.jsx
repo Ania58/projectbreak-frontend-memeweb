@@ -68,9 +68,6 @@ const MainPage = () => {
 
   return (
     <div className="main-page">
-      <ContentHeader />
-      <TopNavigation />
-      <CategoryNavigation />
       {error && <p>{error}</p>}
       <ContentList content={content} handleVote={handleVote} />
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />

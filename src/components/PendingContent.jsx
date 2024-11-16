@@ -90,8 +90,6 @@ const PendingContent = () => {
 
   return (
     <div className="content-container">
-       <TopNavigation /> 
-       <CategoryNavigation /> 
       <h2>Pending Items</h2>
       {error && <p>{error}</p>}
       {paginatedContent.map((item) => (

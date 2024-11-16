@@ -1,0 +1,33 @@
+.contact-page {
+    padding: 20px;
+  }
+  
+  .contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .form-section {
+    flex: 1 1 60%;
+    min-width: 300px;
+  }
+  
+  .advertisement-section {
+    flex: 1 1 35%;
+    min-width: 200px;
+    margin-top: 20px;
+  }
+  
+  .advertisement-section h3 {
+    margin-bottom: 10px;
+  }
+  
+  .advertisement-section a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .advertisement-section a:hover {
+    text-decoration: underline;
+  }

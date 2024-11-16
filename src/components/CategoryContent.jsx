@@ -102,8 +102,6 @@ const CategoryContent = () => {
 
   return (
     <div className="content-container">
-       <TopNavigation /> 
-       <CategoryNavigation />
     <h2>{category}</h2>
     {paginatedContent.map((item) => (
     <div key={item._id} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
