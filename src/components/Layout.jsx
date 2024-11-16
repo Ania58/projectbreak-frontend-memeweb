@@ -3,6 +3,7 @@ import Footer from './Footer';
 import ContentHeader from './ContentHeader';
 import TopNavigation from './TopNavigation';
 import CategoryNavigation from './CategoryNavigation';
+import SearchBar from './SearchBar';
 import '../css/Layout.css'; 
 
 const Layout = ({ children }) => {
@@ -11,6 +12,7 @@ const Layout = ({ children }) => {
       <ContentHeader />
       <TopNavigation />
       <CategoryNavigation />
+      <SearchBar />
       <main className="content">
         {children}
       </main>

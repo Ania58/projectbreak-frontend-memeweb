@@ -9,6 +9,7 @@ import AdvertisementPage from './components/AdvertisementPage';
 import RulesAndRegulationsPage from './components/RulesAndRegulationsPage';
 import PrivacyPolicyPage from './components/PrivacyPolicyPage';
 import Layout from './components/Layout';
+import SearchResults from './components/SearchResults';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/category/:category/page/:pageNumber" element={<CategoryContent />} />
         <Route path="/pending" element={<PendingContent />} />
         <Route path="/pending/page/:pageNumber" element={<PendingContent />} />
+        <Route path="/search" element={<SearchResults />} />
         <Route path="/page/:pageNumber" element={<MainPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/advertisement" element={<AdvertisementPage />} />
