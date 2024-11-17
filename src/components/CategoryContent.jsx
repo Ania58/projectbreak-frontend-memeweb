@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import CategoryNavigation from './CategoryNavigation'; 
-import TopNavigation from './TopNavigation';
 import Pagination from './Pagination';
 import ContentInfo from './ContentInfo';
 import '../css/ContentStyles.css';
@@ -16,6 +14,11 @@ const CategoryContent = () => {
   const itemsPerPage = 8;
   const [error, setError] = useState(null); 
   const [selectedAnswers, setSelectedAnswers] = useState({});
+
+  const [votedItems, setVotedItems] = useState(() => {
+    const storedVotes = localStorage.getItem('votedItems');
+    return storedVotes ? JSON.parse(storedVotes) : [];
+  });
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -80,6 +83,10 @@ const CategoryContent = () => {
   );
 
   const handleVote = async (contentId, vote, type) => {
+    if (votedItems.includes(contentId)) {
+      alert("You have already voted on this content.");
+      return;
+    }
     try {
       const endpoint = `http://localhost:3000/${
         type === 'quiz' ? 'quizzes' : `${type}s`
@@ -88,6 +95,7 @@ const CategoryContent = () => {
       console.log("Type:", type, "Endpoint:", endpoint);
 
       const response = await axios.post(endpoint, { vote });
+      const { upvotes, downvotes } = response.data;
       setContent((prevContent) =>
         prevContent.map((item) =>
           item._id === contentId
@@ -95,6 +103,9 @@ const CategoryContent = () => {
             : item
         )
       );
+      const updatedVotedItems = [...votedItems, contentId];
+      setVotedItems(updatedVotedItems);
+      localStorage.setItem('votedItems', JSON.stringify(updatedVotedItems));
     } catch (error) {
       console.error("Error updating vote:", error);
     }
@@ -102,52 +113,72 @@ const CategoryContent = () => {
 
   return (
     <div className="content-container">
-    <h2>{category}</h2>
-    {paginatedContent.map((item) => (
-    <div key={item._id} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
-      <h3 className="content-title">{item.title}</h3>
-      <ContentInfo category={item.category} tags={item.tags} />
-      {item.imageUrl && (
-      <img src={`http://localhost:3000${item.imageUrl}`} alt={item.title} className="content-image"/>
-    )}
-        {item.videoUrl && (
-      <video controls className="content-video">
-        <source src={`http://localhost:3000${item.videoUrl}`} type="video/mp4" />
-     </video>
-        )}
-          {item.questions && item.questions.length > 0 && (
-            <div className="questions-container">
-              {item.questions.map((question, qIndex) => (
-                <div className="question-item" key={qIndex}>
-                  <p className="question-text">{question.questionText}</p>
-                  <ul className="answers-container">
-                    {question.answers.map((answer, aIndex) => (
-                      <li
-                        key={aIndex}
-                        onClick={() => handleAnswerClick(item._id, qIndex, answer.isCorrect)}
-                        className="answer-button"
-                      >
-                        {answer.answerText}
-                      </li>
-                    ))}
-                  </ul>
-                  {selectedAnswers[`${item._id}-${qIndex}`] !== undefined && (
-                    <p className="feedback">
-                      {selectedAnswers[`${item._id}-${qIndex}`] ? "Correct!" : "Incorrect, try again!"}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+      <h2>{category}</h2>
+      {error && <p>{error}</p>}
+      {paginatedContent.map((item) => {
+
+        const hasVoted = votedItems.includes(item._id);
+
+        return (
+          <div key={item._id} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
+            <h3 className="content-title">{item.title}</h3>
+            <ContentInfo category={item.category} tags={item.tags} />
+
+            {item.imageUrl && (
+              <img src={`http://localhost:3000${item.imageUrl}`} alt={item.title} className="content-image"/>
+            )}
+            {item.videoUrl && (
+              <video controls className="content-video">
+                <source src={`http://localhost:3000${item.videoUrl}`} type="video/mp4" />
+              </video>
+            )}
+            {item.questions && item.questions.length > 0 && (
+              <div className="questions-container">
+                {item.questions.map((question, qIndex) => (
+                  <div className="question-item" key={qIndex}>
+                    <p className="question-text">{question.questionText}</p>
+                    <ul className="answers-container">
+                      {question.answers.map((answer, aIndex) => (
+                        <li
+                          key={aIndex}
+                          onClick={() => handleAnswerClick(item._id, qIndex, answer.isCorrect)}
+                          className="answer-button"
+                        >
+                          {answer.answerText}
+                        </li>
+                      ))}
+                    </ul>
+                    {selectedAnswers[`${item._id}-${qIndex}`] !== undefined && (
+                      <p className="feedback">
+                        {selectedAnswers[`${item._id}-${qIndex}`] ? "Correct!" : "Incorrect, try again!"}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="voting-container">
               <p>Upvotes: {item.upvotes} | Downvotes: {item.downvotes}</p>
-              <button onClick={() => handleVote(item._id, 1, item.type)} className="upvote-button">+</button>
-              <button onClick={() => handleVote(item._id, -1, item.type)} className="downvote-button">-</button>
+              <button
+                onClick={() => handleVote(item._id, 1, item.type)}
+                className="upvote-button"
+                disabled={hasVoted}
+              >
+                +
+              </button>
+              <button
+                onClick={() => handleVote(item._id, -1, item.type)}
+                className="downvote-button"
+                disabled={hasVoted}
+              >
+                -
+              </button>
+              {hasVoted && <p className="voted-text">You have voted on this content.</p>}
             </div>
-        </div>
-    ))}
-     <Pagination
+          </div>
+        );
+      })}
+      <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
