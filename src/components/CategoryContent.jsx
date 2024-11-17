@@ -45,12 +45,12 @@ const CategoryContent = () => {
         return { ...item, type };
     });
 
-  
-        setContent(contentWithTypes);
+        const sortedContent = contentWithTypes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setContent(sortedContent);
 
         const totalPages = Math.ceil(contentWithTypes.length / itemsPerPage);
         const queryPage = new URLSearchParams(location.search).get("page");
-        setCurrentPage(queryPage ? parseInt(queryPage) : totalPages);
+        setCurrentPage(queryPage ? parseInt(queryPage) : (totalPages > 0 ? totalPages : 1));
       } catch (error) {
         console.error('Error fetching category content:', error);
         setError('Failed to fetch content.');
