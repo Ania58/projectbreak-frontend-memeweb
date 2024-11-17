@@ -26,9 +26,10 @@ const SearchResults = () => {
         const response = await axios.get(`http://localhost:3000/content/search?query=${encodeURIComponent(query)}`);
         const allContent = response.data.content;
 
-        setTotalPages(Math.ceil(allContent.length / itemsPerPage));
+        const totalPages = Math.ceil(allContent.length / itemsPerPage)
+        setTotalPages(totalPages);
         setContent(allContent);
-        setCurrentPage(1); 
+        setCurrentPage(totalPages > 0 ? totalPages : 1); 
       } catch (err) {
         console.error("Error fetching search results:", err);
         setError("Failed to fetch search results.");
