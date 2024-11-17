@@ -39,3 +39,9 @@
   .upvote-button:active, .downvote-button:active {
     transform: scale(0.95);
   }
+
+  .voting-container p.voted-text {
+    color: #28a745;
+    font-weight: bold;
+    margin-top: 5px;
+  }
