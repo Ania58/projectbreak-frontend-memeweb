@@ -3,7 +3,7 @@ import '../css/ContentStyles.css'
 import '../css/Votings.css';
 import ContentInfo from './ContentInfo';
 
-const Images = ({images, onVote }) => {
+const Images = ({images, onVote, hasVoted }) => {
   return (
     <div className="content-container">
       {images.map((image) => (
@@ -17,8 +17,9 @@ const Images = ({images, onVote }) => {
           />
           <div className="voting-container">
             <p>Upvotes: {image.upvotes} | Downvotes: {image.downvotes}</p>
-            <button className="upvote-button" onClick={() => onVote(1)}>+</button>
-            <button className="downvote-button" onClick={() => onVote(-1)}>-</button>
+            <button className="upvote-button" onClick={() => onVote(1)} disabled={hasVoted}>+</button>
+            <button className="downvote-button" onClick={() => onVote(-1)} disabled={hasVoted}>-</button>
+            {hasVoted && <p className="voted-text">You have voted on this content.</p>}
           </div>
         </div>
       ))}

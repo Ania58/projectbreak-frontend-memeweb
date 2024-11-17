@@ -3,7 +3,7 @@ import '../css/ContentStyles.css';
 import '../css/Votings.css';
 import ContentInfo from './ContentInfo';
 
-const Films = ({films, onVote}) => {
+const Films = ({films, onVote, hasVoted}) => {
   return (
     <div className="content-container">
         {films.map((film) => (
@@ -13,8 +13,9 @@ const Films = ({films, onVote}) => {
             {film.videoUrl && <video controls src={`http://localhost:3000${film.videoUrl}`} alt={film.title} className="content-film" />}
             <div className="voting-container">
               <p>Upvotes: {film.upvotes} | Downvotes: {film.downvotes}</p>
-              <button className="upvote-button" onClick={() => onVote(1)}>+</button>
-              <button className="downvote-button" onClick={() => onVote(-1)}>-</button>
+              <button className="upvote-button" onClick={() => onVote(1)} disabled={hasVoted}>+</button>
+              <button className="downvote-button" onClick={() => onVote(-1)} disabled={hasVoted}>-</button>
+              {hasVoted && <p className="voted-text">You have voted on this content.</p>}
             </div>
           </div>
         ))}

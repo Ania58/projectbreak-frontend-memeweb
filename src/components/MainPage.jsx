@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import ContentHeader from './ContentHeader';
 import ContentList from './ContentList';
-import TopNavigation from './TopNavigation';
-import CategoryNavigation from './CategoryNavigation';
 import Pagination from './Pagination';
 import '../css/MainPage.css';
 import '../css/ContentStyles.css';
@@ -52,6 +49,11 @@ const MainPage = () => {
     window.scrollTo(0, 0);
   };
 
+  const [votedItems, setVotedItems] = useState(() => {
+    const storedVotes = localStorage.getItem('votedItems');
+    return storedVotes ? JSON.parse(storedVotes) : [];
+  });
+
   const handleVote = async (contentId, vote, type) => {
     try {
       const endpoint = `http://localhost:3000/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
@@ -69,7 +71,7 @@ const MainPage = () => {
   return (
     <div className="main-page">
       {error && <p>{error}</p>}
-      <ContentList content={content} handleVote={handleVote} />
+      <ContentList content={content} handleVote={handleVote} votedItems={votedItems} setVotedItems={setVotedItems}/>
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   );

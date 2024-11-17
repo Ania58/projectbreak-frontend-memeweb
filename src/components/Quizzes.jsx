@@ -3,7 +3,7 @@ import '../css/ContentStyles.css';
 import '../css/Votings.css';
 import ContentInfo from './ContentInfo';
 
-const Quizzes = ({quizzes, onVote}) => {
+const Quizzes = ({quizzes, onVote, hasVoted}) => {
  const [selectedAnswers, setSelectedAnswers] = useState({});
 
   const handleAnswerClick = (quizId, questionIndex, isCorrect) => {
@@ -48,8 +48,9 @@ const Quizzes = ({quizzes, onVote}) => {
           ))}
           <div className="voting-container">
             <p>Upvotes: {quiz.upvotes} | Downvotes: {quiz.downvotes}</p>
-            <button className="upvote-button" onClick={() => onVote(1)}>+</button>
-            <button className="downvote-button" onClick={() => onVote(-1)}>-</button>
+            <button className="upvote-button" onClick={() => onVote(1)} disabled={hasVoted}>+</button>
+            <button className="downvote-button" onClick={() => onVote(-1)} disabled={hasVoted}>-</button>
+            {hasVoted && <p className="voted-text">You have voted on this content.</p>}
           </div>
         </div>
       ))}

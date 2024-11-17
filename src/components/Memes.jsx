@@ -2,7 +2,7 @@ import '../css/ContentStyles.css';
 import '../css/Votings.css';
 import ContentInfo from './ContentInfo';
 
-const Memes = ({memes, onVote}) => {
+const Memes = ({memes, onVote, hasVoted}) => {
   return (
     <div className="content-container">
       {memes.map((meme) => (
@@ -16,8 +16,9 @@ const Memes = ({memes, onVote}) => {
           />
           <div className="voting-container">
             <p>Upvotes: {meme.upvotes} | Downvotes: {meme.downvotes}</p>
-            <button className="upvote-button" onClick={() => onVote(1)}>+</button>
-            <button className="downvote-button" onClick={() => onVote(-1)}>-</button>
+            <button className="upvote-button" onClick={() => onVote(1)} disabled={hasVoted}>+</button>
+            <button className="downvote-button" onClick={() => onVote(-1)} disabled={hasVoted}>-</button>
+            {hasVoted && <p className="voted-text">You have voted on this content.</p>}
           </div>
         </div>
       ))}
