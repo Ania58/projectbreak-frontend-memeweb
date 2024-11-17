@@ -35,8 +35,18 @@ const PendingContent = () => {
           ...(data.quizzes || []).map(item => ({ ...item, type: 'quiz' })),
         ];
 
-        setPendingItems(allItems);
-        setCurrentPage(pageNumber ? parseInt(pageNumber) : Math.ceil(allItems.length / itemsPerPage));
+        const sortedItems = [...allItems].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+        /*console.log('Sorted Pending Items:', sortedItems.map(item => ({
+          id: item._id,
+          createdAt: item.createdAt,
+          type: item.type
+        })));*/
+
+        setPendingItems(sortedItems);
+        const totalPages = Math.ceil(sortedItems.length / itemsPerPage);
+        setCurrentPage(pageNumber ? parseInt(pageNumber) : (totalPages > 0 ? totalPages : 1));
+        
       } catch (err) {
         console.error("Error fetching pending items:", err);
         setError("Failed to fetch pending items.");
@@ -54,7 +64,7 @@ const PendingContent = () => {
   const paginatedContent = pendingItems.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
-  );
+  ).reverse();
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
