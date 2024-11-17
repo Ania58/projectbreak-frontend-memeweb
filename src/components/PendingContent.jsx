@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import CategoryNavigation from './CategoryNavigation'; 
-import TopNavigation from './TopNavigation';
 import Pagination from './Pagination';
 import ContentInfo from './ContentInfo';
 import '../css/ContentStyles.css';
@@ -16,6 +14,11 @@ const PendingContent = () => {
   const [error, setError] = useState(null);
   const [selectedAnswers, setSelectedAnswers] = useState({});
 
+  const [votedItems, setVotedItems] = useState(() => {
+    const storedVotes = localStorage.getItem('votedItems');
+    return storedVotes ? JSON.parse(storedVotes) : [];
+  });
+
   useEffect(() => {
     const fetchPendingItems = async () => {
       try {
@@ -24,11 +27,6 @@ const PendingContent = () => {
         const data = response.data;
 
         const allItems = [
-          /*...(data.films || []),
-          ...(data.images || []),
-          ...(data.memes || []),
-          ...(data.quizzes || []),*/
-
           ...(data.films || []).map(item => ({ ...item, type: 'film' })),
           ...(data.images || []).map(item => ({ ...item, type: 'image' })),
           ...(data.memes || []).map(item => ({ ...item, type: 'meme' })),
@@ -80,12 +78,18 @@ const PendingContent = () => {
   };
 
   const handleVote = async (contentId, vote, type) => {
+    if (votedItems.includes(contentId)) {
+      alert("You have already voted on this content.");
+      return;
+    }
+
     try {
       const endpoint = `http://localhost:3000/${
         type === 'quiz' ? 'quizzes' : `${type}s`
       }/${contentId}/vote`;
 
       const response = await axios.post(endpoint, { vote });
+      const { upvotes, downvotes } = response.data;
       setPendingItems((prevItems) =>
         prevItems.map((item) =>
           item._id === contentId
@@ -93,16 +97,23 @@ const PendingContent = () => {
             : item
         )
       );
+      const updatedVotedItems = [...votedItems, contentId];
+      setVotedItems(updatedVotedItems);
+      localStorage.setItem('votedItems', JSON.stringify(updatedVotedItems));
     } catch (error) {
       console.error("Error updating vote:", error);
     }
   };
 
-  return (
-    <div className="content-container">
-      <h2>Pending Items</h2>
-      {error && <p>{error}</p>}
-      {paginatedContent.map((item) => (
+
+return (
+  <div className="content-container">
+    <h2>Pending Items</h2>
+    {error && <p>{error}</p>}
+    {paginatedContent.map((item) => {
+      const hasVoted = votedItems.includes(item._id);
+
+      return (
         <div key={item._id} className={`content-item ${item.questions ? 'quiz-item' : ''}`}>
           <h3 className="content-title">{item.title}</h3>
           <ContentInfo category={item.category} tags={item.tags} />
@@ -140,18 +151,32 @@ const PendingContent = () => {
           )}
           <div className="voting-container">
             <p>Upvotes: {item.upvotes} | Downvotes: {item.downvotes}</p>
-            <button onClick={() => handleVote(item._id, 1, item.type)} className="upvote-button">+</button>
-            <button onClick={() => handleVote(item._id, -1, item.type)} className="downvote-button">-</button>
+            <button
+              onClick={() => handleVote(item._id, 1, item.type)}
+              className="upvote-button"
+              disabled={hasVoted}
+            >
+              +
+            </button>
+            <button
+              onClick={() => handleVote(item._id, -1, item.type)}
+              className="downvote-button"
+              disabled={hasVoted}
+            >
+              -
+            </button>
+            {hasVoted && <p className="voted-text">You have voted on this content.</p>}
           </div>
         </div>
-      ))}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
-    </div>
-  );
+      );
+    })}
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={handlePageChange}
+    />
+  </div>
+);
 };
 
 export default PendingContent;
