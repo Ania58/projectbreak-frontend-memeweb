@@ -4,6 +4,7 @@ import axios from 'axios';
 import ContentList from './ContentList';
 import Pagination from './Pagination';
 import '../css/SearchResults.css';
+import '../css/ContentStyles.css'; 
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -18,6 +19,20 @@ const SearchResults = () => {
   const itemsPerPage = 8;
   const [error, setError] = useState(null);
 
+  const handleVote = async (contentId, vote, type) => {
+    try {
+      const endpoint = `http://localhost:3000/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
+      const response = await axios.post(endpoint, { vote });
+      setContent((prevContent) =>
+        prevContent.map((item) =>
+          item._id === contentId ? { ...item, upvotes: response.data.upvotes, downvotes: response.data.downvotes } : item
+        )
+      );
+    } catch (error) {
+      console.error("Error updating vote:", error);
+    }
+  };
+
   useEffect(() => {
     if (!query) return;
 
@@ -26,9 +41,28 @@ const SearchResults = () => {
         const response = await axios.get(`http://localhost:3000/content/search?query=${encodeURIComponent(query)}`);
         const allContent = response.data.content;
 
-        const totalPages = Math.ceil(allContent.length / itemsPerPage)
+        const contentWithTypes = allContent.map((item) => {
+          let type;
+          if (item.questions && item.questions.length > 0) {
+            type = 'quiz';
+          } else if (item.imageUrl) {
+            type = 'image';
+          } else if (item.videoUrl) {
+            type = 'film';
+          } else if (item.isUserGenerated || item.category === 'memes') {
+            type = 'meme';
+          }
+  
+          if (!type) {
+            console.error(`Item with ID ${item._id} has no valid type!`, item);
+          }
+  
+          return { ...item, type };
+        });
+
+        const totalPages = Math.ceil(contentWithTypes.length / itemsPerPage)
         setTotalPages(totalPages);
-        setContent(allContent);
+        setContent(contentWithTypes);
         setCurrentPage(totalPages > 0 ? totalPages : 1); 
       } catch (err) {
         console.error("Error fetching search results:", err);
@@ -59,7 +93,7 @@ const SearchResults = () => {
       {error && <p>{error}</p>}
       {paginatedContent.length > 0 ? (
         <>
-          <ContentList content={paginatedContent} />
+          <ContentList content={paginatedContent} handleVote={handleVote}  />
           <Pagination 
             currentPage={currentPage} 
             totalPages={totalPages} 
