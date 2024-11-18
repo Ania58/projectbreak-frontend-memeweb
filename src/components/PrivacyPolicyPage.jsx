@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import '../css/PrivacyPolicyPage.css';
 
 const PrivacyPolicyPage = () => {
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="privacy-policy-page">
       <h2>Privacy Policy</h2>
       <div className="privacy-content">
-        <p><strong>Privacy Policy</strong></p>
+        <h3><strong>PRIVACY POLICY</strong></h3>
         <p>
           Below we provide information regarding the processing of your personal data in connection with the use of our online service on the website www.lolture.com, via the application available in the AppStore and Google Play ("Service"). We prioritize the protection of your personal data. The data is used solely for legally justified purposes as outlined in this privacy policy ("Privacy Policy"). This document explains how your data is collected, used, transferred, and disclosed by Cube Investments Sp. z o.o.
         </p>
@@ -33,22 +38,60 @@ const PrivacyPolicyPage = () => {
 
         <h3>The legal bases for processing your personal data include:</h3>
 
-        <ul>Legitimate interests pursued by the Controller (Article 6(1)(f) GDPR), which include:
+        <section>
+          <h3>Legitimate Interests Pursued by the Controller</h3>
+          <p>(Article 6(1)(f) GDPR), which include:</p>
+          <ul>
             <li>Business development and improving customer satisfaction.</li>
             <li>Direct marketing.</li>
             <li>Responding to inquiries submitted through the contact form.</li>
             <li>Analytical and statistical purposes.</li>
             <li>Establishing, pursuing, or defending legal claims.</li>
-            <li>Your consent (Article 6(1)(a) GDPR), for purposes such as account creation and user registration on the Service. You have the right to withdraw your consent at any time and still use the Service to the extent available to non-logged-in users.</li>
+            <li>Your consent (Article 6(1)(a) GDPR) for purposes such as account creation and user registration on the Service. You have the right to withdraw your consent at any time and still use the Service to the extent available to non-logged-in users.</li>
             <li>Legal obligations (Article 6(1)(c) GDPR), such as those arising from tax law.</li>
-        </ul>
-        <h3>PURPOSES OF PROCESSING YOUR PERSONAL DATA</h3>
-        <p>Purpose	Legal Basis	Data Processed</p>
-        <p>Account creation and user registration	Article 6(1)(a) GDPR (consent)	Email address, activity history (clicks, posts, views)</p>
-        <p>Responding to inquiries through the contact form	Article 6(1)(f) GDPR (legitimate interests)	Name, email address</p>
-        <p>Sending newsletters	Article 6(1)(a) GDPR (consent)	Name, email address</p>
-        <p>Service administration, improvement, and protection	Article 6(1)(f) GDPR (legitimate interests)	Activity history, click and browsing data</p>
-        <p>Analyzing Service usage and showing tailored ads	Article 6(1)(f) GDPR (legitimate interests)	Device details, IP address, browser type, location, activity</p>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Purposes of Processing Your Personal Data</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Purpose</th>
+                <th>Legal Basis</th>
+                <th>Data Processed</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Account creation and user registration</td>
+                <td>Article 6(1)(a) GDPR (consent)</td>
+                <td>Email address, activity history (clicks, posts, views)</td>
+              </tr>
+              <tr>
+                <td>Responding to inquiries through the contact form</td>
+                <td>Article 6(1)(f) GDPR (legitimate interests)</td>
+                <td>Name, email address</td>
+              </tr>
+              <tr>
+                <td>Sending newsletters</td>
+                <td>Article 6(1)(a) GDPR (consent)</td>
+                <td>Name, email address</td>
+              </tr>
+              <tr>
+                <td>Service administration, improvement, and protection</td>
+                <td>Article 6(1)(f) GDPR (legitimate interests)</td>
+                <td>Activity history, click and browsing data</td>
+              </tr>
+              <tr>
+                <td>Analyzing Service usage and showing tailored ads</td>
+                <td>Article 6(1)(f) GDPR (legitimate interests)</td>
+                <td>Device details, IP address, browser type, location, activity</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
         <h3>PROFILING</h3>
         <p>We may use profiling in the Service to recommend tailored content. Profiling involves automated processing of personal data but does not result in legal effects or significantly affect you. Profiling-based decisions are allowed only with your explicit consent, which can be withdrawn at any time.</p>
 
