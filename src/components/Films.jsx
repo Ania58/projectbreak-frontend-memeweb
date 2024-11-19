@@ -10,7 +10,7 @@ const Films = ({films, onVote, hasVoted}) => {
           <div className="content-item" key={film._id}>
             <h2 className="content-title">{film.title}</h2>
             <ContentInfo category={film.category} tags={film.tags} />
-            {film.videoUrl && <video controls src={`http://localhost:3000${film.videoUrl}`} alt={film.title} className="content-film" />}
+            {film.videoUrl && <video controls src={`http://localhost:3000${film.videoUrl}`} alt={film.title} className="content-video" />}
             <div className="voting-container">
               <p>Upvotes: {film.upvotes} | Downvotes: {film.downvotes}</p>
               <button className="upvote-button" onClick={() => onVote(1)} disabled={hasVoted}>+</button>
