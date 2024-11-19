@@ -6,10 +6,6 @@
     margin-bottom: 20px;
   }
   
-  .search-results p {
-    font-size: 1.2em;
-  }
-  
   .search-results .content-list {
     display: flex;
     flex-wrap: wrap;
