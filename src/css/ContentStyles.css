@@ -60,9 +60,9 @@
   }
   
   .quiz-item {
-    background-color: #333;
-    color: #fff;
-    max-width: 600px;
+    background-color: #fff;
+    color: #333;
+    max-width: 700px;
   }
   
   .question-container {

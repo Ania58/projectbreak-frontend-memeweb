@@ -17,6 +17,7 @@ const Quizzes = ({quizzes, onVote, hasVoted}) => {
   <div className="content-container">
       {quizzes.map((quiz) => (
         <div className="content-item" key={quiz._id}>
+           <h3 className="content-title">{quiz.title}</h3>
           <ContentInfo category={quiz.category} tags={quiz.tags} />
           {quiz.questions.map((question, index) => (
             <div className="question-container" key={index}>
