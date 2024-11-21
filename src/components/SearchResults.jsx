@@ -13,8 +13,10 @@ const useQuery = () => {
 const SearchResults = () => {
   const query = useQuery().get('q') || '';
   const navigate = useNavigate();
+  const location = useLocation();
+  const currentPageFromUrl = parseInt(useQuery().get('page'), 10);
   const [content, setContent] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(currentPageFromUrl || null);
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 8;
   const [error, setError] = useState(null);
@@ -63,7 +65,7 @@ const SearchResults = () => {
         const totalPages = Math.ceil(contentWithTypes.length / itemsPerPage)
         setTotalPages(totalPages);
         setContent(contentWithTypes);
-        setCurrentPage(totalPages > 0 ? totalPages : 1); 
+        setCurrentPage(currentPageFromUrl || totalPages); 
       } catch (err) {
         console.error("Error fetching search results:", err);
         setError("Failed to fetch search results.");
@@ -71,7 +73,7 @@ const SearchResults = () => {
     };
 
     fetchSearchResults();
-  }, [query]);
+  }, [query, currentPageFromUrl]);
 
   const paginatedContent = content.slice(
     (currentPage - 1) * itemsPerPage,
@@ -80,6 +82,7 @@ const SearchResults = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    navigate(`/search?q=${encodeURIComponent(query)}&page=${page}`);
     window.scrollTo(0, 0);
   };
 
