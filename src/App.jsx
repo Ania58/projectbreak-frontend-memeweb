@@ -22,6 +22,7 @@ const App = () => {
         <Route path="/category/:category/page/:pageNumber" element={<CategoryContent />} />
         <Route path="/pending" element={<PendingContent />} />
         <Route path="/pending/page/:pageNumber" element={<PendingContent />} />
+        <Route path="/top/page/:page" element={<TopContent />} />
         <Route path="/top" element={<TopContent />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/page/:pageNumber" element={<MainPage />} />
