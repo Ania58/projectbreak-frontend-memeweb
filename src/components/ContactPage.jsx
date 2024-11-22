@@ -12,7 +12,7 @@ const ContactPage = () => {
       <h2>Contact Us</h2>
       <div className="contact-container">
         <div className="form-section">
-          <ContactForm onSuccess={handleSuccess} />
+          <ContactForm endpoint="/contact" onSuccess={handleSuccess} />
         </div>
         <div className="advertisement-section">
           <h3>For Advertisement Inquiries</h3>

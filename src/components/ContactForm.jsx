@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/ContactForm.css';
 
-const ContactForm = ({ onSuccess }) => {
+const ContactForm = ({ endpoint, onSuccess }) => {
   const [formData, setFormData] = useState({
     nameOrCompany: '',
     email: '',
@@ -22,9 +22,12 @@ const ContactForm = ({ onSuccess }) => {
       return;
     }
 
+    const backendBaseUrl = 'http://localhost:3000';
+
     try {
-      await axios.post('/api/contact', formData);
+      await axios.post(`${backendBaseUrl}${endpoint}`, formData);
       setFormData({ nameOrCompany: '', email: '', message: '' });
+      setError(null); 
       if (onSuccess) onSuccess();
     } catch (err) {
       console.error(err);

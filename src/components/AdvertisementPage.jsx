@@ -10,7 +10,7 @@ const AdvertisementPage = () => {
   return (
     <div className="advertisement-page">
       <h2>Advertisement</h2>
-      <ContactForm onSuccess={handleSuccess} />
+      <ContactForm endpoint="/advertisement" onSuccess={handleSuccess} />
     </div>
   );
 };
