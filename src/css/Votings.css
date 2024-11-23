@@ -45,11 +45,17 @@
     font-weight: bold;
     margin-top: 5px;
   }
-  
+
   @media (max-width: 768px) {
     .voting-container {
-      flex-direction: column;
-      max-width: 100%; 
+      flex-direction: row; 
+      justify-content: center; 
+      gap: 8px; 
+    }
+  
+    .upvote-button, .downvote-button {
+      font-size: 0.9rem; 
+      padding: 6px 10px; 
     }
   
     .voting-container p {
@@ -59,11 +65,17 @@
   
   @media (max-width: 480px) {
     .voting-container {
-      gap: 5px;
-      max-width: 100%; 
+      flex-direction: row; 
+      justify-content: center; 
+      gap: 5px; 
+    }
+  
+    .upvote-button, .downvote-button {
+      font-size: 0.8rem; 
+      padding: 5px 8px; 
     }
   
     .voting-container p {
-      font-size: 0.8rem;
+      font-size: 0.8rem; 
     }
   }
