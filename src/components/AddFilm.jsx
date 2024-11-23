@@ -76,7 +76,7 @@ const AddFilm = () => {
           <option value="popculture">Popculture</option>
           <option value="history">History</option>
           <option value="war">War</option>
-          <option value="wtf">WTF</option>
+          <option value="WTF">WTF</option>
           <option value="cats">Cats</option>
           <option value="emotions">Emotions</option>
           <option value="art">Art</option>
@@ -84,7 +84,7 @@ const AddFilm = () => {
           <option value="music and film">Music and film</option>
           <option value="news">News</option>
           <option value="dogs">Dogs</option>
-          <option value="motorization'">Motorization'</option>
+          <option value="motorization">Motorization'</option>
         </select>
         <select name="filmCategory" value={formData.filmCategory} onChange={handleChange} required>
           <option value="">Select Film Category</option>
@@ -95,7 +95,7 @@ const AddFilm = () => {
           <option value="youtubers">Youtubers</option>
           <option value="fail">Fail</option>
           <option value="games">Games</option>
-          <option value="wtf">WTF</option>
+          <option value="WTF">WTF</option>
           <option value="wholesome">Wholesome</option>
         </select>
         <input type="file" name="file" onChange={handleFileChange} accept="video/*" required />

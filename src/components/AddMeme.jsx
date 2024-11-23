@@ -82,7 +82,7 @@ const AddMeme = () => {
             <option value="popculture">Popculture</option>
             <option value="history">History</option>
             <option value="war">War</option>
-            <option value="wtf">WTF</option>
+            <option value="WTF">WTF</option>
             <option value="cats">Cats</option>
             <option value="emotions">Emotions</option>
             <option value="art">Art</option>
@@ -90,7 +90,7 @@ const AddMeme = () => {
             <option value="music and film">Music and film</option>
             <option value="news">News</option>
             <option value="dogs">Dogs</option>
-            <option value="motorization'">Motorization'</option>
+            <option value="motorization">Motorization'</option>
         </select>
         <div>
             <label>Choose Template:</label>

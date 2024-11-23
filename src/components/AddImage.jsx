@@ -7,7 +7,6 @@ const AddImage = () => {
   const [formData, setFormData] = useState({
     title: '',
     category: '',
-    filmCategory: '',
     tags: '',
     rulesAccepted: false,
     copyrightsAccepted: false,
@@ -30,15 +29,21 @@ const AddImage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formPayload = new FormData();
+
     Object.entries(formData).forEach(([key, value]) => {
-      formPayload.append(key, value);
-      if (file) {
-        formPayload.append('file', file);
-      }
+        if (key === 'rulesAccepted' || key === 'copyrightsAccepted') {
+            formPayload.append(`agreements.${key}`, value); 
+        } else {
+            formPayload.append(key, value);
+        }
     });
 
+    if (file) {
+        formPayload.append('file', file);
+      }
+
     try {
-      const response = await axios.post('http://localhost:3000/#add/images', formPayload, {
+      const response = await axios.post('http://localhost:3000/add/images', formPayload, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('Image added successfully!');
@@ -69,7 +74,7 @@ const AddImage = () => {
             <option value="popculture">Popculture</option>
             <option value="history">History</option>
             <option value="war">War</option>
-            <option value="wtf">WTF</option>
+            <option value="WTF">WTF</option>
             <option value="cats">Cats</option>
             <option value="emotions">Emotions</option>
             <option value="art">Art</option>
@@ -77,7 +82,7 @@ const AddImage = () => {
             <option value="music and film">Music and film</option>
             <option value="news">News</option>
             <option value="dogs">Dogs</option>
-            <option value="motorization'">Motorization'</option>
+            <option value="motorization">Motorization'</option>
         </select>
         <input type="file" name="file" onChange={handleFileChange} accept="image/*" required />
         <input type="text" name="tags" placeholder="Tags (comma-separated)" value={formData.tags} onChange={handleChange} />

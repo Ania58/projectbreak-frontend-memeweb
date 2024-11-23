@@ -54,7 +54,7 @@ const AddQuiz = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/#add/quizzes', payload);
+      const response = await axios.post('http://localhost:3000/add/quizzes', payload);
       alert('Quiz added successfully!');
     } catch (error) {
       console.error('Error adding quiz:', error);
@@ -90,7 +90,7 @@ const AddQuiz = () => {
             <option value="popculture">Popculture</option>
             <option value="history">History</option>
             <option value="war">War</option>
-            <option value="wtf">WTF</option>
+            <option value="WTF">WTF</option>
             <option value="cats">Cats</option>
             <option value="emotions">Emotions</option>
             <option value="art">Art</option>
@@ -98,7 +98,7 @@ const AddQuiz = () => {
             <option value="music and film">Music and film</option>
             <option value="news">News</option>
             <option value="dogs">Dogs</option>
-            <option value="motorization'">Motorization'</option>
+            <option value="motorization">Motorization'</option>
         </select>
         <input type="file" name="file" onChange={handleFileChange} accept="image/*" required />
         <input
