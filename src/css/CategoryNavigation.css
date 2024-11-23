@@ -22,11 +22,15 @@
     border-radius: 5px;
     transition: background-color 0.2s, color 0.2s;
   }
-  
-  .category-link:hover {
+
+  .category-link:hover,
+  .category-link:focus,
+  .category-link:active {
     background-color: #007BFF;
     color: white;
-  }
+    outline: none; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.75); 
+}
   
   .show-button {
     padding: 8px 15px;
