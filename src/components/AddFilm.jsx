@@ -31,15 +31,21 @@ const AddFilm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formPayload = new FormData();
+  
     Object.entries(formData).forEach(([key, value]) => {
-      formPayload.append(key, value);
-      if (file) {
-        formPayload.append('file', file);
+      if (key === 'rulesAccepted' || key === 'copyrightsAccepted') {
+          formPayload.append(`agreements.${key}`, value); 
+      } else {
+          formPayload.append(key, value);
       }
-    });
+  });
 
+    if (file) {
+      formPayload.append('file', file);
+    }
+    
     try {
-      const response = await axios.post('http://localhost:3000/#add/films', formPayload, {
+      const response = await axios.post('http://localhost:3000/add/films', formPayload, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       alert('Film added successfully!');
