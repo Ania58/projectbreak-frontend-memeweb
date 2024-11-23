@@ -11,6 +11,11 @@ import PrivacyPolicyPage from './components/PrivacyPolicyPage';
 import Layout from './components/Layout';
 import SearchResults from './components/SearchResults';
 import TopContent from './components/TopContent';
+import AddContent from './components/AddContent'; 
+import AddFilm from './components/AddFilm';
+import AddImage from './components/AddImage';
+import AddMeme from './components/AddMeme';
+import AddQuiz from './components/AddQuiz';
 
 const App = () => {
   return (
@@ -24,6 +29,11 @@ const App = () => {
         <Route path="/pending/page/:pageNumber" element={<PendingContent />} />
         <Route path="/top/page/:page" element={<TopContent />} />
         <Route path="/top" element={<TopContent />} />
+        <Route path="/add" element={<AddContent />} />
+        <Route path="/add/films" element={<AddFilm />} />
+        <Route path="/add/images" element={<AddImage />} />
+        <Route path="/add/memes" element={<AddMeme />} />
+        <Route path="/add/quizzes" element={<AddQuiz />} />
         <Route path="/search" element={<SearchResults />} />
         <Route path="/page/:pageNumber" element={<MainPage />} />
         <Route path="/contact" element={<ContactPage />} />

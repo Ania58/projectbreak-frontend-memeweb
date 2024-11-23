@@ -1,0 +1,74 @@
+.add-content-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    color: #fff;
+    border-radius: 10px;
+  }
+  
+  .add-content-form input,
+  .add-content-form select,
+  .add-content-form textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .add-content-form input[type="file"] {
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-content-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .add-content-form button:hover {
+    background-color: #0056b3;
+  }
+
+  @media (max-width: 768px) {
+    .add-content-form {
+      padding: 15px;
+      border-radius: 8px;
+    }
+  
+    .add-content-form input,
+    .add-content-form select,
+    .add-content-form textarea {
+      font-size: 1rem;
+      padding: 8px;
+    }
+  
+    .add-content-form button {
+      padding: 8px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .add-content-form {
+      padding: 10px;
+    }
+  
+    .add-content-form input,
+    .add-content-form select,
+    .add-content-form textarea {
+      font-size: 0.9rem;
+      padding: 6px;
+    }
+  
+    .add-content-form button {
+      padding: 6px;
+      font-size: 0.9rem;
+    }
+  }
+  
