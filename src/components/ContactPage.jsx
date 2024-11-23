@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ContactForm from './ContactForm';
 import '../css/ContactPage.css'; 
 
@@ -6,6 +6,11 @@ const ContactPage = () => {
   const handleSuccess = () => {
     alert('Your message has been sent successfully!');
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
 
   return (
     <div className="contact-page">

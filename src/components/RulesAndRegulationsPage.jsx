@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../css/RulesAndRegulationsPage.css';
 
 const RulesAndRegulationsPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="rules-page">
       <h2>Rules and Regulations</h2>
