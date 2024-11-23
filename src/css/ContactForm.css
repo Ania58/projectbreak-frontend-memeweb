@@ -32,3 +32,29 @@
     color: red;
     margin-bottom: 10px;
   }
+
+  @media (max-width: 768px) {
+    .contact-form {
+      padding: 10px;
+      max-width: 100%;
+    }
+  
+    .contact-form button {
+      padding: 8px;
+    }
+    .contact-form input,
+  .contact-form textarea {
+    width: 100%; 
+  }
+  }
+  
+  @media (max-width: 480px) {
+    .contact-form {
+      padding: 5px;
+    }
+  
+    .contact-form button {
+      font-size: 0.9rem; 
+      width: 100%;
+    }
+  }

@@ -11,3 +11,19 @@
   .rules-page a:hover {
     text-decoration: underline;
   }
+
+  @media (max-width: 768px) {
+    .rules-page {
+      padding: 15px;
+      font-size: 0.9rem;
+      max-width: 100%; 
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .rules-page {
+      padding: 10px;
+      font-size: 0.85rem;
+      max-width: 100%; 
+    }
+  }

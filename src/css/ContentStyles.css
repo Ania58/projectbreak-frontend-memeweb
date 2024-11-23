@@ -145,3 +145,32 @@
     background-color: #007BFF;
     color: #fff;
   }
+
+  @media (max-width: 768px) {
+    .content-container {
+      padding: 10px;
+      max-width: calc(100vw - 20px);
+    }
+  
+    .content-item {
+      margin: 10px auto;
+      padding: 10px;
+    }
+  
+    .content-image,
+    .content-video {
+      max-width: 100%; 
+      height: auto; 
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .content-container {
+      padding: 5px;
+    }
+  
+    .content-item {
+      padding: 8px;
+      font-size: 0.9rem;
+    }
+  }

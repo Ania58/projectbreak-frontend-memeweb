@@ -18,3 +18,23 @@
     margin-top: 10px;
     color: #6c757d;
   }
+
+  @media (max-width: 768px) {
+    .footer {
+      padding: 15px;
+      font-size: 14px;
+      max-width: 100%; 
+    }
+  
+    .footer-links a {
+      margin: 0 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer {
+      padding: 10px;
+      font-size: 0.85rem;
+      max-width: 100%; 
+    }
+  }

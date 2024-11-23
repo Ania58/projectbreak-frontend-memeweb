@@ -19,14 +19,17 @@
     border-radius: 8px;
   }
   
+
   @media (max-width: 768px) {
     .search-results .content-item {
       flex: 1 1 calc(50% - 40px);
+      max-width: 100%; 
     }
   }
   
   @media (max-width: 480px) {
     .search-results .content-item {
       flex: 1 1 100%;
+      max-width: 100%; 
     }
   }

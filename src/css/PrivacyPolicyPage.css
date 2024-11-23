@@ -111,3 +111,72 @@
   line-height: 1.6;
   font-size: 1rem;
 }
+
+@media (max-width: 768px) {
+  .privacy-policy-page {
+    padding: 15px;
+  }
+
+  .privacy-policy-page .privacy-content h2 {
+    font-size: 1.6rem; 
+  }
+
+  .privacy-content h3,
+  .privacy-content section h3 {
+    font-size: 1.4rem; 
+  }
+
+  .privacy-content ul li {
+    font-size: 0.95rem; 
+  }
+
+  .privacy-content p {
+    font-size: 0.95rem; 
+  }
+
+  .privacy-content section {
+    padding: 15px;
+    margin: 15px auto;
+  }
+
+  .privacy-content table th,
+  .privacy-content table td {
+    font-size: 0.95rem; 
+    padding: 8px 12px; 
+  }
+}
+
+
+@media (max-width: 480px) {
+  .privacy-policy-page {
+    padding: 10px;
+  }
+
+  .privacy-policy-page .privacy-content h2 {
+    font-size: 1.4rem; 
+  }
+
+  .privacy-content h3,
+  .privacy-content section h3 {
+    font-size: 1.2rem; 
+  }
+
+  .privacy-content ul li {
+    font-size: 0.9rem; 
+  }
+
+  .privacy-content p {
+    font-size: 0.9rem; 
+  }
+
+  .privacy-content section {
+    padding: 10px; 
+    margin: 10px auto;
+  }
+
+  .privacy-content table th,
+  .privacy-content table td {
+    font-size: 0.9rem; 
+    padding: 6px 10px; 
+  }
+}

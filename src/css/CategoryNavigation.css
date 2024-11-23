@@ -42,3 +42,64 @@
   .show-button:hover {
     background-color: #0056b3;
   }
+
+  @media (max-width: 768px) {
+    .top-navigation {
+      display: flex;
+      flex-wrap: wrap; 
+      justify-content: space-around; 
+      gap: 5px;
+      padding: 10px;
+      background-color: black; 
+      color: white; 
+      width: 100%; 
+      height: auto; 
+    }
+  
+    .top-navigation a {
+      flex: 1 1 auto; 
+      padding: 5px 10px;
+      text-align: center;
+      font-size: 14px; 
+      color: white; 
+      text-decoration: none;
+    }
+    .category-list {
+      display: flex;
+      flex-wrap: wrap; 
+      gap: 5px; 
+      justify-content: center; 
+      padding: 10px 0; 
+      width: 100%; 
+    }
+  
+    .category-link {
+      text-align: center;
+      padding: 8px;
+      font-size: 14px;
+      max-width: 100px; 
+      overflow: hidden; 
+      white-space: nowrap; 
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .top-navigation {
+      flex-direction: column; 
+      padding: 5px;
+      gap: 5px; 
+    }
+  
+    .top-navigation a {
+      font-size: 12px;
+      padding: 8px; 
+    }
+    .category-list {
+      gap: 3px; 
+    }
+  
+    .category-link {
+      font-size: 12px; 
+      padding: 6px;
+    }
+  }

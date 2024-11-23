@@ -45,3 +45,25 @@
     font-weight: bold;
     margin-top: 5px;
   }
+  
+  @media (max-width: 768px) {
+    .voting-container {
+      flex-direction: column;
+      max-width: 100%; 
+    }
+  
+    .voting-container p {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .voting-container {
+      gap: 5px;
+      max-width: 100%; 
+    }
+  
+    .voting-container p {
+      font-size: 0.8rem;
+    }
+  }

@@ -2,3 +2,18 @@
     padding: 20px;
     text-align: center;
   }
+
+  @media (max-width: 768px) {
+    .main-page {
+      padding: 10px;
+      max-width: calc(100vw - 20px);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .main-page {
+      padding: 10px;
+      font-size: 0.9rem;
+      max-width: calc(100vw - 20px);
+    }
+  }

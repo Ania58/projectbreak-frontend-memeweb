@@ -31,3 +31,26 @@
   .advertisement-section a:hover {
     text-decoration: underline;
   }
+
+  @media (max-width: 768px) {
+    .contact-container {
+      flex-direction: column; 
+      width: 100%; 
+    }
+  
+    .advertisement-section {
+      margin-top: 20px;
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .contact-page {
+      padding: 10px;
+      max-width: 100%; 
+    }
+  
+    .advertisement-section {
+      text-align: center;
+    }
+  }
