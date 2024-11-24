@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddContentNavigation from './AddContentNavigation';
 import '../css/AddContentForm.css';
 
 const AddImage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [formData, setFormData] = useState({
     title: '',
     category: '',
@@ -86,14 +90,16 @@ const AddImage = () => {
         </select>
         <input type="file" name="file" onChange={handleFileChange} accept="image/*" required />
         <input type="text" name="tags" placeholder="Tags (comma-separated)" value={formData.tags} onChange={handleChange} />
-        <label>
-            <input type="checkbox" name="rulesAccepted" checked={formData.rulesAccepted} onChange={handleChange} required />
-            I accept the rules
-        </label>
-        <label>
-            <input type="checkbox" name="copyrightsAccepted" checked={formData.copyrightsAccepted} onChange={handleChange} required />
-            I accept copyrights
-        </label>
+        <div className="agreement-section">
+          <label>
+              <input type="checkbox" name="rulesAccepted" checked={formData.rulesAccepted} onChange={handleChange} required />
+              I accept the rules
+          </label>
+          <label>
+              <input type="checkbox" name="copyrightsAccepted" checked={formData.copyrightsAccepted} onChange={handleChange} required />
+              I accept copyrights
+          </label>
+        </div>
         <button type="submit">Submit</button>
         </form>
     </div>

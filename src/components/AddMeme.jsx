@@ -4,6 +4,10 @@ import AddContentNavigation from './AddContentNavigation';
 import '../css/AddContentForm.css';
 
 const AddMeme = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [formData, setFormData] = useState({
     title: '',
     category: '',
@@ -156,26 +160,28 @@ const AddMeme = () => {
             value={formData.tags}
             onChange={handleChange}
         />
-        <label>
-            <input
-            type="checkbox"
-            name="rulesAccepted"
-            checked={formData.rulesAccepted}
-            onChange={handleChange}
-            required
-            />
-            I accept the rules
-        </label>
-        <label>
-            <input
-            type="checkbox"
-            name="copyrightsAccepted"
-            checked={formData.copyrightsAccepted}
-            onChange={handleChange}
-            required
-            />
-            I accept copyrights
-        </label>
+        <div className="agreement-section">
+          <label>
+              <input
+              type="checkbox"
+              name="rulesAccepted"
+              checked={formData.rulesAccepted}
+              onChange={handleChange}
+              required
+              />
+              I accept the rules
+          </label>
+          <label>
+              <input
+              type="checkbox"
+              name="copyrightsAccepted"
+              checked={formData.copyrightsAccepted}
+              onChange={handleChange}
+              required
+              />
+              I accept copyrights
+          </label>
+        </div>
         <button type="submit">Submit</button>
         </form>
     </div>

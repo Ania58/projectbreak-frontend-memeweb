@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddContentNavigation from './AddContentNavigation';
 import '../css/AddContentForm.css';
 
 const AddQuiz = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [formData, setFormData] = useState({
     title: '',
     category: '',
