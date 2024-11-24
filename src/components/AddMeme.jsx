@@ -38,16 +38,26 @@ const AddMeme = () => {
     });
   };
 
+  const handleTemplateSelect = (templateId) => {
+    const template = templates.find((t) => t.id === templateId); 
+  if (template) {
+    setFormData({ ...formData, templateId: template.id }); 
+    setSelectedTemplate(template);
+  } else {
+    console.error('Template not found for the given templateId:', templateId);
+  }
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
       ...formData,
-      templateId: selectedTemplate,
-      tags: formData.tags.split(',').map((tag) => tag.trim()),
+      templateId: formData.templateId, 
+      tags: Array.isArray(formData.tags) ? formData.tags.join(',') : formData.tags,
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/add/meme', payload);
+      const response = await axios.post('http://localhost:3000/add/memes', payload);
       alert('Meme added successfully!');
     } catch (error) {
       console.error('Error adding meme:', error);
@@ -92,11 +102,11 @@ const AddMeme = () => {
             <option value="dogs">Dogs</option>
             <option value="motorization">Motorization'</option>
         </select>
-        <div>
+        <div className="template-selection">
             <label>Choose Template:</label>
             <select
-            value={selectedTemplate}
-            onChange={(e) => setSelectedTemplate(e.target.value)}
+            value={formData.templateId}
+            onChange={(e) => handleTemplateSelect(e.target.value)}
             required
             >
             <option value="">Select a Template</option>
@@ -107,6 +117,20 @@ const AddMeme = () => {
             ))}
             </select>
         </div>
+        {selectedTemplate && (
+          <div className="template-preview">
+            <h3>Preview:</h3>
+            <div className="meme-preview">
+              <img
+                src={selectedTemplate.url}
+                alt="Selected template"
+                style={{ maxWidth: '100%', height: 'auto' }}
+              />
+              <div className="meme-text top-text">{formData.topText}</div>
+              <div className="meme-text bottom-text">{formData.bottomText}</div>
+            </div>
+          </div>
+        )}
         <input
             type="text"
             name="topText"
