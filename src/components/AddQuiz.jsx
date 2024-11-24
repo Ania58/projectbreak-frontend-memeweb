@@ -204,7 +204,7 @@ const AddQuiz = () => {
             ))}
           </ul>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center',justifyContent: 'center', gap: '10px' }}>
+        <div className="agreement-section">
           <label>
             <input
               type="checkbox"
