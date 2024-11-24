@@ -30,15 +30,6 @@ const AddQuiz = () => {
       setMessage('Answer text cannot be empty.');
       return;
     }
-    if (newAnswer.isCorrect) {
-      setNewQuestion((prev) => ({
-        ...prev,
-        answers: prev.answers.map((ans) => ({
-          ...ans,
-          isCorrect: false, 
-        })),
-      }));
-    }
 
     setNewQuestion((prev) => ({
       ...prev,
@@ -47,6 +38,15 @@ const AddQuiz = () => {
 
     setMessage('Answer added!');
     setNewAnswer({ answerText: '', isCorrect: false });
+  };
+
+  const handleToggleCorrect = (index) => {
+    setNewQuestion((prev) => {
+      const updatedAnswers = prev.answers.map((answer, i) =>
+        i === index ? { ...answer, isCorrect: !answer.isCorrect } : answer
+      );
+      return { ...prev, answers: updatedAnswers };
+    });
   };
 
   const handleAddQuestion = () => {
@@ -65,9 +65,11 @@ const AddQuiz = () => {
       return;
     }
 
+    
     setQuestions((prev) => [...prev, newQuestion]);
     setMessage('Question added successfully!');
 
+    
     setNewQuestion({ questionText: '', answers: [] });
   };
 
@@ -77,6 +79,11 @@ const AddQuiz = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (questions.length === 0) {
+      setMessage('You must add at least one question before submitting.');
+      return;
+    }
 
     const payload = new FormData();
     payload.append('title', formData.title);
@@ -113,22 +120,29 @@ const AddQuiz = () => {
         />
         <select name="category" value={formData.category} onChange={handleChange} required>
           <option value="">Select Category</option>
-          <option value="war">War</option>
-          <option value="history">History</option>
-          <option value="culture">Culture</option>
-          <option value="sport">Sport</option>
-          <option value="popculture">Popculture</option>
-          <option value="history">History</option>
-          <option value="war">War</option>
-          <option value="WTF">WTF</option>
-          <option value="cats">Cats</option>
-          <option value="emotions">Emotions</option>
-          <option value="art">Art</option>
-          <option value="nature">Nature</option>
-          <option value="music and film">Music and film</option>
-          <option value="news">News</option>
-          <option value="dogs">Dogs</option>
-          <option value="motorization">Motorization'</option>
+          <option value="">Select Category</option>
+            <option value="animals">Animals</option>
+            <option value="humor">Humor</option>
+            <option value="videos">Videos</option>
+            <option value="memes">Memes</option>
+            <option value="comics">Comics</option>
+            <option value="curiosities">Curiosities</option>
+            <option value="food">Food</option>
+            <option value="politics">Politics</option>
+            <option value="culture">Culture</option>
+            <option value="sport">Sport</option>
+            <option value="popculture">Popculture</option>
+            <option value="history">History</option>
+            <option value="war">War</option>
+            <option value="WTF">WTF</option>
+            <option value="cats">Cats</option>
+            <option value="emotions">Emotions</option>
+            <option value="art">Art</option>
+            <option value="nature">Nature</option>
+            <option value="music and film">Music and film</option>
+            <option value="news">News</option>
+            <option value="dogs">Dogs</option>
+            <option value="motorization">Motorization'</option>
         </select>
         <input type="file" name="file" onChange={handleFileChange} accept="image/*" required />
         <input
@@ -152,7 +166,7 @@ const AddQuiz = () => {
             Add Question
           </button>
           <p style={{ fontSize: '0.9em', color: 'gray' }}>
-            Note: Click "Add Question" to save the current question. A question requires at least 2 answers.
+            Note: The question will be saved once you click "Add Question". Then add answers below.
           </p>
 
           <h4>Answers</h4>
@@ -162,46 +176,56 @@ const AddQuiz = () => {
             value={newAnswer.answerText}
             onChange={(e) => setNewAnswer({ ...newAnswer, answerText: e.target.value })}
           />
-          <label>
-            <input
-              type="checkbox"
-              checked={newAnswer.isCorrect}
-              onChange={(e) => setNewAnswer({ ...newAnswer, isCorrect: e.target.checked })}
-            />
-            Correct
-          </label>
           <button type="button" onClick={handleAddAnswer}>
             Add Answer
           </button>
+          <p style={{ fontSize: '0.9em', color: 'gray' }}>
+            At least one answer must be marked as correct by clicking "Correct" below.
+          </p>
+
           <ul>
             {newQuestion.answers.map((ans, i) => (
               <li key={i}>
-                {ans.answerText} - {ans.isCorrect ? 'Correct' : 'Incorrect'}
+                {ans.answerText} -{' '}
+                <button
+                  type="button"
+                  onClick={() => handleToggleCorrect(i)}
+                  style={{
+                    backgroundColor: ans.isCorrect ? 'green' : 'red',
+                    color: 'white',
+                    border: 'none',
+                    padding: '5px 10px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {ans.isCorrect ? 'Correct' : 'Incorrect'}
+                  </button>
               </li>
             ))}
           </ul>
         </div>
-
-        <label>
-          <input
-            type="checkbox"
-            name="rulesAccepted"
-            checked={formData.rulesAccepted}
-            onChange={handleChange}
-            required
-          />
-          I accept the rules
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="copyrightsAccepted"
-            checked={formData.copyrightsAccepted}
-            onChange={handleChange}
-            required
-          />
-          I accept copyrights
-        </label>
+        <div style={{ display: 'flex', alignItems: 'center',justifyContent: 'center', gap: '10px' }}>
+          <label>
+            <input
+              type="checkbox"
+              name="rulesAccepted"
+              checked={formData.rulesAccepted}
+              onChange={handleChange}
+              required
+            />
+            I accept the rules
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="copyrightsAccepted"
+              checked={formData.copyrightsAccepted}
+              onChange={handleChange}
+              required
+            />
+            I accept copyrights
+          </label>
+        </div>
         <button type="submit">Submit</button>
       </form>
     </div>
