@@ -54,6 +54,8 @@ const AddMeme = () => {
       ...formData,
       templateId: formData.templateId, 
       tags: Array.isArray(formData.tags) ? formData.tags.join(',') : formData.tags,
+      rulesAccepted: formData.rulesAccepted ? 'true' : 'false',
+      copyrightsAccepted: formData.copyrightsAccepted ? 'true' : 'false',
     };
 
     try {
