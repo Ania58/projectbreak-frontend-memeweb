@@ -118,7 +118,9 @@ return (
           <h3 className="content-title">{item.title}</h3>
           <ContentInfo category={item.category} tags={item.tags} />
 
-          {item.imageUrl && <img src={`http://localhost:3000${item.imageUrl}`} alt={item.title}  className="content-image" />}
+          {item.imageUrl && <img src={item.imageUrl.startsWith('http') 
+                ? item.imageUrl 
+                : `http://localhost:3000${item.imageUrl}`} alt={item.title}  className="content-image" />}
           {item.videoUrl && (
             <video controls className="content-video">
               <source src={`http://localhost:3000${item.videoUrl}`} type="video/mp4" />

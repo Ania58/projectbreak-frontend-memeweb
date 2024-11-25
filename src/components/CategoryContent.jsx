@@ -125,7 +125,9 @@ const CategoryContent = () => {
             <ContentInfo category={item.category} tags={item.tags} />
 
             {item.imageUrl && (
-              <img src={`http://localhost:3000${item.imageUrl}`} alt={item.title} className="content-image"/>
+              <img src={item.imageUrl.startsWith('http') 
+                ? item.imageUrl 
+                : `http://localhost:3000${item.imageUrl}`}alt={item.title} className="content-image"/>
             )}
             {item.videoUrl && (
               <video controls className="content-video">

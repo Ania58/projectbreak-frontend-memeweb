@@ -10,7 +10,9 @@ const Memes = ({memes, onVote, hasVoted}) => {
             <p className="content-title">{meme.title}</p>
             <ContentInfo category={meme.category} tags={meme.tags} />
           <img 
-            src={`http://localhost:3000${meme.imageUrl}`} 
+            src={meme.imageUrl.startsWith('http') 
+              ? meme.imageUrl 
+              : `http://localhost:3000${meme.imageUrl}`}
             alt={meme.title}
             className="content-image" 
           />
