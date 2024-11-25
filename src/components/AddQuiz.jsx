@@ -146,7 +146,7 @@ const AddQuiz = () => {
             <option value="music and film">Music and film</option>
             <option value="news">News</option>
             <option value="dogs">Dogs</option>
-            <option value="motorization">Motorization'</option>
+            <option value="motorization">Motorization</option>
         </select>
         <input type="file" name="file" onChange={handleFileChange} accept="image/*" required />
         <input

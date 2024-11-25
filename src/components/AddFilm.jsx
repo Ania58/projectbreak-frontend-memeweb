@@ -88,7 +88,7 @@ const AddFilm = () => {
           <option value="music and film">Music and film</option>
           <option value="news">News</option>
           <option value="dogs">Dogs</option>
-          <option value="motorization">Motorization'</option>
+          <option value="motorization">Motorization</option>
         </select>
         <select name="filmCategory" value={formData.filmCategory} onChange={handleChange} required>
           <option value="">Select Film Category</option>

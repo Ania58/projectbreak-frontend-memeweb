@@ -106,7 +106,7 @@ const AddMeme = () => {
             <option value="music and film">Music and film</option>
             <option value="news">News</option>
             <option value="dogs">Dogs</option>
-            <option value="motorization">Motorization'</option>
+            <option value="motorization">Motorization</option>
         </select>
         <div className="template-selection">
             <label>Choose Template:</label>
@@ -135,6 +135,9 @@ const AddMeme = () => {
               <div className="meme-text top-text">{formData.topText}</div>
               <div className="meme-text bottom-text">{formData.bottomText}</div>
             </div>
+            <p className="disclaimer">
+              <strong>Disclaimer:</strong> The text positions shown in this preview may not match the final meme design. The final meme will align the text correctly based on the template design.
+            </p>
           </div>
         )}
         <input

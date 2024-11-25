@@ -39,34 +39,39 @@
   .meme-preview {
     position: relative;
     display: inline-block;
-    text-align: center;
-    margin-top: 20px;
   }
   
   .meme-preview img {
+    display: block;
     max-width: 100%;
     height: auto;
   }
   
   .meme-text {
     position: absolute;
-    width: 90%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: white;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    width: 100%;
     text-align: center;
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px black;
+    word-wrap: break-word;
+    padding: 0 10px;
   }
   
-  .top-text {
-    top: 10%;
-    font-size: 1.5rem;
+  .meme-text.top-text {
+    top: 10px;
   }
   
-  .bottom-text {
-    bottom: 10%;
-    font-size: 1.5rem;
+  .meme-text.bottom-text {
+    bottom: 10px;
+  }
+
+  .disclaimer {
+    margin-top: 10px;
+    color: #888;
+    font-size: 0.9em;
+    text-align: center;
   }
 
   .agreement-section {
