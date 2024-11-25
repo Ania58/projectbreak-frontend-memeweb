@@ -29,19 +29,23 @@ const ContentItem = ({ item, handleVote }) => {
     
   };
 
+  const resolveImageUrl = (url) => (url.startsWith('http') ? url : `http://localhost:3000${url}`);
+
+
   if (item.questions && item.questions.length > 0) {
     return (
       <div className="quiz-container">
         <Quizzes quizzes={[item]} onVote={handleItemVote} hasVoted={hasVoted} />
       </div>
     );
+  } else if (item.imageUrl || item.isUserGenerated) {
+    const resolvedMeme = { ...item, imageUrl: resolveImageUrl(item.imageUrl) };
+    return <Memes memes={[resolvedMeme]} onVote={handleItemVote} hasVoted={hasVoted} />;
   } else if (item.imageUrl) {
     return <Images images={[item]} onVote={handleItemVote} hasVoted={hasVoted} />;
   } else if (item.videoUrl) {
     return <Films films={[item]} onVote={handleItemVote} hasVoted={hasVoted} />;
-  } else if (item.memeUrl) {
-    return <Memes memes={[item]} onVote={handleItemVote} hasVoted={hasVoted} />;
-  }
+  } 
   return null;
 };
 
