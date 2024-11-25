@@ -18,7 +18,21 @@ const AddFilm = () => {
     copyrightsAccepted: false,
   });
 
+
   const [file, setFile] = useState(null);
+
+  const clearForm = () => {
+    setFormData({
+        title: '',
+        category: '',
+        filmCategory: '',
+        description: '',
+        tags: '',
+        rulesAccepted: false,
+        copyrightsAccepted: false,
+      });
+      setFile(null);
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -116,6 +130,7 @@ const AddFilm = () => {
           </label>
         </div>
         <button type="submit">Submit</button>
+        <button className="clear-btn" type="button" onClick={clearForm}>Clear</button>
       </form>
     </div>
   );

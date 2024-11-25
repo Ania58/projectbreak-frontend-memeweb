@@ -25,14 +25,35 @@
   .add-content-form button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
   
-  .add-content-form button:hover {
+  .add-content-form button[type="submit"] {
+    background-color: #007bff;
+  }
+  
+  .add-content-form button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-content-form .clear-btn {
+    background-color: #6c757d;
+  }
+  
+  .add-content-form .clear-btn:hover {
+    background-color: #5a6268;
+  }
+  
+  .add-content-form .add-question-btn,
+  .add-content-form .add-answer-btn {
+    background-color: #007bff;
+  }
+  
+  .add-content-form .add-question-btn:hover,
+  .add-content-form .add-answer-btn:hover {
     background-color: #0056b3;
   }
 

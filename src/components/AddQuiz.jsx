@@ -21,6 +21,21 @@ const AddQuiz = () => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState(''); 
 
+
+  const clearForm = () => {
+    setFormData({
+      title: '',
+      category: '',
+      tags: '',
+      rulesAccepted: false,
+      copyrightsAccepted: false,
+    });
+    setQuestions([]);
+    setNewQuestion({ questionText: '', answers: [] });
+    setNewAnswer({ answerText: '', isCorrect: false });
+    setFile(null);
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -166,7 +181,7 @@ const AddQuiz = () => {
             value={newQuestion.questionText}
             onChange={(e) => setNewQuestion({ ...newQuestion, questionText: e.target.value })}
           />
-          <button type="button" onClick={handleAddQuestion}>
+          <button className="add-question-btn" type="button" onClick={handleAddQuestion}>
             Add Question
           </button>
           <p style={{ fontSize: '0.9em', color: 'gray' }}>
@@ -180,7 +195,7 @@ const AddQuiz = () => {
             value={newAnswer.answerText}
             onChange={(e) => setNewAnswer({ ...newAnswer, answerText: e.target.value })}
           />
-          <button type="button" onClick={handleAddAnswer}>
+          <button className="add-answer-btn" type="button" onClick={handleAddAnswer}>
             Add Answer
           </button>
           <p style={{ fontSize: '0.9em', color: 'gray' }}>
@@ -231,6 +246,7 @@ const AddQuiz = () => {
           </label>
         </div>
         <button type="submit">Submit</button>
+        <button className="clear-btn" type="button" onClick={clearForm}>Clear</button>
       </form>
     </div>
   );

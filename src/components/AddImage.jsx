@@ -18,6 +18,17 @@ const AddImage = () => {
 
   const [file, setFile] = useState(null);
 
+  const clearForm = () => {
+    setFormData({
+      title: '',
+      category: '',
+      tags: '',
+      rulesAccepted: false,
+      copyrightsAccepted: false,
+    });
+    setFile(null);
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -101,6 +112,7 @@ const AddImage = () => {
           </label>
         </div>
         <button type="submit">Submit</button>
+        <button className="clear-btn" type="button" onClick={clearForm}>Clear</button>
         </form>
     </div>
   );

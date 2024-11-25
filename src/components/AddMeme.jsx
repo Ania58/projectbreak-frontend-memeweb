@@ -21,6 +21,21 @@ const AddMeme = () => {
   const [templates, setTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState('');
 
+
+  const clearForm = () => {
+    setFormData({
+      title: "",
+      category: "",
+      templateId: "",
+      topText: "",
+      bottomText: "",
+      tags: "",
+      rulesAccepted: false,
+      copyrightsAccepted: false,
+    });
+    setSelectedTemplate("");
+  };
+
   useEffect(() => {
     const fetchTemplates = async () => {
       try {
@@ -186,6 +201,9 @@ const AddMeme = () => {
           </label>
         </div>
         <button type="submit">Submit</button>
+        <button className="clear-btn" type="button" onClick={clearForm}>
+          Clear
+        </button>
         </form>
     </div>
   );
