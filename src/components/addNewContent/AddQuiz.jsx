@@ -21,7 +21,6 @@ const AddQuiz = () => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState(''); 
 
-
   const clearForm = () => {
     setFormData({
       title: '',
@@ -34,6 +33,7 @@ const AddQuiz = () => {
     setNewQuestion({ questionText: '', answers: [] });
     setNewAnswer({ answerText: '', isCorrect: false });
     setFile(null);
+    setMessage('');
   };
 
   const handleChange = (e) => {
@@ -74,6 +74,11 @@ const AddQuiz = () => {
       return;
     }
 
+    if (questions.length >= 1) {
+      setMessage('Only one question is allowed per quiz.');
+      return;
+    }
+
     if (newQuestion.answers.length < 2) {
       setMessage('Each question must have at least two answers.');
       return;
@@ -84,11 +89,9 @@ const AddQuiz = () => {
       return;
     }
 
-    
     setQuestions((prev) => [...prev, newQuestion]);
-    setMessage('Question added successfully!');
+    setMessage('Question added successfully! You can proceed to submit the quiz.');
 
-    
     setNewQuestion({ questionText: '', answers: [] });
   };
 
@@ -100,7 +103,7 @@ const AddQuiz = () => {
     e.preventDefault();
 
     if (questions.length === 0) {
-      setMessage('You must add at least one question before submitting.');
+      setMessage('Please, click on Add Question to add it once the quiz is finished.');
       return;
     }
 
@@ -129,6 +132,9 @@ const AddQuiz = () => {
       <AddContentNavigation />
       <form onSubmit={handleSubmit} className="add-content-form">
         <h2>Add Quiz</h2>
+
+        {message && <p className="message">{message}</p>}
+
         <input
           type="text"
           name="title"
@@ -138,7 +144,6 @@ const AddQuiz = () => {
           required
         />
         <select name="category" value={formData.category} onChange={handleChange} required>
-          <option value="">Select Category</option>
           <option value="">Select Category</option>
             <option value="animals">Animals</option>
             <option value="humor">Humor</option>
@@ -174,14 +179,23 @@ const AddQuiz = () => {
 
         <div>
           <h3>Add Questions</h3>
-          {message && <p style={{ color: 'white' }}>{message}</p>}
           <input
             type="text"
             placeholder="Question Text"
             value={newQuestion.questionText}
             onChange={(e) => setNewQuestion({ ...newQuestion, questionText: e.target.value })}
           />
-          <button className="add-question-btn" type="button" onClick={handleAddQuestion}>
+          <button
+            className="add-question-btn"
+            type="button"
+            onClick={handleAddQuestion}
+            disabled={questions.length >= 1} 
+            title={
+              questions.length >= 1
+                ? 'Only one question is allowed per quiz.'
+                : 'Add this question to the quiz.'
+            }
+          >
             Add Question
           </button>
           <p style={{ fontSize: '0.9em', color: 'gray' }}>
@@ -195,7 +209,11 @@ const AddQuiz = () => {
             value={newAnswer.answerText}
             onChange={(e) => setNewAnswer({ ...newAnswer, answerText: e.target.value })}
           />
-          <button className="add-answer-btn" type="button" onClick={handleAddAnswer}>
+          <button
+            className="add-answer-btn"
+            type="button"
+            onClick={handleAddAnswer}
+          >
             Add Answer
           </button>
           <p style={{ fontSize: '0.9em', color: 'gray' }}>
@@ -218,7 +236,7 @@ const AddQuiz = () => {
                   }}
                 >
                   {ans.isCorrect ? 'Correct' : 'Incorrect'}
-                  </button>
+                </button>
               </li>
             ))}
           </ul>
