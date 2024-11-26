@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../css/RulesAndRegulationsPage.css';
+import '../../css/RulesAndRegulationsPage.css';
 
 const RulesAndRegulationsPage = () => {
   useEffect(() => {

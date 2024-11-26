@@ -1,5 +1,5 @@
 import React from 'react';
-import Footer from './Footer';
+import Footer from './footer/Footer';
 import ContentHeader from './ContentHeader';
 import TopNavigation from './TopNavigation';
 import CategoryNavigation from './CategoryNavigation';

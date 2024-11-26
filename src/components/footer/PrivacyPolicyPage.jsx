@@ -1,5 +1,5 @@
 import React, { useEffect }  from 'react';
-import '../css/PrivacyPolicyPage.css';
+import '../../css/PrivacyPolicyPage.css';
 
 const PrivacyPolicyPage = () => {
   

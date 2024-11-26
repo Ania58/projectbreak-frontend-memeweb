@@ -1,6 +1,6 @@
 import React, { useEffect }  from 'react';
 import ContactForm from './ContactForm';
-import '../css/AdvertisementPage.css';
+import '../../css/AdvertisementPage.css';
 
 const AdvertisementPage = () => {
   const handleSuccess = () => {
