@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../css/AddContent.css';
+import '../../css/AddContent.css';
 
 const AddContent = () => {
   return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddContentNavigation from './AddContentNavigation';
-import '../css/AddContentForm.css';
+import '../../css/AddContentForm.css';
 
 const AddImage = () => {
   useEffect(() => {

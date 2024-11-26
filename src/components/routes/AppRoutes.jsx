@@ -10,11 +10,11 @@ import PrivacyPolicyPage from '../footer/PrivacyPolicyPage';
 import Layout from '../Layout';
 import SearchResults from '../SearchResults';
 import TopContent from '../TopContent';
-import AddContent from '../AddContent'; 
-import AddFilm from '../AddFilm';
-import AddImage from '../AddImage';
-import AddMeme from '../AddMeme';
-import AddQuiz from '../AddQuiz';
+import AddContent from '../addNewContent/AddContent'; 
+import AddFilm from '../addNewContent/AddFilm';
+import AddImage from '../addNewContent/AddImage';
+import AddMeme from '../addNewContent/AddMeme';
+import AddQuiz from '../addNewContent/AddQuiz';
 
 const AppRoutes = () => {
     return (
