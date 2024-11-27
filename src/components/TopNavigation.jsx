@@ -14,6 +14,7 @@ const TopNavigation = () => {
       <Link to="/pending" className="top-link">Pending</Link>
       <Link to="/add" className="top-link">Add Content</Link>
       <Link to="/top" className="top-link">Top</Link>
+      {user && <Link to="/profile" className="top-link">Profile</Link>}
       {!user && <Link to="/login" className="top-link">Login</Link> }
       {!user &&  <Link to="/register" className="top-link">Register</Link> }
       {user && <LogoutButton />}

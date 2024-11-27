@@ -37,13 +37,21 @@ const AddMeme = () => {
   };
 
   useEffect(() => {
-    const fetchTemplates = async () => {
+    /*const fetchTemplates = async () => {
       try {
         const response = await axios.get('https://api.imgflip.com/get_memes');
         setTemplates(response.data.data.memes || []);
       } catch (error) {
         console.error('Error fetching templates:', error);
-      }
+      }*/
+        const fetchTemplates = async () => {
+          try {
+            const response = await fetch('https://api.imgflip.com/get_memes');
+            const data = await response.json();
+            setTemplates(data.data.memes || []);
+          } catch (error) {
+            console.error('Error fetching templates using fetch:', error);
+          }
     };
 
     fetchTemplates();

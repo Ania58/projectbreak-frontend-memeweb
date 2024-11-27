@@ -1,8 +1,18 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect }  from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserContext } from "../../contexts/UserContext";
 import '../../css/AddContent.css';
 
 const AddContent = () => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login"); 
+    }
+  }, [user, navigate]);
+
   return (
     <div className="add-content-container">
       <h2>Add New Content</h2>

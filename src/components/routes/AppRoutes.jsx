@@ -18,7 +18,6 @@ import AddQuiz from '../addNewContent/AddQuiz';
 import Login from '../firebaseUser/Login';
 import Register from '../firebaseUser/Register';
 import Profile from '../pages/Profile';
-import Feed from '../pages/Feed';
 import ProtectedRoute from '../firebaseUser/ProtectedRoute';
 
 const AppRoutes = () => {
@@ -46,7 +45,6 @@ const AppRoutes = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-            <Route path="/feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
           </Routes>
           </Layout>
       );
