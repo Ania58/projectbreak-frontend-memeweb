@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import MainPage from '../MainPage'; 
 import CategoryContent from '../CategoryContent';
 import PendingContent from '../PendingContent'; 
@@ -15,10 +15,14 @@ import AddFilm from '../addNewContent/AddFilm';
 import AddImage from '../addNewContent/AddImage';
 import AddMeme from '../addNewContent/AddMeme';
 import AddQuiz from '../addNewContent/AddQuiz';
+import Login from '../firebaseUser/Login';
+import Register from '../firebaseUser/Register';
+import Profile from '../pages/Profile';
+import Feed from '../pages/Feed';
+import ProtectedRoute from '../firebaseUser/ProtectedRoute';
 
 const AppRoutes = () => {
     return (
-        <Router>
           <Layout>
           <Routes>
             <Route path="/" element={<MainPage />} />
@@ -39,9 +43,12 @@ const AppRoutes = () => {
             <Route path="/advertisement" element={<AdvertisementPage />} />
             <Route path="/rules-and-regulations" element={<RulesAndRegulationsPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} /> 
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
           </Routes>
           </Layout>
-        </Router>
       );
 }
 
