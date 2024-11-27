@@ -6,7 +6,9 @@ import '../../css/Authorization.css'
 const Profile = () => {
   const { user } = useContext(UserContext);
   const [content, setContent] = useState({ films: [], images: [], memes: [], quizzes: [] });
+  const [profileData, setProfileData] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(true);
+  const [updateMessage, setUpdateMessage] = useState("");
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -22,8 +24,26 @@ const Profile = () => {
 
     if (user) {
       fetchContent();
+      setProfileData({ name: user.name, email: user.email });
     }
   }, [user]);
+
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleProfileUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/profile", profileData);
+      setUpdateMessage(response.data.message);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      setUpdateMessage("Failed to update profile.");
+    }
+  };
 
   if (!user) return <p>Please log in to view your profile.</p>;
 
@@ -32,6 +52,27 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <h2 className="profile-title">{user.name}'s Profile</h2>
+
+      <form onSubmit={handleProfileUpdate} className="profile-form">
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={profileData.name}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={profileData.email}
+          onChange={handleInputChange}
+          required
+        />
+        <button type="submit">Update Profile</button>
+      </form>
+      {updateMessage && <p>{updateMessage}</p>}
 
       <div className="profile-section">
         <h3 className="profile-subtitle">Your Films</h3>
