@@ -30,7 +30,9 @@ const Profile = () => {
 
         const memesWithFullUrl = response.data.memes.map((meme) => ({
           ...meme,
-          imageUrl: `${baseURL}${meme.imageUrl}`
+          imageUrl: meme.imageUrl.startsWith('http') 
+          ? meme.imageUrl 
+          :`${baseURL}${meme.imageUrl}`
         }));
 
         const quizzesWithFullUrl = response.data.quizzes.map((quiz) => ({
