@@ -10,6 +10,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [acceptRules, setAcceptRules] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
@@ -65,7 +66,18 @@ function Register() {
             required
             className="auth-input"
           />
-          <button type="submit" className="auth-button">Register</button>
+          <div className="rules-container">
+            <label>
+              <input
+                type="checkbox"
+                checked={acceptRules}
+                onChange={(e) => setAcceptRules(e.target.checked)}
+                required
+              />
+              I accept the <a href="/rules-and-regulations.pdf" target="_blank" rel="noopener noreferrer">rules</a>.
+            </label>
+          </div>
+          <button type="submit" className="auth-button" disabled={!acceptRules}>Register</button>
         </form>
         {error && <p className="auth-error">{error}</p>}
       </div>
