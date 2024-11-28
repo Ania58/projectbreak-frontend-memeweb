@@ -133,11 +133,71 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
   }
+
+  .profile-content video {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    max-height: 90vh;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  .profile-content img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .profile-content h4 {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+  }
   
   .profile-content p {
     margin: 0;
     font-size: 1em;
     color: #555;
+  }
+
+  .profile-content .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .profile-content .tags .tag-badge {
+    background-color: #f1f1f1;
+    color: #007bff;
+    font-size: 0.85em;
+    padding: 5px 10px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .profile-content .tags .tag-badge:hover {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  
+  .profile-content .quiz-placeholder {
+    font-size: 1em;
+    color: #555;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f1f1f1;
+    margin-top: 10px;
   }
   
   @keyframes fadeIn {
@@ -171,4 +231,89 @@
       width: 90%;
       padding: 15px;
     }
+
+    .profile-content img,
+    .profile-content video {
+      width: 100%;
+      height: auto;
+    }
+  
+    .profile-content h4 {
+      font-size: 1.1em;
+    }
   }
+
+  @media (max-width: 480px) {
+    .profile-container {
+      padding: 10px;
+      margin: 20px auto;
+      width: 100%;
+    }
+  
+    .profile-subtitle {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+  
+    .profile-content {
+      padding: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+  
+    .profile-content h4 {
+      font-size: 1em;
+    }
+  
+    .profile-content p {
+      font-size: 0.9em;
+    }
+  
+    .profile-content video {
+      width: 100%;
+      height: auto;
+    }
+  
+    .profile-content img {
+      width: 100%;
+      height: auto;
+    }
+  
+    .profile-content .tags {
+      gap: 6px;
+    }
+  
+    .profile-content .tags .tag-badge {
+      font-size: 0.8em;
+      padding: 3px 6px;
+    }
+  
+    .auth-container {
+      padding: 15px;
+    }
+  
+    .auth-card {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    .auth-title {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+    }
+  
+    .auth-form {
+      gap: 10px;
+    }
+  
+    .auth-input {
+      font-size: 0.9em;
+      padding: 10px;
+    }
+  
+    .auth-button {
+      padding: 10px;
+      font-size: 0.9em;
+    }
+  }
+  

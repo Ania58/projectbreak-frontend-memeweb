@@ -14,7 +14,36 @@ const Profile = () => {
     const fetchContent = async () => {
       try {
         const response = await axios.get("/profile/content");
-        setContent(response.data);
+        console.log("Fetched content:", response.data);
+
+        const baseURL = "http://localhost:3000";
+
+        const filmsWithFullUrl = response.data.films.map((film) => ({
+          ...film,
+          videoUrl: `${baseURL}${film.videoUrl}`
+        }));
+
+        const imagesWithFullUrl = response.data.images.map((image) => ({
+          ...image,
+          imageUrl: `${baseURL}${image.imageUrl}`
+        }));
+
+        const memesWithFullUrl = response.data.memes.map((meme) => ({
+          ...meme,
+          imageUrl: `${baseURL}${meme.imageUrl}`
+        }));
+
+        const quizzesWithFullUrl = response.data.quizzes.map((quiz) => ({
+          ...quiz,
+          quizUrl: `${baseURL}${quiz.quizUrl}` 
+        }));
+
+        setContent({
+          films: filmsWithFullUrl,
+          images: imagesWithFullUrl,
+          memes: memesWithFullUrl,
+          quizzes: quizzesWithFullUrl,
+        });
       } catch (error) {
         console.error("Error fetching user content:", error);
       } finally {
@@ -27,7 +56,6 @@ const Profile = () => {
       setProfileData({ name: user.name, email: user.email });
     }
   }, [user]);
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +74,6 @@ const Profile = () => {
   };
 
   if (!user) return <p>Please log in to view your profile.</p>;
-
   if (loading) return <p>Loading your content...</p>;
 
   return (
@@ -79,11 +106,19 @@ const Profile = () => {
         {content.films.length > 0 ? (
           content.films.map((film) => (
             <div key={film._id} className="profile-content">
-              <p>{film.title}</p>
+              <h4>{film.title}</h4>
+              <div className="tags">
+                {film.tags.map((tag, index) => (
+                  <span key={index} className="tag-badge">{tag}</span>
+                ))}
+              </div>
+              <video controls>
+                <source src={film.videoUrl} type="video/mp4" />
+              </video>
             </div>
           ))
         ) : (
-          <p>You haven't added any films yet.</p>
+          <p>No films added yet.</p>
         )}
       </div>
 
@@ -92,11 +127,17 @@ const Profile = () => {
         {content.images.length > 0 ? (
           content.images.map((image) => (
             <div key={image._id} className="profile-content">
-              <p>{image.title}</p>
+              <h4>{image.title}</h4>
+              <div className="tags">
+                {image.tags.map((tag, index) => (
+                  <span key={index} className="tag-badge">{tag}</span>
+                ))}
+              </div>
+              <img src={image.imageUrl} alt={image.title} />
             </div>
           ))
         ) : (
-          <p>You haven't added any images yet.</p>
+          <p>No images added yet.</p>
         )}
       </div>
 
@@ -105,11 +146,17 @@ const Profile = () => {
         {content.memes.length > 0 ? (
           content.memes.map((meme) => (
             <div key={meme._id} className="profile-content">
-              <p>{meme.title}</p>
+              <h4>{meme.title}</h4>
+              <div className="tags">
+                {meme.tags.map((tag, index) => (
+                  <span key={index} className="tag-badge">{tag}</span>
+                ))}
+              </div>
+              <img src={meme.imageUrl} alt={meme.title} />
             </div>
           ))
         ) : (
-          <p>You haven't added any memes yet.</p>
+          <p>No memes added yet.</p>
         )}
       </div>
 
@@ -118,11 +165,17 @@ const Profile = () => {
         {content.quizzes.length > 0 ? (
           content.quizzes.map((quiz) => (
             <div key={quiz._id} className="profile-content">
-              <p>{quiz.title}</p>
+              <h4>{quiz.title}</h4>
+              <div className="tags">
+                {quiz.tags.map((tag, index) => (
+                  <span key={index} className="tag-badge">{tag}</span>
+                ))}
+              </div>
+              <p className="quiz-placeholder">Quiz content will appear here.</p>
             </div>
           ))
         ) : (
-          <p>You haven't added any quizzes yet.</p>
+          <p>No quizzes added yet.</p>
         )}
       </div>
     </div>
