@@ -58,8 +58,9 @@ const AddImage = () => {
       }
 
     try {
+      const token = localStorage.getItem("authToken");
       const response = await axios.post('http://localhost:3000/add/images', formPayload, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}`, },
       });
       alert('Image added successfully!');
     } catch (error) {
