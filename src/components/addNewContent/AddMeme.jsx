@@ -86,7 +86,10 @@ const AddMeme = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/add/memes', payload);
+      const token = localStorage.getItem('authToken'); 
+      const response = await axios.post('http://localhost:3000/add/memes', payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       alert('Meme added successfully!');
     } catch (error) {
       console.error('Error adding meme:', error);
