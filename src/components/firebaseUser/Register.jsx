@@ -18,6 +18,12 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    if (!acceptRules) {
+      setError("You must accept the rules to create an account.");
+      return;
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -87,7 +93,7 @@ function Register() {
               I accept the <a href="/rules-and-regulations.pdf" target="_blank" rel="noopener noreferrer">rules</a>.
             </label>
           </div>
-          <button type="submit" className="auth-button" disabled={!acceptRules}>Register</button>
+          <button type="submit" className="auth-button">Register</button>
         </form>
         {error && <p className="auth-error">{error}</p>}
       </div>
