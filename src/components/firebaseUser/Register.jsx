@@ -12,6 +12,7 @@ function Register() {
   const [name, setName] = useState("");
   const [acceptRules, setAcceptRules] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
@@ -58,14 +59,23 @@ function Register() {
             required
             className="auth-input"
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="auth-input"
-          />
+          <div className="password-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="auth-input"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="show-password-button"
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
           <div className="rules-container">
             <label>
               <input
