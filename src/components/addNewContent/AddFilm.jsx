@@ -63,8 +63,9 @@ const AddFilm = () => {
     }
     
     try {
+      const token = localStorage.getItem("authToken");
       const response = await axios.post('http://localhost:3000/add/films', formPayload, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}`, },
       });
       alert('Film added successfully!');
     } catch (error) {
