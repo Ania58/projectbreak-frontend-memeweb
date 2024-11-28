@@ -117,8 +117,9 @@ const AddQuiz = () => {
     if (file) payload.append('file', file);
 
     try {
+      const token = localStorage.getItem('authToken'); 
       const response = await axios.post('http://localhost:3000/add/quizzes', payload, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` },
       });
       alert('Quiz added successfully!');
     } catch (error) {
