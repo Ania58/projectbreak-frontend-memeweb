@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "../../axiosConfig";
 import { UserContext } from "../../contexts/UserContext";
+import { auth } from "../../config/firebase"; 
 import '../../css/Authorization.css'
 
 const Profile = () => {
@@ -55,7 +56,7 @@ const Profile = () => {
 
     if (user) {
       fetchContent();
-      setProfileData({ name: user.name, email: user.email });
+      setProfileData({ name: user.name, email: user.email, password: "" });
     }
   }, [user]);
 
@@ -67,8 +68,23 @@ const Profile = () => {
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/profile", profileData);
-      setUpdateMessage(response.data.message);
+      const response = await axios.post("/profile", {
+        name: profileData.name,
+        email: profileData.email,
+      });
+
+      if (profileData.password) {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          await currentUser.updatePassword(profileData.password); 
+          setUpdateMessage("Profile and password updated successfully!");
+        } else {
+          setUpdateMessage("You must be logged in to update your password.");
+        }
+      } else {
+        setUpdateMessage("Profile updated successfully!");
+      }
+
     } catch (error) {
       console.error("Error updating profile:", error);
       setUpdateMessage("Failed to update profile.");
@@ -98,6 +114,13 @@ const Profile = () => {
           value={profileData.email}
           onChange={handleInputChange}
           required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="New Password (leave blank to keep current)"
+          value={profileData.password}
+          onChange={handleInputChange}
         />
         <button type="submit">Update Profile</button>
       </form>
