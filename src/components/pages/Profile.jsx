@@ -38,7 +38,7 @@ const Profile = () => {
 
         const quizzesWithFullUrl = response.data.quizzes.map((quiz) => ({
           ...quiz,
-          quizUrl: `${baseURL}${quiz.quizUrl}` 
+          imageUrl: `${baseURL}${quiz.imageUrl}` 
         }));
 
         setContent({
@@ -196,13 +196,46 @@ const Profile = () => {
                   <span key={index} className="tag-badge">{tag}</span>
                 ))}
               </div>
-              <p className="quiz-placeholder">Quiz content will appear here.</p>
+              {quiz.imageUrl && (
+                <img
+                  src={quiz.imageUrl}
+                  alt={quiz.title}
+                  className="quiz-image"
+                />
+              )}
+              {quiz.questions.length > 0 ? (
+                quiz.questions.map((question, qIndex) => (
+                  <div key={qIndex} className="question-container">
+                    <p className="question-text">{question.questionText}</p>
+                    <div className="answers-container">
+                      {question.answers.map((answer, aIndex) => (
+                        <button
+                          key={aIndex}
+                          className={`answer-button ${
+                            answer.isCorrect ? "correct-answer" : "incorrect-answer"
+                          }`}
+                          onClick={() =>
+                            console.log(
+                              `Answer selected: ${answer.answerText}, Correct: ${answer.isCorrect}`
+                            )
+                          }
+                        >
+                          {answer.answerText}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>No questions found for this quiz.</p>
+              )}
             </div>
           ))
         ) : (
           <p>No quizzes added yet.</p>
         )}
       </div>
+
     </div>
   );
 };
