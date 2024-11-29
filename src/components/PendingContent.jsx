@@ -143,7 +143,11 @@ return (
                     ))}
                   </ul>
                   {selectedAnswers[`${item._id}-${qIndex}`] !== undefined && (
-                    <p className="feedback">
+                    <p className={`feedback ${
+                      selectedAnswers[`${quiz._id}-${index}`]
+                        ? "feedback-correct"
+                        : "feedback-incorrect"
+                    }`}>
                       {selectedAnswers[`${item._id}-${qIndex}`] ? "Correct!" : "Incorrect, try again!"}
                     </p>
                   )}

@@ -81,9 +81,17 @@
     margin-top: 10px;
     font-size: 1em;
     font-weight: bold;
-    color: #4caf50;
     text-align: center;
   }
+
+  .feedback-correct {
+    color: #4caf50; 
+  }
+  
+  .feedback-incorrect {
+    color: #f44336; 
+  }
+
   .content-info {
     margin-top: 8px;
     text-align: center;

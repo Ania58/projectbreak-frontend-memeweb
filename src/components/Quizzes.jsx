@@ -39,7 +39,11 @@ const Quizzes = ({quizzes, onVote, hasVoted}) => {
                 ))}
               </div>
               {selectedAnswers[`${quiz._id}-${index}`] !== undefined && (
-                <p className="feedback">
+                <p className={`feedback ${
+                  selectedAnswers[`${quiz._id}-${index}`]
+                    ? "feedback-correct"
+                    : "feedback-incorrect"
+                }`}>
                   {selectedAnswers[`${quiz._id}-${index}`] 
                     ? "Correct!" 
                     : "Incorrect, try again!"}
