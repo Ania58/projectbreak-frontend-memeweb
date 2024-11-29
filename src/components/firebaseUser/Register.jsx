@@ -28,11 +28,12 @@ function Register() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       const token = await user.getIdToken();
+      console.log("ID Token:", token);
       localStorage.setItem("authToken", token);
 
       await axios.post(
         "/profile",
-        { uid: user.uid, name, email },
+        { name, email },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
