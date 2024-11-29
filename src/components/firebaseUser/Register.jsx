@@ -16,11 +16,20 @@ function Register() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
+  const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{7,})/;
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
     if (!acceptRules) {
       setError("You must accept the rules to create an account.");
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setError(
+        "Password must be at least 7 characters long, contain at least one number, and one special character."
+      );
       return;
     }
 
