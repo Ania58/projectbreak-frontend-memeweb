@@ -152,7 +152,7 @@ const CategoryContent = () => {
                     </ul>
                     {selectedAnswers[`${item._id}-${qIndex}`] !== undefined && (
                       <p className={`feedback ${
-                        selectedAnswers[`${quiz._id}-${index}`]
+                        selectedAnswers[`${item._id}-${qIndex}`]
                           ? "feedback-correct"
                           : "feedback-incorrect"
                       }`}>
