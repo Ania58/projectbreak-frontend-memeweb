@@ -190,14 +190,61 @@
     background-color: #007bff;
     color: #ffffff;
   }
+
+  .quiz-item {
+    background-color: #fff;
+    color: #333;
+    max-width: 700px;
+  }
   
-  .profile-content .quiz-placeholder {
-    font-size: 1em;
-    color: #555;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #f1f1f1;
+  .question-container {
+    text-align: center;
+  }
+  
+  .question-text {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .answers-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-top: 10px;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .answer-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .answer-button:hover {
+    background-color: #777;
+  }
+
+  .feedback {
+    margin-top: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .profile-content .question-container .feedback-correct {
+    color: #4caf50;
+  }
+  
+  .profile-content .question-container .feedback-incorrect {
+    color: #f44336; 
   }
   
   @keyframes fadeIn {

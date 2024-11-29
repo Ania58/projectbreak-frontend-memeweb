@@ -10,6 +10,7 @@ const Profile = () => {
   const [profileData, setProfileData] = useState({ name: "", email: "" });
   const [loading, setLoading] = useState(true);
   const [updateMessage, setUpdateMessage] = useState("");
+  const [selectedAnswers, setSelectedAnswers] = useState({});
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -89,6 +90,13 @@ const Profile = () => {
       console.error("Error updating profile:", error);
       setUpdateMessage("Failed to update profile.");
     }
+  };
+
+  const handleAnswerClick = (quizId, questionIndex, isCorrect) => {
+    setSelectedAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [`${quizId}-${questionIndex}`]: isCorrect,
+    }));
   };
 
   if (!user) return <p>Please log in to view your profile.</p>;
@@ -184,7 +192,6 @@ const Profile = () => {
           <p>No memes added yet.</p>
         )}
       </div>
-
       <div className="profile-section">
         <h3 className="profile-subtitle">Your Quizzes</h3>
         {content.quizzes.length > 0 ? (
@@ -197,11 +204,7 @@ const Profile = () => {
                 ))}
               </div>
               {quiz.imageUrl && (
-                <img
-                  src={quiz.imageUrl}
-                  alt={quiz.title}
-                  className="quiz-image"
-                />
+                <img src={quiz.imageUrl} alt={quiz.title} className="quiz-image" />
               )}
               {quiz.questions.length > 0 ? (
                 quiz.questions.map((question, qIndex) => (
@@ -212,18 +215,33 @@ const Profile = () => {
                         <button
                           key={aIndex}
                           className={`answer-button ${
-                            answer.isCorrect ? "correct-answer" : "incorrect-answer"
+                            selectedAnswers[`${quiz._id}-${qIndex}`] !== undefined
+                              ? selectedAnswers[`${quiz._id}-${qIndex}`] && answer.isCorrect
+                                ? "answer-correct"
+                                : "answer-incorrect"
+                              : ""
                           }`}
                           onClick={() =>
-                            console.log(
-                              `Answer selected: ${answer.answerText}, Correct: ${answer.isCorrect}`
-                            )
+                            handleAnswerClick(quiz._id, qIndex, answer.isCorrect)
                           }
                         >
                           {answer.answerText}
                         </button>
                       ))}
                     </div>
+                    {selectedAnswers[`${quiz._id}-${qIndex}`] !== undefined && (
+                      <p
+                        className={`feedback ${
+                          selectedAnswers[`${quiz._id}-${qIndex}`]
+                            ? "feedback-correct"
+                            : "feedback-incorrect"
+                        }`}
+                      >
+                        {selectedAnswers[`${quiz._id}-${qIndex}`]
+                          ? "Correct!"
+                          : "Incorrect, try again!"}
+                      </p>
+                    )}
                   </div>
                 ))
               ) : (
@@ -235,7 +253,6 @@ const Profile = () => {
           <p>No quizzes added yet.</p>
         )}
       </div>
-
     </div>
   );
 };
