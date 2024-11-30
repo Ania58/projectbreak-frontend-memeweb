@@ -134,7 +134,14 @@ const UserContentList = ({ contentType, endpoint }) => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm(`Are you sure you want to delete this ${contentType}?`)) {
+
+    const singularContentType =
+        contentType === 'quizzes'
+            ? 'quiz'
+            : contentType.slice(0, -1);
+
+    if (window.confirm(`Are you sure you want to delete this ${singularContentType}?`)) {
+        
       try {
         const token = localStorage.getItem('authToken');
         await axios.delete(`/user/${contentType}/${id}`, {
@@ -142,7 +149,7 @@ const UserContentList = ({ contentType, endpoint }) => {
         });
         setContent((prev) => prev.filter((item) => item._id !== id));
       } catch (error) {
-        console.error(`Error deleting ${contentType}:`, error);
+        console.error(`Error deleting ${singularContentType}:`, error);
       }
     }
   };
