@@ -39,12 +39,13 @@ const UserContentList = ({ contentType, endpoint }) => {
       tags: item.tags ? item.tags.join(', ') : '',
       description: contentType === 'films' ? item.description || '' : undefined,
       templateId: contentType === 'memes' ? item.templateId || '' : undefined,
+      questions: contentType === 'quizzes' ? item.questions || [] : undefined,
     });
 
     if (contentType === 'memes') {
-        const template = templates.find((t) => t.id === item.templateId);
-        setSelectedTemplate(template || null);
-      }
+      const template = templates.find((t) => t.id === item.templateId);
+      setSelectedTemplate(template || null);
+    }
   };
 
   const handleTemplateSelect = (templateId) => {
@@ -72,6 +73,32 @@ const UserContentList = ({ contentType, endpoint }) => {
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleQuestionChange = (index, field, value) => {
+    setEditData((prev) => {
+      const updatedQuestions = [...prev.questions];
+      updatedQuestions[index][field] = value;
+      return { ...prev, questions: updatedQuestions };
+    });
+  };
+
+  const handleAnswerChange = (questionIndex, answerIndex, value) => {
+    setEditData((prev) => {
+      const updatedQuestions = [...prev.questions];
+      updatedQuestions[questionIndex].answers[answerIndex].answerText = value;
+      return { ...prev, questions: updatedQuestions };
+    });
+  };
+
+  const handleCorrectAnswerChange = (questionIndex, answerIndex) => {
+    setEditData((prev) => {
+      const updatedQuestions = [...prev.questions];
+      updatedQuestions[questionIndex].answers.forEach(
+        (answer, i) => (answer.isCorrect = i === answerIndex)
+      );
+      return { ...prev, questions: updatedQuestions };
+    });
   };
 
   const handleEditSave = async () => {
@@ -120,16 +147,26 @@ const UserContentList = ({ contentType, endpoint }) => {
 
   return (
     <div className="content-list-container">
-        <div className="navigation-links">
-            <h3>Navigate to Other Content</h3>
-            <ul>
-            <li><Link to="/profile">Back to Profile</Link></li>
-            <li><Link to="/profile/films">Films</Link></li>
-            <li><Link to="/profile/images">Images</Link></li>
-            <li><Link to="/profile/memes">Memes</Link></li>
-            <li><Link to="/profile/quizzes">Quizzes</Link></li>
-            </ul>
-        </div>
+      <div className="navigation-links">
+        <h3>Navigate to Other Content</h3>
+        <ul>
+          <li>
+            <Link to="/profile">Back to Profile</Link>
+          </li>
+          <li>
+            <Link to="/profile/films">Films</Link>
+          </li>
+          <li>
+            <Link to="/profile/images">Images</Link>
+          </li>
+          <li>
+            <Link to="/profile/memes">Memes</Link>
+          </li>
+          <li>
+            <Link to="/profile/quizzes">Quizzes</Link>
+          </li>
+        </ul>
+      </div>
       <h3 className="content-list-title">Your {contentType}</h3>
       {content.length > 0 ? (
         <ul className="content-list">
@@ -207,6 +244,40 @@ const UserContentList = ({ contentType, endpoint }) => {
                       )}
                     </div>
                   )}
+                  {contentType === 'quizzes' &&
+                    editData.questions?.map((question, qIndex) => (
+                      <div key={qIndex} className="edit-question">
+                        <label className="question-label">Question:</label>
+                        <input
+                          type="text"
+                          value={question.questionText}
+                          className="edit-question-input"
+                          onChange={(e) =>
+                            handleQuestionChange(qIndex, 'questionText', e.target.value)
+                          }
+                        />
+                        {question.answers.map((answer, aIndex) => (
+                          <div key={aIndex} className="edit-answer">
+                            <input
+                              type="text"
+                              value={answer.answerText}
+                              className="edit-answer-input"
+                              onChange={(e) =>
+                                handleAnswerChange(qIndex, aIndex, e.target.value)
+                              }
+                            />
+                            <input
+                              type="radio"
+                              name={`correct-${qIndex}`}
+                              checked={answer.isCorrect}
+                              onChange={() =>
+                                handleCorrectAnswerChange(qIndex, aIndex)
+                              }
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ))}
                   {contentType === 'films' && (
                     <textarea
                       name="description"
@@ -326,3 +397,4 @@ const UserContentList = ({ contentType, endpoint }) => {
 };
 
 export default UserContentList;
+
