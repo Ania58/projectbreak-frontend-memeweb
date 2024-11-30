@@ -263,7 +263,7 @@ export default Profile;*/
 //The code idea for navigation within the profile
 
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "../../axiosConfig";
 import { UserContext } from "../../contexts/UserContext";
@@ -272,9 +272,11 @@ import "../../css/Authorization.css";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate(); 
   const [profileData, setProfileData] = useState({ name: "", email: "", password: "" });
   const [updateMessage, setUpdateMessage] = useState("");
   const [loading, setLoading] = useState(true);
+  const [deleteMessage, setDeleteMessage] = useState(""); 
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -326,6 +328,24 @@ const Profile = () => {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    if (!window.confirm("Are you sure you want to delete your account? This action is irreversible.")) {
+      return;
+    }
+
+    try {
+      await axios.delete("/profile"); 
+      alert("Your account has been successfully deleted.");
+      setDeleteMessage("Your account has been successfully deleted.");
+    
+      navigate("/");
+      window.location.reload(); 
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      setDeleteMessage("Failed to delete your account. Please try again.");
+    }
+  };
+
   if (!user) return <p>Please log in to view your profile.</p>;
   if (loading) return <p>Loading profile...</p>;
 
@@ -371,6 +391,11 @@ const Profile = () => {
           <li><Link to="/profile/quizzes">Quizzes</Link></li>
         </ul>
       </div>
+      <button className="delete-button" onClick={handleDeleteAccount}>
+        Delete Account
+      </button>
+
+      {deleteMessage && <p className="delete-message">{deleteMessage}</p>}
     </div>
   );
 };

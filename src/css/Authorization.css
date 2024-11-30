@@ -280,6 +280,29 @@
     color: #0056b3;
     text-decoration: underline;
   }
+
+  .delete-button {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #d9534f;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-button:hover {
+    background-color: #c9302c;
+  }
+  
+  .delete-message {
+    margin-top: 10px;
+    font-size: 1em;
+    color: #d9534f;
+    text-align: center;
+  }
   
   
   @keyframes fadeIn {
