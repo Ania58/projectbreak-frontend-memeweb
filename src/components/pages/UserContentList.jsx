@@ -108,6 +108,11 @@ const UserContentList = ({ contentType, endpoint }) => {
         ...editData,
         tags: editData.tags.split(',').map((tag) => tag.trim()),
       };
+
+      if (editData.templateId) {
+        updatedData.templateId = editData.templateId; 
+      }
+
       const response = await axios.put(
         `/user/${contentType}/${editingId}`,
         updatedData,
@@ -116,6 +121,12 @@ const UserContentList = ({ contentType, endpoint }) => {
       setContent((prev) =>
         prev.map((item) => (item._id === editingId ? response.data : item))
       );
+
+      if (contentType === 'memes') {
+        const updatedTemplate = templates.find((t) => t.id === editData.templateId);
+        setSelectedTemplate(updatedTemplate || null);
+      }
+      
       setEditingId(null);
     } catch (error) {
       console.error(`Error saving changes to ${contentType}:`, error);
