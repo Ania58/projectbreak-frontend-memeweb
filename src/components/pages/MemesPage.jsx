@@ -17,6 +17,7 @@ const MemesPage = () => {
           <li><Link to="/profile/quizzes">Quizzes</Link></li>
         </ul>
       </div>
+      <Link to="/profile/memes/manage" className="auth-button"> Manage Your Memes</Link>
 
       <ContentSection type="memes" />
     </div>

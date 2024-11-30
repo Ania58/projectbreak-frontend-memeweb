@@ -17,6 +17,7 @@ const ImagesPage = () => {
           <li><Link to="/profile/quizzes">Quizzes</Link></li>
         </ul>
       </div>
+      <Link to="/profile/images/manage" className="auth-button"> Manage Your Images</Link>
 
       <ContentSection type="images" />
     </div>

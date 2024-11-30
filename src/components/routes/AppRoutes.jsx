@@ -20,6 +20,7 @@ import Register from '../firebaseUser/Register';
 import Profile from '../pages/Profile';
 import ProtectedRoute from '../firebaseUser/ProtectedRoute';
 import { ImagesPage, FilmsPage, MemesPage, QuizzesPage } from "../pages/index";
+import UserContentList from "../pages/UserContentList";
 
 const AppRoutes = () => {
     return (
@@ -46,11 +47,14 @@ const AppRoutes = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/profile/images" element={<ImagesPage />} />
             <Route path="/profile/films" element={<FilmsPage />} />
             <Route path="/profile/memes" element={<MemesPage />} />
             <Route path="/profile/quizzes" element={<QuizzesPage />} />
+            <Route path="/profile/images/manage" element={<UserContentList contentType="images" endpoint="/user/images" />} />
+            <Route path="/profile/films/manage" element={<UserContentList contentType="films" endpoint="/user/films" />} />
+            <Route path="/profile/memes/manage" element={<UserContentList contentType="memes" endpoint="/user/memes" />} />
+            <Route path="/profile/quizzes/manage" element={<UserContentList contentType="quizzes" endpoint="/user/quizzes" />} />
           </Routes>
           </Layout>
       );

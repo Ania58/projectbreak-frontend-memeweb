@@ -17,6 +17,7 @@ const QuizzesPage = () => {
           <li><Link to="/profile/memes">Memes</Link></li>
         </ul>
       </div>
+      <Link to="/profile/quizzes/manage" className="auth-button"> Manage Your Quizzes</Link>
 
       <ContentSection type="quizzes" />
     </div>

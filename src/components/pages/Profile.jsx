@@ -163,10 +163,22 @@ const Profile = () => {
       <div className="profile-links">
         <h3>Your Content</h3>
         <ul>
-          <li><Link to="/profile/images">Images</Link></li>
-          <li><Link to="/profile/films">Films</Link></li>
-          <li><Link to="/profile/memes">Memes</Link></li>
-          <li><Link to="/profile/quizzes">Quizzes</Link></li>
+          <li>
+            <Link to="/profile/images">Images</Link>
+            <Link to="/profile/images/manage" style={{ marginLeft: "1rem" }}>Manage Images</Link>
+          </li>
+          <li>
+            <Link to="/profile/films">Films</Link>
+            <Link to="/profile/films/manage" style={{ marginLeft: "1rem" }}>Manage Films</Link>
+          </li>
+          <li>
+            <Link to="/profile/memes">Memes</Link>
+            <Link to="/profile/memes/manage" style={{ marginLeft: "1rem" }}>Manage Memes</Link>
+          </li>
+          <li>
+            <Link to="/profile/quizzes">Quizzes</Link>
+            <Link to="/profile/quizzes/manage" style={{ marginLeft: "1rem" }}>Manage Quizzes</Link>
+          </li>
         </ul>
       </div>
       <button className="delete-button" onClick={handleDeleteAccount}>

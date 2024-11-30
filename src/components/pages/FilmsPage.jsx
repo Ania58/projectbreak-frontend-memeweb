@@ -11,13 +11,14 @@ const FilmsPage = () => {
       <div className="profile-links">
         <h3>Navigate to Other Content</h3>
         <ul>
-        <li><Link to="/profile">Back to Profile</Link></li>
+          <li><Link to="/profile">Back to Profile</Link></li>
           <li><Link to="/profile/images">Images</Link></li>
           <li><Link to="/profile/memes">Memes</Link></li>
           <li><Link to="/profile/quizzes">Quizzes</Link></li>
         </ul>
       </div>
-
+      <Link to="/profile/films/manage" className="auth-button"> Manage Your Films</Link>
+      
       <ContentSection type="films" />
     </div>
   );
