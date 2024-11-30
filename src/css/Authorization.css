@@ -246,6 +246,41 @@
   .profile-content .question-container .feedback-incorrect {
     color: #f44336; 
   }
+
+  .profile-links {
+    margin-top: 20px;
+    text-align: center; 
+  }
+  
+  .profile-links h3 {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 15px;
+  }
+  
+  .profile-links ul {
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+  }
+  
+  .profile-links ul li {
+    margin-bottom: 10px;
+  }
+  
+  .profile-links ul li a {
+    font-size: 1.1em;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .profile-links ul li a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  
   
   @keyframes fadeIn {
     from {
@@ -287,6 +322,10 @@
   
     .profile-content h4 {
       font-size: 1.1em;
+    }
+
+    .profile-links ul li a {
+      font-size: 1em; 
     }
   }
 
@@ -333,6 +372,10 @@
     .profile-content .tags .tag-badge {
       font-size: 0.8em;
       padding: 3px 6px;
+    }
+
+    .profile-links ul li a {
+      font-size: 0.9em; 
     }
   
     .auth-container {

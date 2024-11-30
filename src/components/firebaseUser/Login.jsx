@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+/*import { useState, useContext } from "react";
 import { auth } from "../../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import axios from "../../axiosConfig";
@@ -90,10 +90,10 @@ function Login() {
   );
 }
 
-export default Login;
+export default Login;*/
 
 
-/*The code before verification
+//The code before verification
 
 import { useState, useContext } from "react";
 import { auth } from "../../config/firebase";
@@ -171,4 +171,4 @@ function Login() {
   );
 }
 
-export default Login; */
+export default Login; 

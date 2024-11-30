@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+/*import { useState, useEffect, useContext } from "react";
 import { auth } from "../../config/firebase";
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import axios from "../../axiosConfig";
@@ -143,10 +143,10 @@ function Register() {
   );
 }
 
-export default Register;
+export default Register;*/
 
 
-/*The old code to work with the accounts I created before the verification
+//The old code to work with the accounts I created before the verification
 
 import { useState, useEffect, useContext } from "react";
 import { auth } from "../../config/firebase";
@@ -285,4 +285,4 @@ function Register() {
   );
 }
 
-export default Register; */
+export default Register; 
