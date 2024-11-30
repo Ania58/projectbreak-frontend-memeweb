@@ -303,7 +303,36 @@
     color: #d9534f;
     text-align: center;
   }
+
+  .input-container {
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    margin-bottom: 15px; 
+  }
   
+  
+  .input-container input {
+    flex: 1; 
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .input-container button {
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f9fa; 
+    color: #333; 
+  }
+  
+  .input-container button:hover {
+    background-color: #e2e6ea; 
+  }
   
   @keyframes fadeIn {
     from {
