@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { UserContext } from '../contexts/UserContext';
-import LogoutButton from './firebaseUser/LogoutButton';
-import { auth } from '../config/firebase';
+import { UserContext } from '../../contexts/UserContext';
+import LogoutButton from '../firebaseUser/LogoutButton';
+import { auth } from '../../config/firebase';
 
 const TopNavigation = () => {
   const location = useLocation();
