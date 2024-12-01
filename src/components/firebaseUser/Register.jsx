@@ -108,7 +108,7 @@ function Register() {
 
       setUser({ uid: user.uid, name: user.displayName, email: user.email });
       setSuccessMessage("Google registration successful!");
-      navigate("/profile");
+      navigate("/login");
     } catch (err) {
       console.error("Google Registration Error:", err);
       setError("Google registration failed. Please try again.");
@@ -168,9 +168,12 @@ function Register() {
           </div>
           <button type="submit" className="auth-button" disabled={loading}>{loading ? "Registering..." : "Register"}</button>
         </form>
-        <button onClick={handleGoogleRegister} className="auth-button">
-          Register with Google
-        </button>
+        <div className="google-button-container">
+          <button onClick={handleGoogleRegister} className="google-button">
+          <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/google.svg" alt="Google Logo" />
+            Register with Google
+          </button>
+        </div>
         {error && <p className="auth-error">{error}</p>}
         {successMessage && <p className="auth-success">{successMessage}</p>}
       </div>

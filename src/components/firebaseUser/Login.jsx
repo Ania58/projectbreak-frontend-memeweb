@@ -107,9 +107,12 @@ function Login() {
           </div>
           <button type="submit" className="auth-button">Login</button>
         </form>
-        <button onClick={handleGoogleLogin} className="auth-button">
-          Login with Google
-        </button>
+        <div className="google-button-container">
+          <button onClick={handleGoogleLogin} className="google-button">
+          <img src="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/google.svg" alt="Google Logo" />
+            Login with Google
+          </button>
+        </div>
         {error && <p className="auth-error">{error}</p>}
       </div>
     </div>

@@ -68,7 +68,48 @@
     font-size: 0.9em;
     margin-top: 10px;
   }
-  
+
+  .google-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px; 
+    margin: 10px auto; 
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #757575;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.google-button:hover {
+    background-color: #f8f9fa;
+    border-color: #c6c6c6;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.google-button img {
+    width: 24px; 
+    height: 24px;
+    margin-right: 12px;
+    vertical-align: middle;
+}
+
+.google-button:active {
+    background-color: #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.google-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
   .profile-container {
     max-width: 700px;
     margin: 40px auto;
