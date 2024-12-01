@@ -10,12 +10,6 @@ const SearchBar = () => {
     setQuery(e.target.value);
   };
 
-  {/*const handleSearch = (e) => {
-    e.preventDefault();
-    onSearch(query.trim()); 
-    setQuery(''); 
-  };*/}
-
   const handleSearch = (e) => {
     e.preventDefault();
     if (query.trim()) {
