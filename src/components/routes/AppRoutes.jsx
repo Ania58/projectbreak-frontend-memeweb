@@ -8,7 +8,7 @@ import AdvertisementPage from '../footer/AdvertisementPage';
 import RulesAndRegulationsPage from '../footer/RulesAndRegulationsPage';
 import PrivacyPolicyPage from '../footer/PrivacyPolicyPage';
 import Layout from '../Layout';
-import SearchResults from '../SearchResults';
+import SearchResults from '../searchContent/SearchResults';
 import TopContent from '../TopContent';
 import AddContent from '../addNewContent/AddContent'; 
 import AddFilm from '../addNewContent/AddFilm';
