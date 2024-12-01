@@ -7,67 +7,105 @@ import Pagination from './Pagination';
 const TopContent = () => {
   const { page } = useParams(); 
   const navigate = useNavigate();
-  const [content, setContent] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const [content, setContent] = useState([]); 
+  const [currentPage, setCurrentPage] = useState(null); 
+  const itemsPerPage = 8; 
   const [timeframe, setTimeframe] = useState('lastWeek'); 
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null); 
+  const [isLoading, setIsLoading] = useState(false); 
 
   useEffect(() => {
     const fetchTopContent = async () => {
+      setIsLoading(true);
       try {
+       
         const response = await axios.get(`http://localhost:3000/top?timeframe=${timeframe}`);
-        const sortedContent = response.data.sort((a, b) => b.upvotes - a.upvotes); 
-        setContent(sortedContent);
+        const fetchedContent = response.data; 
+        setContent(fetchedContent);
 
-        const totalPages = Math.ceil(sortedContent.length / itemsPerPage);
+        
+        const totalPages = Math.ceil(fetchedContent.length / itemsPerPage);
 
-        if (totalPages > 0) {
-          const parsedPage = page ? parseInt(page, 10) : totalPages;
-          if (!page || parsedPage > totalPages || parsedPage < 1) {
-            navigate(`/top/page/${totalPages}`);
-          } else {
-            setCurrentPage(parsedPage);
-          }
+        
+        const latestPage = totalPages || 1; 
+        const validPage = page ? parseInt(page, 10) : latestPage;
+
+        if (validPage > totalPages || validPage < 1) {
+          setCurrentPage(latestPage); 
+          navigate(`/top/page/${latestPage}`); 
         } else {
-          setCurrentPage(1);
-          navigate(`/top/page/1`); 
+          setCurrentPage(validPage); 
         }
+        setIsLoading(false);
       } catch (err) {
         console.error('Error fetching top content:', err);
         setError('Failed to fetch top content.');
+        setIsLoading(false);
       }
     };
+
     fetchTopContent();
   }, [timeframe, page, navigate]);
 
-  const totalPages = Math.ceil(content.length / itemsPerPage);
- 
-
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    navigate(`/top/page/${newPage}`); 
-    window.scrollTo(0, 0);
+  
+  const handleTimeframeChange = (newTimeframe) => {
+    setTimeframe(newTimeframe); 
+    setContent([]); 
+    setCurrentPage(null); 
+    
+    navigate(`/top/page/${Math.ceil(content.length / itemsPerPage) || 1}`);
   };
 
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage); 
+    navigate(`/top/page/${newPage}`); 
+    window.scrollTo(0, 0); 
+  };
+
+  
   const paginatedContent = content.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
+  
+  const totalPages = Math.ceil(content.length / itemsPerPage);
+
   return (
     <div className="top-content">
       <h2>Top Content</h2>
       {error && <p>{error}</p>}
+
+     
       <div className="timeframe-buttons">
-        <button onClick={() => setTimeframe('last24h')}>Last 24 Hours</button>
-        <button onClick={() => setTimeframe('last48h')}>Last 48 Hours</button>
-        <button onClick={() => setTimeframe('lastWeek')}>Last Week</button>
+        <button
+          onClick={() => handleTimeframeChange('last24h')}
+          className={timeframe === 'last24h' ? 'active' : ''}
+        >
+          Last 24 Hours
+        </button>
+        <button
+          onClick={() => handleTimeframeChange('last48h')}
+          className={timeframe === 'last48h' ? 'active' : ''}
+        >
+          Last 48 Hours
+        </button>
+        <button
+          onClick={() => handleTimeframeChange('lastWeek')}
+          className={timeframe === 'lastWeek' ? 'active' : ''}
+        >
+          Last Week
+        </button>
       </div>
-      <ContentList content={paginatedContent} />
+
+      
+      {isLoading ? <p>Loading...</p> : <ContentList content={paginatedContent} />}
+
+    
       {totalPages > 0 && (
         <Pagination
-          currentPage={currentPage}
+          currentPage={currentPage || totalPages} 
           totalPages={totalPages}
           onPageChange={handlePageChange}
         />
