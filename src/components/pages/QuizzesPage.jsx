@@ -1,5 +1,5 @@
 import React from "react";
-import ContentSection from "../ContentSection";
+import ContentSection from "./ContentSection";
 import { Link } from "react-router-dom";
 import "../../css/Authorization.css";
 

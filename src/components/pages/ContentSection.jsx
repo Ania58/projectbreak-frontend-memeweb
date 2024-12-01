@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "../axiosConfig";
-import "../css/Authorization.css";
+import axios from "../../axiosConfig";
+import "../../css/Authorization.css";
 
 const ContentSection = ({ type }) => {
   const navigate = useNavigate();
