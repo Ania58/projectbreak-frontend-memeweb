@@ -57,18 +57,18 @@
     background-color: #0056b3;
   }
 
-  .meme-preview {
+  .add-meme .meme-preview {
     position: relative;
     display: inline-block;
   }
   
-  .meme-preview img {
+  .add-meme .meme-preview img {
     display: block;
     max-width: 100%;
     height: auto;
   }
   
-  .meme-text {
+  .add-meme .meme-text {
     position: absolute;
     width: 100%;
     text-align: center;
@@ -80,15 +80,15 @@
     padding: 0 10px;
   }
   
-  .meme-text.top-text {
+  .add-meme .meme-text.top-text {
     top: 10px;
   }
   
-  .meme-text.bottom-text {
+  .add-meme .meme-text.bottom-text {
     bottom: 10px;
   }
 
-  .disclaimer {
+  .add-meme .disclaimer {
     margin-top: 10px;
     color: #888;
     font-size: 0.9em;

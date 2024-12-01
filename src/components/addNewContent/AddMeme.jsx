@@ -98,7 +98,7 @@ const AddMeme = () => {
   };
 
   return (
-    <div>
+    <div className="add-meme">
         <AddContentNavigation /> 
         <form onSubmit={handleSubmit} className="add-content-form">
         <h2>Add Meme</h2>

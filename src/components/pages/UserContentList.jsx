@@ -164,252 +164,254 @@ const UserContentList = ({ contentType, endpoint }) => {
   if (loading) return <p className="loading">Loading {contentType}...</p>;
 
   return (
-    <div className="content-list-container">
-      <div className="navigation-links">
-        <h3>Navigate to Other Content</h3>
-        <ul>
-          <li>
-            <Link to="/profile">Back to Profile</Link>
-          </li>
-          <li>
-            <Link to="/profile/films">Films</Link>
-          </li>
-          <li>
-            <Link to="/profile/images">Images</Link>
-          </li>
-          <li>
-            <Link to="/profile/memes">Memes</Link>
-          </li>
-          <li>
-            <Link to="/profile/quizzes">Quizzes</Link>
-          </li>
-        </ul>
-      </div>
-      <h3 className="content-list-title">Your {contentType}</h3>
-      {content.length > 0 ? (
-        <ul className="content-list">
-          {content.map((item) => (
-            <li key={item._id} className="content-item">
-              {editingId === item._id ? (
-                <div className="edit-container">
-                  <input
-                    type="text"
-                    name="title"
-                    className="edit-input"
-                    placeholder="Title"
-                    value={editData.title}
-                    onChange={handleEditChange}
-                  />
-                  <select
-                    name="category"
-                    className="edit-select"
-                    value={editData.category}
-                    onChange={handleEditChange}
-                  >
-                    <option value="">Select Category</option>
-                    <option value="animals">Animals</option>
-                    <option value="humor">Humor</option>
-                    <option value="videos">Videos</option>
-                    <option value="memes">Memes</option>
-                    <option value="comics">Comics</option>
-                    <option value="curiosities">Curiosities</option>
-                    <option value="food">Food</option>
-                    <option value="politics">Politics</option>
-                    <option value="culture">Culture</option>
-                    <option value="sport">Sport</option>
-                    <option value="popculture">Popculture</option>
-                    <option value="history">History</option>
-                    <option value="war">War</option>
-                    <option value="WTF">WTF</option>
-                    <option value="cats">Cats</option>
-                    <option value="emotions">Emotions</option>
-                    <option value="art">Art</option>
-                    <option value="nature">Nature</option>
-                    <option value="music and film">Music and film</option>
-                    <option value="news">News</option>
-                    <option value="dogs">Dogs</option>
-                    <option value="motorization">Motorization</option>
-                  </select>
-                  <input
-                    type="text"
-                    name="tags"
-                    className="edit-input"
-                    placeholder="Tags (comma-separated)"
-                    value={editData.tags}
-                    onChange={handleEditChange}
-                  />
-                  {contentType === 'memes' && (
-                    <div className="template-select-container">
-                      <label className="template-label">Select Template:</label>
-                      <select
-                        className="template-select"
-                        value={editData.templateId}
-                        onChange={(e) => handleTemplateSelect(e.target.value)}
-                      >
-                        <option value="">Select Template</option>
-                        {templates.map((template) => (
-                          <option key={template.id} value={template.id}>
-                            {template.name}
-                          </option>
-                        ))}
-                      </select>
-                      {selectedTemplate && (
-                        <img
-                          src={selectedTemplate.url}
-                          alt={selectedTemplate.name}
-                          className="template-preview"
-                        />
-                      )}
-                    </div>
-                  )}
-                  {contentType === 'quizzes' &&
-                    editData.questions?.map((question, qIndex) => (
-                      <div key={qIndex} className="edit-question">
-                        <label className="question-label">Question:</label>
-                        <input
-                          type="text"
-                          value={question.questionText}
-                          className="edit-question-input"
-                          onChange={(e) =>
-                            handleQuestionChange(qIndex, 'questionText', e.target.value)
-                          }
-                        />
-                        {question.answers.map((answer, aIndex) => (
-                          <div key={aIndex} className="edit-answer">
-                            <input
-                              type="text"
-                              value={answer.answerText}
-                              className="edit-answer-input"
-                              onChange={(e) =>
-                                handleAnswerChange(qIndex, aIndex, e.target.value)
-                              }
-                            />
-                            <input
-                              type="radio"
-                              name={`correct-${qIndex}`}
-                              checked={answer.isCorrect}
-                              onChange={() =>
-                                handleCorrectAnswerChange(qIndex, aIndex)
-                              }
-                            />
+    <div className="user-content">
+      <div className="content-list-container">
+        <div className="navigation-links">
+          <h3>Navigate to Other Content</h3>
+          <ul>
+            <li>
+              <Link to="/profile">Back to Profile</Link>
+            </li>
+            <li>
+              <Link to="/profile/films">Films</Link>
+            </li>
+            <li>
+              <Link to="/profile/images">Images</Link>
+            </li>
+            <li>
+              <Link to="/profile/memes">Memes</Link>
+            </li>
+            <li>
+              <Link to="/profile/quizzes">Quizzes</Link>
+            </li>
+          </ul>
+        </div>
+        <h3 className="content-list-title">Your {contentType}</h3>
+        {content.length > 0 ? (
+          <ul className="content-list">
+            {content.map((item) => (
+              <li key={item._id} className="content-item">
+                {editingId === item._id ? (
+                  <div className="edit-container">
+                    <input
+                      type="text"
+                      name="title"
+                      className="edit-input"
+                      placeholder="Title"
+                      value={editData.title}
+                      onChange={handleEditChange}
+                    />
+                    <select
+                      name="category"
+                      className="edit-select"
+                      value={editData.category}
+                      onChange={handleEditChange}
+                    >
+                      <option value="">Select Category</option>
+                      <option value="animals">Animals</option>
+                      <option value="humor">Humor</option>
+                      <option value="videos">Videos</option>
+                      <option value="memes">Memes</option>
+                      <option value="comics">Comics</option>
+                      <option value="curiosities">Curiosities</option>
+                      <option value="food">Food</option>
+                      <option value="politics">Politics</option>
+                      <option value="culture">Culture</option>
+                      <option value="sport">Sport</option>
+                      <option value="popculture">Popculture</option>
+                      <option value="history">History</option>
+                      <option value="war">War</option>
+                      <option value="WTF">WTF</option>
+                      <option value="cats">Cats</option>
+                      <option value="emotions">Emotions</option>
+                      <option value="art">Art</option>
+                      <option value="nature">Nature</option>
+                      <option value="music and film">Music and film</option>
+                      <option value="news">News</option>
+                      <option value="dogs">Dogs</option>
+                      <option value="motorization">Motorization</option>
+                    </select>
+                    <input
+                      type="text"
+                      name="tags"
+                      className="edit-input"
+                      placeholder="Tags (comma-separated)"
+                      value={editData.tags}
+                      onChange={handleEditChange}
+                    />
+                    {contentType === 'memes' && (
+                      <div className="template-select-container">
+                        <label className="template-label">Select Template:</label>
+                        <select
+                          className="template-select"
+                          value={editData.templateId}
+                          onChange={(e) => handleTemplateSelect(e.target.value)}
+                        >
+                          <option value="">Select Template</option>
+                          {templates.map((template) => (
+                            <option key={template.id} value={template.id}>
+                              {template.name}
+                            </option>
+                          ))}
+                        </select>
+                        {selectedTemplate && (
+                          <img
+                            src={selectedTemplate.url}
+                            alt={selectedTemplate.name}
+                            className="template-preview"
+                          />
+                        )}
+                      </div>
+                    )}
+                    {contentType === 'quizzes' &&
+                      editData.questions?.map((question, qIndex) => (
+                        <div key={qIndex} className="edit-question">
+                          <label className="question-label">Question:</label>
+                          <input
+                            type="text"
+                            value={question.questionText}
+                            className="edit-question-input"
+                            onChange={(e) =>
+                              handleQuestionChange(qIndex, 'questionText', e.target.value)
+                            }
+                          />
+                          {question.answers.map((answer, aIndex) => (
+                            <div key={aIndex} className="edit-answer">
+                              <input
+                                type="text"
+                                value={answer.answerText}
+                                className="edit-answer-input"
+                                onChange={(e) =>
+                                  handleAnswerChange(qIndex, aIndex, e.target.value)
+                                }
+                              />
+                              <input
+                                type="radio"
+                                name={`correct-${qIndex}`}
+                                checked={answer.isCorrect}
+                                onChange={() =>
+                                  handleCorrectAnswerChange(qIndex, aIndex)
+                                }
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    {contentType === 'films' && (
+                      <textarea
+                        name="description"
+                        className="edit-textarea"
+                        placeholder="Description"
+                        value={editData.description}
+                        onChange={handleEditChange}
+                      />
+                    )}
+                    <button className="edit-save-button" onClick={handleEditSave}>
+                      Save
+                    </button>
+                    <button
+                      className="edit-cancel-button"
+                      onClick={() => setEditingId(null)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <h4 className="content-title">{item.title}</h4>
+                    {contentType === 'quizzes' && (
+                      <div className="quiz-container">
+                        {item.imageUrl && (
+                          <img
+                            src={
+                              item.imageUrl.startsWith('http')
+                                ? item.imageUrl
+                                : `http://localhost:3000${item.imageUrl}`
+                            }
+                            alt={item.title}
+                            className="quiz-image"
+                          />
+                        )}
+                        {item.questions.map((question, qIndex) => (
+                          <div key={qIndex} className="quiz-question">
+                            <p className="question-text">{question.questionText}</p>
+                            <div className="answers-container">
+                              {question.answers.map((answer, aIndex) => (
+                                <button
+                                  key={aIndex}
+                                  className={`answer-button ${
+                                    selectedAnswers[`${item._id}-${qIndex}`] !== undefined
+                                      ? selectedAnswers[`${item._id}-${qIndex}`] &&
+                                        answer.isCorrect
+                                        ? 'correct'
+                                        : 'incorrect'
+                                      : ''
+                                  }`}
+                                  onClick={() =>
+                                    handleAnswerClick(item._id, qIndex, answer.isCorrect)
+                                  }
+                                >
+                                  {answer.answerText}
+                                </button>
+                              ))}
+                            </div>
                           </div>
                         ))}
                       </div>
-                    ))}
-                  {contentType === 'films' && (
-                    <textarea
-                      name="description"
-                      className="edit-textarea"
-                      placeholder="Description"
-                      value={editData.description}
-                      onChange={handleEditChange}
-                    />
-                  )}
-                  <button className="edit-save-button" onClick={handleEditSave}>
-                    Save
-                  </button>
-                  <button
-                    className="edit-cancel-button"
-                    onClick={() => setEditingId(null)}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <h4 className="content-title">{item.title}</h4>
-                  {contentType === 'quizzes' && (
-                    <div className="quiz-container">
-                      {item.imageUrl && (
-                        <img
-                          src={
-                            item.imageUrl.startsWith('http')
-                              ? item.imageUrl
-                              : `http://localhost:3000${item.imageUrl}`
-                          }
-                          alt={item.title}
-                          className="quiz-image"
-                        />
-                      )}
-                      {item.questions.map((question, qIndex) => (
-                        <div key={qIndex} className="quiz-question">
-                          <p className="question-text">{question.questionText}</p>
-                          <div className="answers-container">
-                            {question.answers.map((answer, aIndex) => (
-                              <button
-                                key={aIndex}
-                                className={`answer-button ${
-                                  selectedAnswers[`${item._id}-${qIndex}`] !== undefined
-                                    ? selectedAnswers[`${item._id}-${qIndex}`] &&
-                                      answer.isCorrect
-                                      ? 'correct'
-                                      : 'incorrect'
-                                    : ''
-                                }`}
-                                onClick={() =>
-                                  handleAnswerClick(item._id, qIndex, answer.isCorrect)
-                                }
-                              >
-                                {answer.answerText}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                  {contentType === 'films' && (
-                    <video
-                      controls
-                      className="content-video"
-                      src={`http://localhost:3000${item.videoUrl}`}
-                    />
-                  )}
-                  {contentType === 'images' && (
-                    <img
-                      src={`http://localhost:3000${item.imageUrl}`}
-                      alt={item.title}
-                      className="content-image"
-                    />
-                  )}
-                  {contentType === 'memes' && (
-                    <img
-                      src={
-                        item.imageUrl.startsWith('http')
-                          ? item.imageUrl
-                          : `http://localhost:3000${item.imageUrl}`
-                      }
-                      alt={item.title}
-                      className="content-image"
-                    />
-                  )}
-                  <p className="content-category">Category: {item.category}</p>
-                  <p className="content-tags">Tags: {item.tags?.join(', ')}</p>
-                  {contentType === 'films' && (
-                    <p className="content-description">
-                      Description: {item.description}
-                    </p>
-                  )}
-                  <button
-                    className="edit-button"
-                    onClick={() => handleEditClick(item)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="delete-button"
-                    onClick={() => handleDelete(item._id)}
-                  >
-                    Delete
-                  </button>
-                </>
-              )}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="no-content">No {contentType} found.</p>
-      )}
+                    )}
+                    {contentType === 'films' && (
+                      <video
+                        controls
+                        className="content-video"
+                        src={`http://localhost:3000${item.videoUrl}`}
+                      />
+                    )}
+                    {contentType === 'images' && (
+                      <img
+                        src={`http://localhost:3000${item.imageUrl}`}
+                        alt={item.title}
+                        className="content-image"
+                      />
+                    )}
+                    {contentType === 'memes' && (
+                      <img
+                        src={
+                          item.imageUrl.startsWith('http')
+                            ? item.imageUrl
+                            : `http://localhost:3000${item.imageUrl}`
+                        }
+                        alt={item.title}
+                        className="content-image"
+                      />
+                    )}
+                    <p className="content-category">Category: {item.category}</p>
+                    <p className="content-tags">Tags: {item.tags?.join(', ')}</p>
+                    {contentType === 'films' && (
+                      <p className="content-description">
+                        Description: {item.description}
+                      </p>
+                    )}
+                    <button
+                      className="edit-button"
+                      onClick={() => handleEditClick(item)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="delete-button"
+                      onClick={() => handleDelete(item._id)}
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="no-content">No {contentType} found.</p>
+        )}
+      </div>
     </div>
   );
 };

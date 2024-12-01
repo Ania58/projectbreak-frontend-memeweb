@@ -36,7 +36,7 @@
     color: #0056b3;
   }
   
-.content-list-container {
+  .user-content .content-list-container {
     padding: 20px;
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -44,19 +44,19 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .content-list-title {
+  .user-content .content-list-title {
     font-size: 1.8rem;
     margin-bottom: 20px;
     color: #333;
     text-align: center;
   }
   
-  .content-list {
+  .user-content .content-list {
     list-style: none;
     padding: 0;
   }
   
-  .content-item {
+  .user-content .content-item {
     background-color: #fff;
     padding: 15px;
     margin-bottom: 15px;
@@ -64,35 +64,26 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .content-title {
+  .user-content .content-title {
     font-size: 1.5rem;
     color: #333;
   }
   
-  .content-category,
-  .content-tags,
-  .content-description {
+  .user-content .content-category,
+  .user-content .content-tags,
+  .user-content .content-description {
     font-size: 1rem;
     color: #666;
     margin-top: 5px;
   }
 
-  .quiz-image {
-    max-width: 100%; 
-    height: auto; 
-    display: block; 
-    margin: 10px auto; 
-    border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-  }
-
-  .template-select-container {
+  .user-content .template-select-container {
     margin-top: 20px;
     text-align: center;
   }
   
  
-  .template-label {
+  .user-content .template-label {
     font-size: 1rem;
     color: #333;
     display: block;
@@ -100,7 +91,7 @@
   }
   
   
-  .template-select {
+  .user-content .template-select {
     width: 100%;
     max-width: 400px; 
     padding: 12px;
@@ -111,7 +102,7 @@
   }
   
   
-  .template-preview {
+  .user-content .template-preview {
     max-width: 100%;
     max-height: 300px; 
     margin-top: 20px;
@@ -122,8 +113,16 @@
     margin-right: auto;
   }
   
+  .user-content .quiz-image {
+    max-width: 100%; 
+    height: auto; 
+    display: block; 
+    margin: 10px auto; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  }
   
-  .quiz-container {
+  .user-content .quiz-container {
     margin-top: 20px;
     padding: 15px;
     border: 1px solid #ddd;
