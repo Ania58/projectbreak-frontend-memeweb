@@ -1,4 +1,4 @@
-/*import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import LogoutButton from './firebaseUser/LogoutButton';
@@ -52,12 +52,12 @@ const TopNavigation = () => {
   );
 };
 
-export default TopNavigation;*/
+export default TopNavigation;
 
 
 //The code before verification
 
-import React, { useContext } from 'react';
+{/*import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { UserContext } from '../contexts/UserContext';
 import LogoutButton from './firebaseUser/LogoutButton';
@@ -81,4 +81,4 @@ const TopNavigation = () => {
   );
 };
 
-export default TopNavigation; 
+export default TopNavigation; */}

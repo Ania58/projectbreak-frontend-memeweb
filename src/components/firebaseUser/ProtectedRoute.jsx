@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+{/*import { Navigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem("authToken");
@@ -6,10 +6,10 @@ function ProtectedRoute({ children }) {
   return token ? children : <Navigate to="/login" />;
 }
 
-export default ProtectedRoute;
+export default ProtectedRoute;*/}
 
 
-/*import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { auth } from "../../config/firebase";
 
@@ -39,5 +39,5 @@ function ProtectedRoute({ children }) {
   return token && isVerified ? children : <Navigate to="/login" />;
 }
 
-export default ProtectedRoute;*/
+export default ProtectedRoute;
 
