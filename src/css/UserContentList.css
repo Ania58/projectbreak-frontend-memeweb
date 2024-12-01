@@ -147,7 +147,7 @@
   }
   
   
-  .answer-button {
+  .user-content .answer-button {
     padding: 10px 15px;
     font-size: 1rem;
     border-radius: 5px;
@@ -159,27 +159,27 @@
   }
   
   
-  .answer-button:hover {
+  .user-content .answer-button:hover {
     background-color: #f0f0f0;
     border-color: #aaa;
   }
   
   
-  .answer-button.correct {
+  .user-content .answer-button.correct {
     background-color: #d4edda;
     border-color: #28a745;
     color: #155724;
   }
   
   
-  .answer-button.incorrect {
+  .user-content .answer-button.incorrect {
     background-color: #f8d7da;
     border-color: #dc3545;
     color: #721c24;
   }
   
   
-  .edit-question {
+  .user-content .edit-question {
     margin-bottom: 20px;
     padding: 10px;
     border: 1px solid #ddd;
