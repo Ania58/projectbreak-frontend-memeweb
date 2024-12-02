@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../../css/CommentsSection.css'
+import '../../css/CommentsSection.css';
 
 const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
   const [comments, setComments] = useState([]); 
@@ -11,25 +11,27 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
 
   useEffect(() => {
     const fetchComments = async () => {
+      setIsLoading(true); 
       try {
         const response = await axios.get(
           `http://localhost:3000/comments/${contentType}/${contentId}`
         );
         const allComments = response.data || [];
-        const filteredComments = allComments.filter(comment => comment.text !== '[Deleted]'); 
-        setComments(groupComments(filteredComments)); 
+        const filteredComments = allComments.filter(
+          (comment) => comment.text !== '[Deleted]'
+        ); 
+        setComments(groupComments(filteredComments));
         setError('');
         setIsForbidden(false);
       } catch (err) {
         console.error('Error fetching comments:', err);
-
         if (err.response && err.response.status === 403) {
           setIsForbidden(true);
         } else {
           setError('Failed to load comments. Please try again later.');
         }
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); 
       }
     };
 
@@ -65,8 +67,13 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
       return;
     }
 
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      alert('You must be logged in to post a comment.');
+      return;
+    }
+
     try {
-      const token = localStorage.getItem('authToken');
       const response = await axios.post(
         'http://localhost:3000/comments',
         {
@@ -80,7 +87,7 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
           },
         }
       );
-      setComments((prev) => [response.data, ...prev]);
+      setComments((prev) => [response.data, ...prev]); 
       setNewComment('');
     } catch (err) {
       console.error('Error adding comment:', err);
@@ -92,8 +99,10 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
     <div className="comments-section">
       <h3>Comments</h3>
 
+    
       {isLoading && <p>Loading comments...</p>}
 
+     
       {isForbidden && (
         <div>
           <p>No comments yet. Be the first to comment!</p>
@@ -101,8 +110,10 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
         </div>
       )}
 
+    
       {error && !isLoading && !isForbidden && <p className="error">{error}</p>}
 
+      
       {!isLoading && !error && !isForbidden && (
         <div className="comments-list">
           {comments.length > 0 ? (
@@ -126,15 +137,20 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
         </div>
       )}
 
-      {isAuthenticated && !isForbidden && (
+      
+      {isAuthenticated && !isForbidden ? (
         <div className="add-comment">
           <textarea
             placeholder="Write a comment..."
             value={newComment}
             onChange={(e) => setNewComment(e.target.value)}
           />
-          <button onClick={handleAddComment} className='comment-button'>Post Comment</button>
+          <button onClick={handleAddComment} className="comment-button">
+            Post Comment
+          </button>
         </div>
+      ) : (
+        <p>Please log in to post a comment.</p>
       )}
     </div>
   );
