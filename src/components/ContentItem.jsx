@@ -5,7 +5,7 @@ import Memes from './Memes';
 import Quizzes from './Quizzes';
 
 
-const ContentItem = ({ item, handleVote }) => {
+const ContentItem = ({ item, handleVote, onContentClick }) => {
   
   const [votedItems, setVotedItems] = useState(() => {
     const storedVotes = localStorage.getItem('votedItems');
@@ -32,19 +32,38 @@ const ContentItem = ({ item, handleVote }) => {
   const resolveImageUrl = (url) => (url.startsWith('http') ? url : `http://localhost:3000${url}`);
 
 
+  const handleItemClick = () => {
+    if (onContentClick) {
+      onContentClick(item); 
+    }
+  };
+
+
   if (item.questions && item.questions.length > 0) {
     return (
-      <div className="quiz-container">
+      <div className="quiz-container" onClick={handleItemClick}>
         <Quizzes quizzes={[item]} onVote={handleItemVote} hasVoted={hasVoted} />
       </div>
     );
   } else if (item.imageUrl || item.isUserGenerated) {
     const resolvedMeme = { ...item, imageUrl: resolveImageUrl(item.imageUrl) };
-    return <Memes memes={[resolvedMeme]} onVote={handleItemVote} hasVoted={hasVoted} />;
+    return (
+      <div className="meme-container" onClick={handleItemClick}>
+        <Memes memes={[resolvedMeme]} onVote={handleItemVote} hasVoted={hasVoted} />
+        </div>
+      );
   } else if (item.imageUrl) {
-    return <Images images={[item]} onVote={handleItemVote} hasVoted={hasVoted} />;
+    return (
+      <div className="image-container" onClick={handleItemClick}>
+        <Images images={[item]} onVote={handleItemVote} hasVoted={hasVoted} />
+      </div>
+    );
   } else if (item.videoUrl) {
-    return <Films films={[item]} onVote={handleItemVote} hasVoted={hasVoted} />;
+    return (
+      <div className="film-container" onClick={handleItemClick}>
+        <Films films={[item]} onVote={handleItemVote} hasVoted={hasVoted} />
+      </div>
+    );
   } 
   return null;
 };

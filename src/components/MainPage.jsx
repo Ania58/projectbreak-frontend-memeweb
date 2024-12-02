@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ContentList from './ContentList';
 import Pagination from './Pagination';
+import CommentsSection from '../components/comments/CommentsSection'
 import '../css/MainPage.css';
 import '../css/ContentStyles.css';
 
@@ -13,6 +14,7 @@ const MainPage = () => {
   const [currentPage, setCurrentPage] = useState(parseInt(pageNumber) || null);
   const [totalPages, setTotalPages] = useState(1);
   const [error, setError] = useState(null);
+  const [selectedContent, setSelectedContent] = useState(null);
 
   useEffect(() => {
     const fetchTotalPages = async () => {
@@ -68,11 +70,44 @@ const MainPage = () => {
     }
   };
 
+  const handleContentClick = (content) => {
+    setSelectedContent(content);
+  };
+
+  const handleBackToList = () => {
+    setSelectedContent(null);
+  };
+
+
   return (
     <div className="main-page">
       {error && <p>{error}</p>}
-      <ContentList content={content} handleVote={handleVote} votedItems={votedItems} setVotedItems={setVotedItems}/>
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+      {selectedContent ? (
+        <div className="content-details">
+          <button onClick={handleBackToList} className='comment-button'>Back to List</button>
+          <h2>{selectedContent.title}</h2>
+          <CommentsSection
+            contentType={selectedContent.type}
+            contentId={selectedContent._id}
+            isAuthenticated={!!localStorage.getItem('authToken')} 
+          />
+        </div>
+      ) : (
+        <>
+          <ContentList
+            content={content}
+            handleVote={handleVote}
+            votedItems={votedItems}
+            setVotedItems={setVotedItems}
+            onContentClick={handleContentClick}
+          />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </>
+      )}
     </div>
   );
 };
