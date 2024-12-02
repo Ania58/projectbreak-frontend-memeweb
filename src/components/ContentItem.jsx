@@ -15,7 +15,8 @@ const ContentItem = ({ item, handleVote, onContentClick }) => {
   
   const hasVoted = votedItems.includes(item._id);
 
-  const handleItemVote = async (vote) => {
+  const handleItemVote = async (vote, e) => {
+    e.stopPropagation();
     if (hasVoted) {
       alert("You have already voted on this content.");
       return;
@@ -37,31 +38,32 @@ const ContentItem = ({ item, handleVote, onContentClick }) => {
       onContentClick(item); 
     }
   };
+  
 
 
   if (item.questions && item.questions.length > 0) {
     return (
       <div className="quiz-container" onClick={handleItemClick}>
-        <Quizzes quizzes={[item]} onVote={handleItemVote} hasVoted={hasVoted} />
+        <Quizzes quizzes={[item]} onVote={(vote, e) => handleItemVote(vote, e)} hasVoted={hasVoted} />
       </div>
     );
   } else if (item.imageUrl || item.isUserGenerated) {
     const resolvedMeme = { ...item, imageUrl: resolveImageUrl(item.imageUrl) };
     return (
       <div className="meme-container" onClick={handleItemClick}>
-        <Memes memes={[resolvedMeme]} onVote={handleItemVote} hasVoted={hasVoted} />
+        <Memes memes={[resolvedMeme]} onVote={(vote, e) => handleItemVote(vote, e)} hasVoted={hasVoted} />
         </div>
       );
   } else if (item.imageUrl) {
     return (
       <div className="image-container" onClick={handleItemClick}>
-        <Images images={[item]} onVote={handleItemVote} hasVoted={hasVoted} />
+        <Images images={[item]}  onVote={(vote, e) => handleItemVote(vote, e)} hasVoted={hasVoted} />
       </div>
     );
   } else if (item.videoUrl) {
     return (
       <div className="film-container" onClick={handleItemClick}>
-        <Films films={[item]} onVote={handleItemVote} hasVoted={hasVoted} />
+        <Films films={[item]} onVote={(vote, e) => handleItemVote(vote, e)} hasVoted={hasVoted} />
       </div>
     );
   } 

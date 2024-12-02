@@ -53,8 +53,8 @@ const Quizzes = ({quizzes, onVote, hasVoted}) => {
           ))}
           <div className="voting-container">
             <p>Upvotes: {quiz.upvotes} | Downvotes: {quiz.downvotes}</p>
-            <button className="upvote-button" onClick={() => onVote(1)} disabled={hasVoted}>+</button>
-            <button className="downvote-button" onClick={() => onVote(-1)} disabled={hasVoted}>-</button>
+            <button className="upvote-button" onClick={(e) => onVote(1, e)} disabled={hasVoted}>+</button>
+            <button className="downvote-button" onClick={(e) => onVote(-1, e)} disabled={hasVoted}>-</button>
             {hasVoted && <p className="voted-text">You have voted on this content.</p>}
           </div>
         </div>
