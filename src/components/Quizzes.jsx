@@ -6,7 +6,8 @@ import ContentInfo from './ContentInfo';
 const Quizzes = ({quizzes, onVote, hasVoted}) => {
  const [selectedAnswers, setSelectedAnswers] = useState({});
 
-  const handleAnswerClick = (quizId, questionIndex, isCorrect) => {
+  const handleAnswerClick = (quizId, questionIndex, isCorrect, e) => {
+    e.stopPropagation();
     setSelectedAnswers((prevAnswers) => ({
       ...prevAnswers,
       [`${quizId}-${questionIndex}`]: isCorrect
@@ -31,7 +32,7 @@ const Quizzes = ({quizzes, onVote, hasVoted}) => {
                 {question.answers.map((answer, aIndex) => (
                   <button
                     key={aIndex}
-                    onClick={() => handleAnswerClick(quiz._id, index, answer.isCorrect)}
+                    onClick={(e) => handleAnswerClick(quiz._id, index, answer.isCorrect, e)}
                     className="answer-button"
                   >
                     {answer.answerText}
