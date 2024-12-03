@@ -189,7 +189,7 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
                 type="video/mp4"
               />
             </video>
-            <p>{content.description}</p>
+            <p className='description'>{content.description}</p>
           </>
         )}
 
