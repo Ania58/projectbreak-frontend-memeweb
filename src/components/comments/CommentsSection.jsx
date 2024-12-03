@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../css/CommentsSection.css';
+import ContentInfo from '../ContentInfo';
 
 const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
   const [comments, setComments] = useState([]); 
@@ -8,6 +9,11 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
   const [error, setError] = useState('');
   const [isForbidden, setIsForbidden] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [content, setContent] = useState(null); 
+  const [contentError, setContentError] = useState(''); 
+  const [contentLoading, setContentLoading] = useState(true); 
+
+  const endpoint = `/content/${contentId}`;
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -38,7 +44,29 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
     fetchComments();
   }, [contentType, contentId]);
 
-  
+  useEffect(() => {
+    const fetchContent = async () => {
+      setContentLoading(true);
+      try {
+        console.log(`Fetching content for ${contentType} at endpoint: ${endpoint}`);
+        const response = await axios.get(endpoint);
+        setContent(response.data);
+        setContentError('');
+      } catch (err) {
+        console.error('Error fetching content:', err);
+        if (err.response && err.response.status === 404) {
+          setContentError('Content not found.');
+        } else {
+          setContentError('Failed to load content. Please try again later.');
+        }
+      } finally {
+        setContentLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, [endpoint]);
+
   const groupComments = (comments) => {
     const commentMap = {};
     comments.forEach((comment) => {
@@ -95,14 +123,73 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
     }
   };
 
+  const renderContent = () => {
+    if (contentLoading) return <p>Loading content...</p>;
+    if (contentError) return <p className="error">{contentError}</p>;
+    if (!content) return <p>No content available.</p>;
+
+    return (
+      <div className="content-item">
+        <h3 className="content-title">{content.title}</h3>
+        <ContentInfo category={content.category} tags={content.tags} />
+
+        {content.imageUrl && (
+          <img
+            src={
+              content.imageUrl.startsWith('http')
+                ? content.imageUrl
+                : `http://localhost:3000${content.imageUrl}`
+            }
+            alt={content.title}
+            className="content-image"
+          />
+        )}
+
+        {content.videoUrl && (
+          <>
+            <video controls className="content-video">
+              <source
+                src={`http://localhost:3000${content.videoUrl}`}
+                type="video/mp4"
+              />
+            </video>
+            <p>{content.description}</p>
+          </>
+        )}
+
+        {content.questions && contentType === 'quizzes' && (
+          <div className="quiz-container">
+            {content.questions.map((question, qIndex) => (
+              <div key={qIndex} className="quiz-question">
+                <p className="question-text">{question.questionText}</p>
+                <div className="answers-container">
+                  {question.answers.map((answer, aIndex) => (
+                    <button
+                      key={aIndex}
+                      className="answer-button"
+                      onClick={() => {
+                      }}
+                    >
+                      {answer.answerText}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="comments-section">
       <h3>Comments</h3>
 
-    
+      {renderContent()}
+
       {isLoading && <p>Loading comments...</p>}
 
-     
       {isForbidden && (
         <div>
           <p>No comments yet. Be the first to comment!</p>
@@ -110,10 +197,8 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
         </div>
       )}
 
-    
       {error && !isLoading && !isForbidden && <p className="error">{error}</p>}
 
-      
       {!isLoading && !error && !isForbidden && (
         <div className="comments-list">
           {comments.length > 0 ? (
@@ -137,7 +222,6 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
         </div>
       )}
 
-      
       {isAuthenticated && !isForbidden ? (
         <div className="add-comment">
           <textarea
@@ -157,3 +241,4 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
 };
 
 export default CommentsSection;
+
