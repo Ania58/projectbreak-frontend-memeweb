@@ -13,7 +13,10 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
   const [contentError, setContentError] = useState(''); 
   const [contentLoading, setContentLoading] = useState(true); 
   const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [voted, setVoted] = useState(false);
+  const [votedItems, setVotedItems] = useState(() => {
+    const storedVotes = localStorage.getItem('votedItems');
+    return storedVotes ? JSON.parse(storedVotes) : [];
+  });
 
   const endpoint = `/content/${contentId}`;
 
@@ -136,7 +139,7 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
   };
 
   const handleVote = async (vote) => {
-    if (voted) {
+    if (votedItems.includes(contentId)) {
       alert('You have already voted on this content.');
       return;
     }
@@ -148,12 +151,16 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
 
       const response = await axios.post(endpoint, { vote });
       const { upvotes, downvotes } = response.data;
+
       setContent((prevContent) => ({
         ...prevContent,
         upvotes,
         downvotes,
       }));
-      setVoted(true);
+
+      const updatedVotedItems = [...votedItems, contentId];
+      setVotedItems(updatedVotedItems);
+      localStorage.setItem('votedItems', JSON.stringify(updatedVotedItems));
     } catch (err) {
       console.error('Error voting on content:', err);
     }
@@ -238,13 +245,13 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
 
          <div className="voting-container">
             <p>Upvotes: {content.upvotes || 0} | Downvotes: {content.downvotes || 0}</p>
-            <button onClick={() => handleVote(1)} className="upvote-button" disabled={voted}>
+            <button onClick={() => handleVote(1)} className="upvote-button" disabled={votedItems.includes(contentId)}>
               +
             </button>
-            <button onClick={() => handleVote(-1)} className="downvote-button" disabled={voted}>
+            <button onClick={() => handleVote(-1)} className="downvote-button" disabled={votedItems.includes(contentId)}>
               -
             </button>
-            {voted && <p className="voted-text">You have voted on this content.</p>}
+            {votedItems.includes(contentId) && <p className="voted-text">You have voted on this content.</p>}
         </div>
       </div>
     );
