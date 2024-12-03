@@ -37,18 +37,15 @@ function Login() {
       setUser(response.data); 
 
       navigate("/profile");
-    } catch (error) {
-      console.error("Error logging in:", error);
-      
-      if (err.code === "auth/user-not-found") {
-        setError("No account found with this email.");
-      } else if (err.code === "auth/wrong-password") {
-        setError("Incorrect password. Please try again.");
-      } else if (err.code === "auth/too-many-requests") {
-        setError("Too many login attempts. Please try again later.");
-      } else {
-        setError("An error occurred while logging in. Please try again later.");
-      }
+    } catch (err) {
+      console.error("Error logging in:", err);
+        const errorMessages = {
+          "auth/user-not-found": "No account found with this email.",
+          "auth/wrong-password": "Incorrect password. Please try again.",
+          "auth/too-many-requests": "Too many login attempts. Please try again later.",
+          "auth/invalid-credential": "Invalid credentials. Please check your email and password.",
+        };
+        setError(errorMessages[err.code] || "An error occurred while logging in. Please try again later.");
     }
   };
 
