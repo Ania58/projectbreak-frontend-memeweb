@@ -12,6 +12,8 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
   const [content, setContent] = useState(null); 
   const [contentError, setContentError] = useState(''); 
   const [contentLoading, setContentLoading] = useState(true); 
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [voted, setVoted] = useState(false);
 
   const endpoint = `/content/${contentId}`;
 
@@ -123,6 +125,40 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
     }
   };
 
+  const handleAnswerClick = (quizId, questionIndex, answerIndex, isCorrect) => {
+    setSelectedAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [`${quizId}-${questionIndex}`]: {
+        answerIndex,
+        isCorrect,
+      },
+    }));
+  };
+
+  const handleVote = async (vote) => {
+    if (voted) {
+      alert('You have already voted on this content.');
+      return;
+    }
+
+    try {
+      const endpoint = `http://localhost:3000/${
+        contentType === 'quiz' ? 'quizzes' : `${contentType}s`
+      }/${contentId}/vote`;
+
+      const response = await axios.post(endpoint, { vote });
+      const { upvotes, downvotes } = response.data;
+      setContent((prevContent) => ({
+        ...prevContent,
+        upvotes,
+        downvotes,
+      }));
+      setVoted(true);
+    } catch (err) {
+      console.error('Error voting on content:', err);
+    }
+  };
+
   const renderContent = () => {
     if (contentLoading) return <p>Loading content...</p>;
     if (contentError) return <p className="error">{contentError}</p>;
@@ -157,27 +193,59 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
           </>
         )}
 
-        {content.questions && contentType === 'quizzes' && (
-          <div className="quiz-container">
-            {content.questions.map((question, qIndex) => (
-              <div key={qIndex} className="quiz-question">
-                <p className="question-text">{question.questionText}</p>
-                <div className="answers-container">
-                  {question.answers.map((answer, aIndex) => (
-                    <button
-                      key={aIndex}
-                      className="answer-button"
-                      onClick={() => {
-                      }}
+          {content.questions && content.type === 'quiz' && (
+            <div className="quiz-container">
+              {content.questions.map((question, qIndex) => (
+                <div key={qIndex} className="quiz-question">
+                  <p className="question-text">{question.questionText}</p>
+                  <ul className="answers-container">
+                    {question.answers.map((answer, aIndex) => (
+                      <li
+                        key={aIndex}
+                        className={`answer-button ${
+                          selectedAnswers[`${content._id}-${qIndex}`]?.answerIndex === aIndex
+                            ? selectedAnswers[`${content._id}-${qIndex}`].isCorrect
+                              ? 'correct'
+                              : 'incorrect'
+                            : ''
+                        }`}
+                        onClick={() =>
+                          handleAnswerClick(content._id, qIndex, aIndex, answer.isCorrect)
+                        }
+                        disabled={!!selectedAnswers[`${content._id}-${qIndex}`]}
+                      >
+                        {answer.answerText}
+                      </li>
+                    ))}
+                  </ul>
+                  {selectedAnswers[`${content._id}-${qIndex}`] && (
+                    <p
+                      className={`feedback ${
+                        selectedAnswers[`${content._id}-${qIndex}`].isCorrect
+                          ? 'feedback-correct'
+                          : 'feedback-incorrect'
+                      }`}
                     >
-                      {answer.answerText}
-                    </button>
-                  ))}
+                      {selectedAnswers[`${content._id}-${qIndex}`].isCorrect
+                        ? 'Correct!'
+                        : 'Incorrect, try again!'}
+                    </p>
+                  )}
                 </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+
+         <div className="voting-container">
+            <p>Upvotes: {content.upvotes || 0} | Downvotes: {content.downvotes || 0}</p>
+            <button onClick={() => handleVote(1)} className="upvote-button" disabled={voted}>
+              +
+            </button>
+            <button onClick={() => handleVote(-1)} className="downvote-button" disabled={voted}>
+              -
+            </button>
+            {voted && <p className="voted-text">You have voted on this content.</p>}
+        </div>
       </div>
     );
   };
