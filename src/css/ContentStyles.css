@@ -36,6 +36,17 @@
     font-weight: bold;
     color: #333;
   }
+
+  .clickable-item {
+    cursor: pointer;  
+    transition: all 0.3s ease;  
+  }
+  
+ 
+  .clickable-item:hover {
+    background-color: rgba(0, 0, 0, 0.05); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
+  }
   
   .quiz-item {
     background-color: #fff;
