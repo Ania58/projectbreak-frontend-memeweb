@@ -91,3 +91,75 @@
     border-radius: 5px; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
   }
+
+  @media (max-width: 768px) {
+    .comments-section {
+      margin: 10px 5px;
+      padding: 8px;
+    }
+  
+    .comments-section h3 {
+      font-size: 18px;
+    }
+  
+    .comment-text {
+      font-size: 14px;
+    }
+  
+    .reply-text {
+      font-size: 12px;
+    }
+  
+    .description {
+      font-size: 16px;
+      padding: 8px;
+    }
+  
+    textarea {
+      font-size: 12px;
+      padding: 8px;
+    }
+  
+    .comment-button {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .comments-section {
+      margin: 5px 2px;
+      padding: 5px;
+    }
+  
+    .comments-section h3 {
+      font-size: 16px;
+    }
+  
+    .comment {
+      padding: 8px;
+    }
+  
+    .comment-text {
+      font-size: 14px;
+    }
+  
+    .reply-text {
+      font-size: 12px;
+    }
+  
+    .description {
+      font-size: 14px;
+      padding: 6px;
+    }
+  
+    textarea {
+      font-size: 12px;
+      padding: 6px;
+    }
+  
+    .comment-button {
+      font-size: 12px;
+      padding: 5px 8px;
+    }
+  }
