@@ -35,12 +35,6 @@ const PendingContent = () => {
 
         const sortedItems = [...allItems].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
-        /*console.log('Sorted Pending Items:', sortedItems.map(item => ({
-          id: item._id,
-          createdAt: item.createdAt,
-          type: item.type
-        })));*/
-
         setPendingItems(sortedItems);
         const totalPages = Math.ceil(sortedItems.length / itemsPerPage);
         setCurrentPage(pageNumber ? parseInt(pageNumber) : (totalPages > 0 ? totalPages : 1));
@@ -53,9 +47,6 @@ const PendingContent = () => {
 
     fetchPendingItems();
   }, [pageNumber]);
-
-  //console.log("pendingItems:", pendingItems);
-  //console.log("Is pendingItems an array?", Array.isArray(pendingItems));
 
   const totalPages = Math.ceil(pendingItems.length / itemsPerPage);
 
