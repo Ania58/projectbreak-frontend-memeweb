@@ -7,6 +7,7 @@ import CommentsSection from '../components/comments/CommentsSection';
 import '../css/ContentStyles.css';
 
 const PendingContent = () => {
+  const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
   const { pageNumber } = useParams();  
   const navigate = useNavigate();
   const [pendingItems, setPendingItems] = useState([]);
@@ -23,7 +24,9 @@ const PendingContent = () => {
   useEffect(() => {
     const fetchPendingItems = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/pending'); 
+        //const response = await axios.get('http://localhost:3000/pending'); 
+
+        const response = await axios.get(`${baseUrl}/pending`);
 
         const data = response.data;
 
@@ -78,9 +81,11 @@ const PendingContent = () => {
     }
 
     try {
-      const endpoint = `http://localhost:3000/${
+      /*const endpoint = `http://localhost:3000/${
         type === 'quiz' ? 'quizzes' : `${type}s`
-      }/${contentId}/vote`;
+      }/${contentId}/vote`;*/
+
+      const endpoint = `${baseUrl}/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
 
       const response = await axios.post(endpoint, { vote });
       const { upvotes, downvotes } = response.data;
@@ -119,10 +124,10 @@ const PendingContent = () => {
               <div key={item._id} className={`content-item clickable-item ${item.questions ? 'quiz-item' : ''}`} onClick={() => handleContentClick(item)}>
                 <h3 className="content-title">{item.title}</h3>
                 <ContentInfo category={item.category} tags={item.tags} />
-                {item.imageUrl && <img src={item.imageUrl.startsWith('http') ? item.imageUrl : `http://localhost:3000${item.imageUrl}`} alt={item.title} className="content-image" />}
+                {item.imageUrl && <img src={item.imageUrl.startsWith('http') ? item.imageUrl : /*`http://localhost:3000${item.imageUrl}`*/ `${baseUrl}${item.imageUrl}`} alt={item.title} className="content-image" />}
                 {item.videoUrl && (
                   <video controls className="content-video">
-                    <source src={`http://localhost:3000${item.videoUrl}`} type="video/mp4" />
+                    <source /*src={`http://localhost:3000${item.videoUrl}`}*/ src={`${baseUrl}${item.videoUrl}`}  type="video/mp4" />
                   </video>
                 )}
                 {item.questions && item.questions.length > 0 && (
@@ -134,7 +139,7 @@ const PendingContent = () => {
                           {question.answers.map((answer, aIndex) => (
                             <li
                               key={aIndex}
-                              onClick={(e) => handleAnswerClick(item._id, qIndex, answer.isCorrect, e)} // Passing e to stop propagation
+                              onClick={(e) => handleAnswerClick(item._id, qIndex, answer.isCorrect, e)} 
                               className="answer-button"
                             >
                               {answer.answerText}
@@ -167,10 +172,10 @@ const PendingContent = () => {
           <button onClick={() => setSelectedContent(null)} className="comment-button">Back to List</button>
           <h2>{selectedContent.title}</h2>
           <ContentInfo category={selectedContent.category} tags={selectedContent.tags} />
-          {selectedContent.imageUrl && <img src={selectedContent.imageUrl.startsWith('http') ? selectedContent.imageUrl : `http://localhost:3000${selectedContent.imageUrl}`} alt={selectedContent.title} className="content-image" />}
+          {selectedContent.imageUrl && <img src={selectedContent.imageUrl.startsWith('http') ? selectedContent.imageUrl : /*`http://localhost:3000${selectedContent.imageUrl}`*/ `${baseUrl}${selectedContent.imageUrl}`} alt={selectedContent.title} className="content-image" />}
           {selectedContent.videoUrl && (
             <video controls className="content-video">
-              <source src={`http://localhost:3000${selectedContent.videoUrl}`} type="video/mp4" />
+              <source /*src={`http://localhost:3000${selectedContent.videoUrl}`}*/ src={`${baseUrl}${selectedContent.videoUrl}`} type="video/mp4" />
             </video>
           )}
           

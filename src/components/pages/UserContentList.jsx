@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../../css/UserContentList.css';
 
 const UserContentList = ({ contentType, endpoint }) => {
+  const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
   const [content, setContent] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
@@ -326,7 +327,7 @@ const UserContentList = ({ contentType, endpoint }) => {
                             src={
                               item.imageUrl.startsWith('http')
                                 ? item.imageUrl
-                                : `http://localhost:3000${item.imageUrl}`
+                                : /*`http://localhost:3000${item.imageUrl}`*/ `${baseUrl}${item.imageUrl}`
                             }
                             alt={item.title}
                             className="quiz-image"
@@ -363,12 +364,12 @@ const UserContentList = ({ contentType, endpoint }) => {
                       <video
                         controls
                         className="content-video"
-                        src={`http://localhost:3000${item.videoUrl}`}
+                        src=/*{`http://localhost:3000${item.videoUrl}`}*/ {`${baseUrl}${item.videoUrl}`}
                       />
                     )}
                     {contentType === 'images' && (
                       <img
-                        src={`http://localhost:3000${item.imageUrl}`}
+                        src=/*{`http://localhost:3000${item.imageUrl}`}*/ {`${baseUrl}${item.imageUrl}`}
                         alt={item.title}
                         className="content-image"
                       />
@@ -378,7 +379,7 @@ const UserContentList = ({ contentType, endpoint }) => {
                         src={
                           item.imageUrl.startsWith('http')
                             ? item.imageUrl
-                            : `http://localhost:3000${item.imageUrl}`
+                            : /*`http://localhost:3000${item.imageUrl}`*/ `${baseUrl}${item.imageUrl}`
                         }
                         alt={item.title}
                         className="content-image"

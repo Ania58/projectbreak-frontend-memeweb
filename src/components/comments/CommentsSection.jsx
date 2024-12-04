@@ -19,14 +19,16 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
   });
 
   const endpoint = `/content/${contentId}`;
+  const apiUrl = import.meta.env.VITE_APP_API_URL;
 
   useEffect(() => {
     const fetchComments = async () => {
       setIsLoading(true); 
       try {
-        const response = await axios.get(
+        /*const response = await axios.get(
           `http://localhost:3000/comments/${contentType}/${contentId}`
-        );
+        );*/
+        const response = await axios.get(`${apiUrl}comments/${contentType}/${contentId}`);
         const allComments = response.data || [];
         const filteredComments = allComments.filter(
           (comment) => comment.text !== '[Deleted]'
@@ -107,8 +109,9 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
     }
 
     try {
-      const response = await axios.post(
-        'http://localhost:3000/comments',
+      /*const response = await axios.post(
+        'http://localhost:3000/comments',*/
+        const response = await axios.post(`${apiUrl}comments`,
         {
           contentType,
           contentId,
@@ -145,9 +148,10 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
     }
 
     try {
-      const endpoint = `http://localhost:3000/${
+      /*const endpoint = `http://localhost:3000/${
         contentType === 'quiz' ? 'quizzes' : `${contentType}s`
-      }/${contentId}/vote`;
+      }/${contentId}/vote`;*/
+      const endpoint = `${apiUrl}${contentType === 'quiz' ? 'quizzes' : `${contentType}s`}/${contentId}/vote`;
 
       const response = await axios.post(endpoint, { vote });
       const { upvotes, downvotes } = response.data;
@@ -181,7 +185,7 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
             src={
               content.imageUrl.startsWith('http')
                 ? content.imageUrl
-                : `http://localhost:3000${content.imageUrl}`
+                : /*`http://localhost:3000${content.imageUrl}`*/  `${apiUrl}${content.imageUrl.replace(/^\//, '')}`
             }
             alt={content.title}
             className="content-image"
@@ -192,7 +196,7 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
           <>
             <video controls className="content-video">
               <source
-                src={`http://localhost:3000${content.videoUrl}`}
+                src=/*{`http://localhost:3000${content.videoUrl}`}*/ {`${apiUrl}${content.videoUrl.replace(/^\//, '')}`}
                 type="video/mp4"
               />
             </video>

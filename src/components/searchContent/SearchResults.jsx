@@ -11,6 +11,7 @@ const useQuery = () => {
 };
 
 const SearchResults = () => {
+  const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
   const query = useQuery().get('q') || '';
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,7 +24,8 @@ const SearchResults = () => {
 
   const handleVote = async (contentId, vote, type) => {
     try {
-      const endpoint = `http://localhost:3000/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
+      //const endpoint = `http://localhost:3000/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
+      const endpoint = `${baseUrl}/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
       const response = await axios.post(endpoint, { vote });
       setContent((prevContent) =>
         prevContent.map((item) =>
@@ -40,7 +42,8 @@ const SearchResults = () => {
 
     const fetchSearchResults = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/content/search?query=${encodeURIComponent(query)}`);
+        //const response = await axios.get(`http://localhost:3000/content/search?query=${encodeURIComponent(query)}`);
+        const response = await axios.get(`${baseUrl}/content/search?query=${encodeURIComponent(query)}`);
         const allContent = response.data.content;
 
         const contentWithTypes = allContent.map((item) => {

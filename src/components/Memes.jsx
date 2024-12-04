@@ -3,6 +3,7 @@ import '../css/Votings.css';
 import ContentInfo from './ContentInfo';
 
 const Memes = ({memes, onVote, hasVoted}) => {
+  const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
   return (
     <div className="content-container">
       {memes.map((meme) => (
@@ -12,7 +13,7 @@ const Memes = ({memes, onVote, hasVoted}) => {
           <img 
             src={meme.imageUrl.startsWith('http') 
               ? meme.imageUrl 
-              : `http://localhost:3000${meme.imageUrl}`}
+              : /*`http://localhost:3000${meme.imageUrl}`*/ `${baseUrl}${meme.imageUrl}`}
             alt={meme.title}
             className="content-image" 
           />

@@ -5,6 +5,7 @@ import ContentList from './ContentList';
 import Pagination from './Pagination';
 
 const TopContent = () => {
+  const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
   const { page } = useParams(); 
   const navigate = useNavigate();
   const [content, setContent] = useState([]); 
@@ -19,7 +20,8 @@ const TopContent = () => {
       setIsLoading(true);
       try {
        
-        const response = await axios.get(`http://localhost:3000/top?timeframe=${timeframe}`);
+        //const response = await axios.get(`http://localhost:3000/top?timeframe=${timeframe}`);
+        const response = await axios.get(`${baseUrl}/top?timeframe=${timeframe}`);
         const fetchedContent = response.data; 
         setContent(fetchedContent);
 
@@ -45,7 +47,7 @@ const TopContent = () => {
     };
 
     fetchTopContent();
-  }, [timeframe, page, navigate]);
+  }, [timeframe, page, navigate, baseUrl]);
 
   
   const handleTimeframeChange = (newTimeframe) => {

@@ -4,6 +4,7 @@ import '../css/Votings.css';
 import ContentInfo from './ContentInfo';
 
 const Images = ({images, onVote, hasVoted }) => {
+  const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
   return (
     <div className="content-container">
       {images.map((image) => (
@@ -11,7 +12,7 @@ const Images = ({images, onVote, hasVoted }) => {
             <p className="content-title">{image.title}</p>
             <ContentInfo category={image.category} tags={image.tags} />
           <img 
-            src={`http://localhost:3000${image.imageUrl}`} 
+            /*src={`http://localhost:3000${image.imageUrl}`} */  src={`${baseUrl}${image.imageUrl}`} 
             alt={image.title}
             className="content-image" 
           />

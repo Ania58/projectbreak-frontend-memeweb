@@ -18,21 +18,25 @@ const ContentSection = ({ type }) => {
       setLoading(true);
       try {
         const response = await axios.get(`/profile/content`);
-        const baseURL = "http://localhost:3000";
+        //const baseURL = "http://localhost:3000";
+
+        const baseURL = import.meta.env.VITE_APP_API_URL;
 
         const processedContent = response.data[type].map((item) => {
           if (type === "films") {
-            return { ...item, videoUrl: `${baseURL}${item.videoUrl}` };
+            //return { ...item, videoUrl: `${baseURL}${item.videoUrl}` };
+            return { ...item, videoUrl: `${baseURL.replace(/\/$/, '')}${item.videoUrl}` };
           }
           if (type === "images" || type === "quizzes") {
-            return { ...item, imageUrl: `${baseURL}${item.imageUrl}` };
+            //return { ...item, imageUrl: `${baseURL}${item.imageUrl}` };
+            return { ...item, imageUrl: `${baseURL.replace(/\/$/, '')}${item.imageUrl}` };
           }
           if (type === "memes") {
             return {
               ...item,
               imageUrl: item.imageUrl.startsWith("http")
                 ? item.imageUrl
-                : `${baseURL}${item.imageUrl}`,
+                : /*`${baseURL}${item.imageUrl}`*/ `${baseURL.replace(/\/$/, '')}${item.imageUrl}`,
             };
           }
           return item;

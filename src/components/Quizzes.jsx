@@ -4,6 +4,7 @@ import '../css/Votings.css';
 import ContentInfo from './ContentInfo';
 
 const Quizzes = ({quizzes, onVote, hasVoted}) => {
+  const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
  const [selectedAnswers, setSelectedAnswers] = useState({});
 
   const handleAnswerClick = (quizId, questionIndex, isCorrect, e) => {
@@ -24,7 +25,8 @@ const Quizzes = ({quizzes, onVote, hasVoted}) => {
             <div className="question-container" key={index}>
               <p className="question-text">{question.questionText}</p>
               <img 
-                src={`http://localhost:3000${quiz.imageUrl}`} 
+                //src={`http://localhost:3000${quiz.imageUrl}`} 
+                src={`${baseUrl}${quiz.imageUrl}`} 
                 alt={quiz.title}
                 className="content-image" 
               />

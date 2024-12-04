@@ -7,6 +7,7 @@ import CommentsSection from '../components/comments/CommentsSection';
 import '../css/ContentStyles.css';
 
 const CategoryContent = () => {
+  const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
   const { category } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -88,9 +89,11 @@ const CategoryContent = () => {
       return;
     }
     try {
-      const endpoint = `http://localhost:3000/${
+      /*const endpoint = `http://localhost:3000/${
         type === 'quiz' ? 'quizzes' : `${type}s`
-      }/${contentId}/vote`;
+      }/${contentId}/vote`;*/
+
+      const endpoint = `${baseUrl}/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
 
       const response = await axios.post(endpoint, { vote });
       const { upvotes, downvotes } = response.data;
@@ -130,12 +133,12 @@ const CategoryContent = () => {
                 {item.imageUrl && (
                   <img src={item.imageUrl.startsWith('http') 
                     ? item.imageUrl 
-                    : `http://localhost:3000${item.imageUrl}`} 
+                    : /*`http://localhost:3000${item.imageUrl}`*/ `${baseUrl}${item.imageUrl}`} 
                     alt={item.title} className="content-image"/>
                 )}
                 {item.videoUrl && (
                   <video controls className="content-video">
-                    <source src={`http://localhost:3000${item.videoUrl}`} type="video/mp4" />
+                    <source src=/*{`http://localhost:3000${item.videoUrl}`}*/ {`${baseUrl}${item.videoUrl}`} type="video/mp4" />
                   </video>
                 )}
 
@@ -181,11 +184,11 @@ const CategoryContent = () => {
           <h2>{selectedContent.title}</h2>
           <ContentInfo category={selectedContent.category} tags={selectedContent.tags} />
           {selectedContent.imageUrl && (
-            <img src={selectedContent.imageUrl.startsWith('http') ? selectedContent.imageUrl : `http://localhost:3000${selectedContent.imageUrl}`} alt={selectedContent.title} className="content-image"/>
+            <img src={selectedContent.imageUrl.startsWith('http') ? selectedContent.imageUrl : /*`http://localhost:3000${selectedContent.imageUrl}`*/ `${baseUrl}${selectedContent.imageUrl}`} alt={selectedContent.title} className="content-image"/>
           )}
           {selectedContent.videoUrl && (
             <video controls className="content-video">
-              <source src={`http://localhost:3000${selectedContent.videoUrl}`} type="video/mp4" />
+              <source src=/*{`http://localhost:3000${selectedContent.videoUrl}`}*/ {`${baseUrl}${selectedContent.videoUrl}`} type="video/mp4" />
             </video>
           )}
           

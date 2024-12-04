@@ -6,6 +6,8 @@ import Quizzes from './Quizzes';
 
 
 const ContentItem = ({ item, handleVote, onContentClick }) => {
+
+  const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
   
   const [votedItems, setVotedItems] = useState(() => {
     const storedVotes = localStorage.getItem('votedItems');
@@ -30,7 +32,7 @@ const ContentItem = ({ item, handleVote, onContentClick }) => {
     
   };
 
-  const resolveImageUrl = (url) => (url.startsWith('http') ? url : `http://localhost:3000${url}`);
+  const resolveImageUrl = (url) => (url.startsWith('http') ? url : /*`http://localhost:3000${url}`*/ `${baseUrl}${url}`);
 
 
   const handleItemClick = () => {

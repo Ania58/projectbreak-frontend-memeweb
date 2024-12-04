@@ -8,6 +8,7 @@ import '../css/MainPage.css';
 import '../css/ContentStyles.css';
 
 const MainPage = () => {
+  const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
   const navigate = useNavigate();
   const { pageNumber } = useParams();
   const [content, setContent] = useState([]);
@@ -19,7 +20,8 @@ const MainPage = () => {
   useEffect(() => {
     const fetchTotalPages = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/content/page/1');
+        //const response = await axios.get('http://localhost:3000/content/page/1');
+        const response = await axios.get(`${baseUrl}/content/page/1`);
         setTotalPages(response.data.totalPages);
         if (!pageNumber) {
           setCurrentPage(response.data.totalPages);
@@ -30,12 +32,13 @@ const MainPage = () => {
       }
     };
     fetchTotalPages();
-  }, [pageNumber, navigate]);
+  }, [pageNumber, navigate, baseUrl]);
 
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/content/page/${currentPage}`);
+        //const response = await axios.get(`http://localhost:3000/content/page/${currentPage}`);
+        const response = await axios.get(`${baseUrl}/content/page/${currentPage}`);
         setContent(response.data.content);
       } catch (err) {
         console.error("Error fetching content:", err);
@@ -43,7 +46,7 @@ const MainPage = () => {
       }
     };
     if (currentPage) fetchContent();
-  }, [currentPage]);
+  }, [currentPage, baseUrl]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -58,7 +61,8 @@ const MainPage = () => {
 
   const handleVote = async (contentId, vote, type) => {
     try {
-      const endpoint = `http://localhost:3000/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
+      //const endpoint = `http://localhost:3000/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
+      const endpoint = `${baseUrl}/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
       const response = await axios.post(endpoint, { vote });
       setContent((prevContent) =>
         prevContent.map((item) =>
