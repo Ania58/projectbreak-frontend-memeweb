@@ -14,7 +14,7 @@ const CategoryNavigation = () => {
   const [showAllCategories, setShowAllCategories] = useState(false);
 
   const handleSearchClick = () => {
-    setShowAllCategories(!showAllCategories); // Toggle all categories
+    setShowAllCategories(!showAllCategories); 
   };
 
   const categoriesToDisplay = showAllCategories ? allCategories : mainCategories;
