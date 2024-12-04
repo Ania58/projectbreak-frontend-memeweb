@@ -179,31 +179,20 @@ const CategoryContent = () => {
           })}
         </>
       ) : (
-        <div className="content-details">
-          <button onClick={() => setSelectedContent(null)} className="comment-button">Back to List</button>
-          <h2>{selectedContent.title}</h2>
-          <ContentInfo category={selectedContent.category} tags={selectedContent.tags} />
-          {selectedContent.imageUrl && (
-            <img src={selectedContent.imageUrl.startsWith('http') ? selectedContent.imageUrl : /*`http://localhost:3000${selectedContent.imageUrl}`*/ `${baseUrl}${selectedContent.imageUrl}`} alt={selectedContent.title} className="content-image"/>
+          <div className="content-details">
+            <button onClick={() => setSelectedContent(null)} className="comment-button">Back to List</button>
+            <CommentsSection
+              contentType={selectedContent.type}
+              contentId={selectedContent._id}
+              isAuthenticated={!!localStorage.getItem('authToken')}
+            />
+          </div>
           )}
-          {selectedContent.videoUrl && (
-            <video controls className="content-video">
-              <source src=/*{`http://localhost:3000${selectedContent.videoUrl}`}*/ {`${baseUrl}${selectedContent.videoUrl}`} type="video/mp4" />
-            </video>
-          )}
-          
-          <CommentsSection
-            contentType={selectedContent.type}
-            contentId={selectedContent._id}
-            isAuthenticated={!!localStorage.getItem('authToken')}
-          />
-        </div>
-      )}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+          <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
     </div>
   );
 };
