@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ContentList from '../ContentList';
 import Pagination from '../Pagination';
+import CommentsSection from '../comments/CommentsSection';
 import '../../css/SearchResults.css';
 import '../../css/ContentStyles.css'; 
 
@@ -21,6 +22,7 @@ const SearchResults = () => {
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 8;
   const [error, setError] = useState(null);
+  const [selectedContent, setSelectedContent] = useState(null);
 
   const handleVote = async (contentId, vote, type) => {
     try {
@@ -89,6 +91,20 @@ const SearchResults = () => {
     window.scrollTo(0, 0);
   };
 
+  const handleContentClick = (item) => {
+    let type = 'unknown';
+    if (item.questions && item.questions.length > 0) {
+      type = 'quiz';
+    } else if (item.videoUrl) {
+      type = 'film';
+    } else if (item.imageUrl && item.isUserGenerated) {
+      type = 'meme';
+    } else if (item.imageUrl) {
+      type = 'image';
+    }
+    setSelectedContent({ ...item, type });
+  };
+
   if (!query) {
     return <div className="search-results"><p>Please enter a search query.</p></div>;
   }
@@ -97,9 +113,24 @@ const SearchResults = () => {
     <div className="search-results">
       <h2>Search Results for "{query}"</h2>
       {error && <p>{error}</p>}
-      {paginatedContent.length > 0 ? (
+      {selectedContent ? (
+        <div className="content-details">
+          <button
+            onClick={() => setSelectedContent(null)}
+            className="comment-button"
+          >
+            Back to Results
+          </button>
+          <CommentsSection
+            contentType={selectedContent.type}
+            contentId={selectedContent._id}
+            isAuthenticated={!!localStorage.getItem('authToken')}
+          />
+        </div>
+      ) :
+      paginatedContent.length > 0 ? (
         <>
-          <ContentList content={paginatedContent} handleVote={handleVote}  />
+          <ContentList content={paginatedContent} handleVote={handleVote} onContentClick={handleContentClick} />
           <Pagination 
             currentPage={currentPage} 
             totalPages={totalPages} 
