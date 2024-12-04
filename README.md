@@ -2,7 +2,7 @@
 
 Va juntos con https://github.com/Ania58/projectbreak-memeweb.git
 
-Este es el frontend de la Plataforma de Contenido de Memes, una aplicación web dinámica que permite a los usuarios crear y gestionar varios tipos de contenido, como películas, imágenes, memes y cuestionarios. El frontend está construido con **React** y **Vite**, integrando **Firebase** para la autenticación y **Axios** para solicitudes a la API.
+Este es el frontend de la Plataforma de Contenido de Memes, una aplicación web dinámica que permite a los usuarios crear y gestionar varios tipos de contenido, como vídeos, imágenes, memes y cuestionarios. El frontend está construido con **React** y **Vite**, integrando **Firebase** para la autenticación y **Axios** para solicitudes a la API.
 
 ---
 
@@ -12,7 +12,7 @@ El frontend sirve como la interfaz de usuario de la plataforma, permitiendo a lo
 
 - Registrarse e iniciar sesión de forma segura.
 - Explorar contenido por categoría o popularidad.
-- Agregar y gestionar contenido personal, como memes, cuestionarios, películas e imágenes.
+- Agregar y gestionar contenido personal, como memes, cuestionarios, vídeos e imágenes.
 - Interactuar con el contenido mediante votación y paginación.
 - Buscar y filtrar contenido basado en preferencias del usuario.
 
@@ -82,7 +82,7 @@ npm run dev
 ##### **Agregar nuevo contenido**
 - **`AddContent.jsx`**: Página con enlaces para agregar películas, imágenes, cuestionarios o memes.
 - **`AddContentNavigation.jsx`**: Maneja la navegación para agregar contenido.
-- **`AddFilm.jsx`**: Lógica para agregar películas.
+- **`AddFilm.jsx`**: Lógica para agregar vídeos.
 - **`AddImage.jsx`**: Lógica para agregar imágenes.
 - **`AddMeme.jsx`**: Lógica para agregar memes utilizando una plantilla de una API externa.
 - **`AddQuiz.jsx`**: Lógica para crear cuestionarios.
@@ -111,9 +111,10 @@ npm run dev
 - **`CategoryNavigation.jsx`**: Permite navegar por categorías.
 - **`ContentHeader.jsx`**: Muestra el nombre del sitio web.
 - **`ContentInfo.jsx`**: Muestra etiquetas y categorías sobre el contenido.
-- **`ContentItem.jsx`**: Maneja la votación y muestra contenido como memes, imágenes, películas y cuestionarios.
+- **`ContentItem.jsx`**: Maneja la votación y muestra contenido como memes, imágenes, vídeos y cuestionarios.
 - **`ContentList.jsx`**: Mapea `ContentItem.jsx` para múltiples elementos de contenido.
 - **`ContentSection.jsx`**: Recupera contenido del usuario, crea paginación y filtra por tipo de contenido.
+- **`CommentsSection.jsx`**: Crea la sección de comentarios conde los usuarios logados pueden escribir y ver el contenido elegido.
 
 ##### **Componentes especializados**
 - **`Films.jsx`**: Usado en `ContentItem.jsx` para mostrar contenido de video con votación, etiquetas y categorías.
