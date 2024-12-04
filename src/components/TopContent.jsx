@@ -3,40 +3,39 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ContentList from './ContentList';
 import Pagination from './Pagination';
+import CommentsSection from '../components/comments/CommentsSection';
 
 const TopContent = () => {
   const baseUrl = import.meta.env.VITE_APP_API_URL.replace(/\/$/, '');
-  const { page } = useParams(); 
+  const { page } = useParams();
   const navigate = useNavigate();
-  const [content, setContent] = useState([]); 
-  const [currentPage, setCurrentPage] = useState(null); 
-  const itemsPerPage = 8; 
-  const [timeframe, setTimeframe] = useState('lastWeek'); 
-  const [error, setError] = useState(null); 
-  const [isLoading, setIsLoading] = useState(false); 
+  const [content, setContent] = useState([]);
+  const [currentPage, setCurrentPage] = useState(null);
+  const itemsPerPage = 8;
+  const [timeframe, setTimeframe] = useState('lastWeek');
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedContent, setSelectedContent] = useState(null);
 
   useEffect(() => {
     const fetchTopContent = async () => {
       setIsLoading(true);
       try {
-       
-        //const response = await axios.get(`http://localhost:3000/top?timeframe=${timeframe}`);
-        const response = await axios.get(`${baseUrl}/top?timeframe=${timeframe}`);
-        const fetchedContent = response.data; 
+        const response = await axios.get(
+          `${baseUrl}/top?timeframe=${timeframe}`
+        );
+        const fetchedContent = response.data;
         setContent(fetchedContent);
 
-        
         const totalPages = Math.ceil(fetchedContent.length / itemsPerPage);
-
-        
-        const latestPage = totalPages || 1; 
+        const latestPage = totalPages || 1;
         const validPage = page ? parseInt(page, 10) : latestPage;
 
         if (validPage > totalPages || validPage < 1) {
-          setCurrentPage(latestPage); 
-          navigate(`/top/page/${latestPage}`); 
+          setCurrentPage(latestPage);
+          navigate(`/top/page/${latestPage}`);
         } else {
-          setCurrentPage(validPage); 
+          setCurrentPage(validPage);
         }
         setIsLoading(false);
       } catch (err) {
@@ -49,37 +48,44 @@ const TopContent = () => {
     fetchTopContent();
   }, [timeframe, page, navigate, baseUrl]);
 
-  
   const handleTimeframeChange = (newTimeframe) => {
-    setTimeframe(newTimeframe); 
-    setContent([]); 
-    setCurrentPage(null); 
-    
+    setTimeframe(newTimeframe);
+    setContent([]);
+    setCurrentPage(null);
     navigate(`/top/page/${Math.ceil(content.length / itemsPerPage) || 1}`);
   };
 
-
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage); 
-    navigate(`/top/page/${newPage}`); 
-    window.scrollTo(0, 0); 
+    setCurrentPage(newPage);
+    navigate(`/top/page/${newPage}`);
+    window.scrollTo(0, 0);
   };
 
-  
+  const handleContentClick = (item) => {
+    let type = 'unknown';
+    if (item.questions && item.questions.length > 0) {
+      type = 'quiz';
+    } else if (item.videoUrl) {
+      type = 'film';
+    } else if (item.imageUrl && item.isUserGenerated) {
+      type = 'meme';
+    } else if (item.imageUrl) {
+      type = 'image';
+    }
+    setSelectedContent({ ...item, type });
+  };
+
   const paginatedContent = content.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  
   const totalPages = Math.ceil(content.length / itemsPerPage);
 
   return (
     <div className="top-content">
       <h2>Top Content</h2>
       {error && <p>{error}</p>}
-
-     
       <div className="timeframe-buttons">
         <button
           onClick={() => handleTimeframeChange('last24h')}
@@ -100,17 +106,38 @@ const TopContent = () => {
           Last Week
         </button>
       </div>
-
-      
-      {isLoading ? <p>Loading...</p> : <ContentList content={paginatedContent} />}
-
-    
-      {totalPages > 0 && (
-        <Pagination
-          currentPage={currentPage || totalPages} 
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+      {selectedContent ? (
+        <div className="content-details">
+          <button
+            onClick={() => setSelectedContent(null)}
+            className="comment-button"
+          >
+            Back to List
+          </button>
+          <CommentsSection
+            contentType={selectedContent.type}
+            contentId={selectedContent._id}
+            isAuthenticated={!!localStorage.getItem('authToken')}
+          />
+        </div>
+      ) : (
+        <>
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <ContentList
+              content={paginatedContent}
+              onContentClick={handleContentClick} 
+            />
+          )}
+          {totalPages > 0 && (
+            <Pagination
+              currentPage={currentPage || totalPages}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </>
       )}
     </div>
   );
