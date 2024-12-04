@@ -9,12 +9,13 @@ import "../../css/Authorization.css";
 const Profile = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate(); 
-  const [profileData, setProfileData] = useState({ name: "", email: "",  currentPassword: "", password: "" });
+  const [profileData, setProfileData] = useState({ name: "", email: "", currentPassword: "", password: "" });
   const [updateMessage, setUpdateMessage] = useState("");
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [deleteMessage, setDeleteMessage] = useState(""); 
+  const [deleteMessage, setDeleteMessage] = useState("");
+  const [authProvider, setAuthProvider] = useState(""); 
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -26,6 +27,11 @@ const Profile = () => {
           name: response.data.name,
           email: response.data.email,
         }));
+
+        const currentUser = auth.currentUser;
+        if (currentUser && currentUser.providerData.length > 0) {
+          setAuthProvider(currentUser.providerData[0].providerId); 
+        }
       } catch (error) {
         console.error("Error fetching profile data:", error);
       } finally {
@@ -43,20 +49,17 @@ const Profile = () => {
     setProfileData((prev) => ({ ...prev, [name]: value }));
   };
 
-
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
     try {
-      if (profileData.password) {
+      if (authProvider === "password" && profileData.password) {
         const currentUser = auth.currentUser;
         if (currentUser) {
           const credential = EmailAuthProvider.credential(
             currentUser.email,
             profileData.currentPassword 
           );
-  
           await reauthenticateWithCredential(currentUser, credential);
-  
           await updatePassword(currentUser, profileData.password);
           setUpdateMessage("Password updated successfully!");
         } else {
@@ -115,47 +118,51 @@ const Profile = () => {
           onChange={handleInputChange}
           required
         />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={profileData.email}
-          onChange={handleInputChange}
-          required
-        />
-        <div className="input-container">
-          <input
-            type={showCurrentPassword ? "text" : "password"}
-            name="currentPassword"
-            placeholder="Current Password"
-            value={profileData.currentPassword}
-            onChange={handleInputChange}
-            required
-          />
-          <button
-            type="button"
-            onClick={() => setShowCurrentPassword((prev) => !prev)}
-            className="show-password-button"
-          >
-            {showCurrentPassword ? "Hide" : "Show"}
-          </button>
-        </div>
-        <div className="input-container">
-          <input
-            type={showNewPassword  ? "text" : "password"}
-            name="password"
-            placeholder="New Password (leave blank to keep current)"
-            value={profileData.password}
-            onChange={handleInputChange}
-          />
-          <button
-            type="button"
-            onClick={() => setShowNewPassword((prev) => !prev)}
-            className="show-password-button"
-          >
-            {showNewPassword  ? "Hide" : "Show"}
-          </button>
-        </div>
+        {authProvider === "password" && (
+          <>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={profileData.email}
+              onChange={handleInputChange}
+              required
+            />
+            <div className="input-container">
+              <input
+                type={showCurrentPassword ? "text" : "password"}
+                name="currentPassword"
+                placeholder="Current Password"
+                value={profileData.currentPassword}
+                onChange={handleInputChange}
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowCurrentPassword((prev) => !prev)}
+                className="show-password-button"
+              >
+                {showCurrentPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+            <div className="input-container">
+              <input
+                type={showNewPassword  ? "text" : "password"}
+                name="password"
+                placeholder="New Password (leave blank to keep current)"
+                value={profileData.password}
+                onChange={handleInputChange}
+              />
+              <button
+                type="button"
+                onClick={() => setShowNewPassword((prev) => !prev)}
+                className="show-password-button"
+              >
+                {showNewPassword  ? "Hide" : "Show"}
+              </button>
+            </div>
+          </>
+        )}
         <button type="submit" className="auth-button">Update Profile</button>
       </form>
       {updateMessage && <p>{updateMessage}</p>}
