@@ -119,9 +119,6 @@ const AddQuiz = () => {
     try {
       const token = localStorage.getItem('authToken'); 
       const apiUrl = import.meta.env.VITE_APP_API_URL;
-      /*const response = await axios.post('http://localhost:3000/add/quizzes', payload, {
-        headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` },
-      });*/
       const response = await axios.post(`${apiUrl}add/quizzes`, payload, {
         headers: { 'Content-Type': 'multipart/form-data', Authorization: `Bearer ${token}` },
       });

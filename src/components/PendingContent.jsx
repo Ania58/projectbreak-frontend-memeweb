@@ -24,8 +24,6 @@ const PendingContent = () => {
   useEffect(() => {
     const fetchPendingItems = async () => {
       try {
-        //const response = await axios.get('http://localhost:3000/pending'); 
-
         const response = await axios.get(`${baseUrl}/pending`);
 
         const data = response.data;
@@ -81,10 +79,6 @@ const PendingContent = () => {
     }
 
     try {
-      /*const endpoint = `http://localhost:3000/${
-        type === 'quiz' ? 'quizzes' : `${type}s`
-      }/${contentId}/vote`;*/
-
       const endpoint = `${baseUrl}/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
 
       const response = await axios.post(endpoint, { vote });
@@ -124,10 +118,10 @@ const PendingContent = () => {
               <div key={item._id} className={`content-item clickable-item ${item.questions ? 'quiz-item' : ''}`} onClick={() => handleContentClick(item)}>
                 <h3 className="content-title">{item.title}</h3>
                 <ContentInfo category={item.category} tags={item.tags} />
-                {item.imageUrl && <img src={item.imageUrl.startsWith('http') ? item.imageUrl : /*`http://localhost:3000${item.imageUrl}`*/ `${baseUrl}${item.imageUrl}`} alt={item.title} className="content-image" />}
+                {item.imageUrl && <img src={item.imageUrl.startsWith('http') ? item.imageUrl : `${baseUrl}${item.imageUrl}`} alt={item.title} className="content-image" />}
                 {item.videoUrl && (
                   <video controls className="content-video">
-                    <source /*src={`http://localhost:3000${item.videoUrl}`}*/ src={`${baseUrl}${item.videoUrl}`}  type="video/mp4" />
+                    <source src={`${baseUrl}${item.videoUrl}`}  type="video/mp4" />
                   </video>
                 )}
                 {item.questions && item.questions.length > 0 && (

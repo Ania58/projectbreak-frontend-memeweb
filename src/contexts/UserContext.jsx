@@ -19,7 +19,7 @@ const UserProvider = ({ children }) => {
           });
           setUser(response.data);
         } catch (error) {
-          console.error("Error al obtener el usuario:", error);
+          console.error("Error fetching user:", error);
           setUser(null); 
         }
       } else {

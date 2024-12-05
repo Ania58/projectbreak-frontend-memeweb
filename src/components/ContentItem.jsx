@@ -32,7 +32,7 @@ const ContentItem = ({ item, handleVote, onContentClick }) => {
     
   };
 
-  const resolveImageUrl = (url) => (url.startsWith('http') ? url : /*`http://localhost:3000${url}`*/ `${baseUrl}${url}`);
+  const resolveImageUrl = (url) => (url.startsWith('http') ? url : `${baseUrl}${url}`);
 
 
   const handleItemClick = () => {

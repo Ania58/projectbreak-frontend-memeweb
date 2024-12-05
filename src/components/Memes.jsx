@@ -13,7 +13,7 @@ const Memes = ({memes, onVote, hasVoted}) => {
           <img 
             src={meme.imageUrl.startsWith('http') 
               ? meme.imageUrl 
-              : /*`http://localhost:3000${meme.imageUrl}`*/ `${baseUrl}${meme.imageUrl}`}
+              :`${baseUrl}${meme.imageUrl}`}
             alt={meme.title}
             className="content-image" 
           />

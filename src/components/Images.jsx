@@ -12,7 +12,7 @@ const Images = ({images, onVote, hasVoted }) => {
             <p className="content-title">{image.title}</p>
             <ContentInfo category={image.category} tags={image.tags} />
           <img 
-            /*src={`http://localhost:3000${image.imageUrl}`} */  src={`${baseUrl}${image.imageUrl}`} 
+            src={`${baseUrl}${image.imageUrl}`} 
             alt={image.title}
             className="content-image" 
           />

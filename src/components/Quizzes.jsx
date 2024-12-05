@@ -25,7 +25,6 @@ const Quizzes = ({quizzes, onVote, hasVoted}) => {
             <div className="question-container" key={index}>
               <p className="question-text">{question.questionText}</p>
               <img 
-                //src={`http://localhost:3000${quiz.imageUrl}`} 
                 src={`${baseUrl}${quiz.imageUrl}`} 
                 alt={quiz.title}
                 className="content-image" 

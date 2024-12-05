@@ -20,7 +20,6 @@ const MainPage = () => {
   useEffect(() => {
     const fetchTotalPages = async () => {
       try {
-        //const response = await axios.get('http://localhost:3000/content/page/1');
         const response = await axios.get(`${baseUrl}/content/page/1`);
         setTotalPages(response.data.totalPages);
         if (!pageNumber) {
@@ -37,7 +36,6 @@ const MainPage = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        //const response = await axios.get(`http://localhost:3000/content/page/${currentPage}`);
         const response = await axios.get(`${baseUrl}/content/page/${currentPage}`);
         setContent(response.data.content);
       } catch (err) {
@@ -61,7 +59,6 @@ const MainPage = () => {
 
   const handleVote = async (contentId, vote, type) => {
     try {
-      //const endpoint = `http://localhost:3000/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
       const endpoint = `${baseUrl}/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
       const response = await axios.post(endpoint, { vote });
       setContent((prevContent) =>

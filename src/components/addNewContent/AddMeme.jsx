@@ -81,9 +81,6 @@ const AddMeme = () => {
     try {
       const token = localStorage.getItem('authToken'); 
       const apiUrl = import.meta.env.VITE_APP_API_URL;
-      /*const response = await axios.post('http://localhost:3000/add/memes', payload, {
-        headers: { Authorization: `Bearer ${token}` },
-      });*/
       const response = await axios.post(`${apiUrl}add/memes`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });

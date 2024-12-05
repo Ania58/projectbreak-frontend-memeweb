@@ -22,12 +22,9 @@ const ContactForm = ({ endpoint, onSuccess }) => {
       return;
     }
 
-    //const backendBaseUrl = 'http://localhost:3000';
-
     const backendBaseUrl = import.meta.env.VITE_APP_API_URL;
 
     try {
-      //await axios.post(`${backendBaseUrl}${endpoint}`, formData);
       await axios.post(`${backendBaseUrl.replace(/\/$/, '')}${endpoint}`, formData);
       setFormData({ nameOrCompany: '', email: '', message: '' });
       setError(null); 

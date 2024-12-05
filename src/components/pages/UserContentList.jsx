@@ -327,7 +327,7 @@ const UserContentList = ({ contentType, endpoint }) => {
                             src={
                               item.imageUrl.startsWith('http')
                                 ? item.imageUrl
-                                : /*`http://localhost:3000${item.imageUrl}`*/ `${baseUrl}${item.imageUrl}`
+                                : `${baseUrl}${item.imageUrl}`
                             }
                             alt={item.title}
                             className="quiz-image"
@@ -364,12 +364,12 @@ const UserContentList = ({ contentType, endpoint }) => {
                       <video
                         controls
                         className="content-video"
-                        src=/*{`http://localhost:3000${item.videoUrl}`}*/ {`${baseUrl}${item.videoUrl}`}
+                        src={`${baseUrl}${item.videoUrl}`}
                       />
                     )}
                     {contentType === 'images' && (
                       <img
-                        src=/*{`http://localhost:3000${item.imageUrl}`}*/ {`${baseUrl}${item.imageUrl}`}
+                        src={`${baseUrl}${item.imageUrl}`}
                         alt={item.title}
                         className="content-image"
                       />
@@ -379,7 +379,7 @@ const UserContentList = ({ contentType, endpoint }) => {
                         src={
                           item.imageUrl.startsWith('http')
                             ? item.imageUrl
-                            : /*`http://localhost:3000${item.imageUrl}`*/ `${baseUrl}${item.imageUrl}`
+                            :`${baseUrl}${item.imageUrl}`
                         }
                         alt={item.title}
                         className="content-image"

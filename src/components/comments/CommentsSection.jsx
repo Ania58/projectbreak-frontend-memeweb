@@ -25,9 +25,6 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
     const fetchComments = async () => {
       setIsLoading(true); 
       try {
-        /*const response = await axios.get(
-          `http://localhost:3000/comments/${contentType}/${contentId}`
-        );*/
         const response = await axios.get(`${apiUrl}comments/${contentType}/${contentId}`);
         const allComments = response.data || [];
         const filteredComments = allComments.filter(
@@ -109,8 +106,6 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
     }
 
     try {
-      /*const response = await axios.post(
-        'http://localhost:3000/comments',*/
         const response = await axios.post(`${apiUrl}comments`,
         {
           contentType,
@@ -148,9 +143,6 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
     }
 
     try {
-      /*const endpoint = `http://localhost:3000/${
-        contentType === 'quiz' ? 'quizzes' : `${contentType}s`
-      }/${contentId}/vote`;*/
       const endpoint = `${apiUrl}${contentType === 'quiz' ? 'quizzes' : `${contentType}s`}/${contentId}/vote`;
 
       const response = await axios.post(endpoint, { vote });
@@ -185,7 +177,7 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
             src={
               content.imageUrl.startsWith('http')
                 ? content.imageUrl
-                : /*`http://localhost:3000${content.imageUrl}`*/  `${apiUrl}${content.imageUrl.replace(/^\//, '')}`
+                : `${apiUrl}${content.imageUrl.replace(/^\//, '')}`
             }
             alt={content.title}
             className="content-image"
@@ -196,7 +188,7 @@ const CommentsSection = ({ contentType, contentId, isAuthenticated }) => {
           <>
             <video controls className="content-video">
               <source
-                src=/*{`http://localhost:3000${content.videoUrl}`}*/ {`${apiUrl}${content.videoUrl.replace(/^\//, '')}`}
+                src={`${apiUrl}${content.videoUrl.replace(/^\//, '')}`}
                 type="video/mp4"
               />
             </video>

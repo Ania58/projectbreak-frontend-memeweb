@@ -89,10 +89,6 @@ const CategoryContent = () => {
       return;
     }
     try {
-      /*const endpoint = `http://localhost:3000/${
-        type === 'quiz' ? 'quizzes' : `${type}s`
-      }/${contentId}/vote`;*/
-
       const endpoint = `${baseUrl}/${type === 'quiz' ? 'quizzes' : `${type}s`}/${contentId}/vote`;
 
       const response = await axios.post(endpoint, { vote });
@@ -133,12 +129,12 @@ const CategoryContent = () => {
                 {item.imageUrl && (
                   <img src={item.imageUrl.startsWith('http') 
                     ? item.imageUrl 
-                    : /*`http://localhost:3000${item.imageUrl}`*/ `${baseUrl}${item.imageUrl}`} 
+                    : `${baseUrl}${item.imageUrl}`} 
                     alt={item.title} className="content-image"/>
                 )}
                 {item.videoUrl && (
                   <video controls className="content-video">
-                    <source src=/*{`http://localhost:3000${item.videoUrl}`}*/ {`${baseUrl}${item.videoUrl}`} type="video/mp4" />
+                    <source src={`${baseUrl}${item.videoUrl}`} type="video/mp4" />
                   </video>
                 )}
 
