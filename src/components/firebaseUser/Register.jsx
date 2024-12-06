@@ -21,7 +21,7 @@ function Register() {
   const [isRegistrationComplete, setIsRegistrationComplete] = useState(false);
   const { user, setUser } = useContext(UserContext);
 
-  const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{7,})/;
+  const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*~()\-_+=\/[\]{}\\|;:'"<>,.?])(?=.{7,})/;
 
   useEffect(() => {
     if (!isRegistrationComplete || isGoogleRegister) return; 
