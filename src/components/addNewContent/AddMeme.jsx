@@ -150,7 +150,8 @@ const AddMeme = () => {
             <h3>Preview:</h3>
             <div className="meme-preview">
               <img
-                src={selectedTemplate.url}
+                //src={selectedTemplate.url}
+                src={`${import.meta.env.VITE_APP_API_URL}proxy/image?url=${encodeURIComponent(selectedTemplate.url)}`}
                 alt="Selected template"
                 style={{ maxWidth: '100%', height: 'auto' }}
               />
