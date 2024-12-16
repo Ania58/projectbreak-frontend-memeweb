@@ -40,8 +40,7 @@ const AddMeme = () => {
         const fetchTemplates = async () => {
           try {
             const apiUrl = import.meta.env.VITE_APP_API_URL;
-            //const response = await fetch('https://api.imgflip.com/get_memes');
-            const response = await fetch(`${apiUrl}proxy/get-memes`);
+            const response = await fetch('https://api.imgflip.com/get_memes');
             const data = await response.json();
             setTemplates(data.data.memes || []);
           } catch (error) {
@@ -150,8 +149,7 @@ const AddMeme = () => {
             <h3>Preview:</h3>
             <div className="meme-preview">
               <img
-                //src={selectedTemplate.url}
-                src={`${import.meta.env.VITE_APP_API_URL}proxy/image?url=${encodeURIComponent(selectedTemplate.url)}`}
+                src={selectedTemplate.url}
                 alt="Selected template"
                 style={{ maxWidth: '100%', height: 'auto' }}
               />
