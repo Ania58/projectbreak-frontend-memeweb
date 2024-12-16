@@ -39,7 +39,9 @@ const AddMeme = () => {
   useEffect(() => {
         const fetchTemplates = async () => {
           try {
-            const response = await fetch('https://api.imgflip.com/get_memes');
+            const apiUrl = import.meta.env.VITE_APP_API_URL;
+            //const response = await fetch('https://api.imgflip.com/get_memes');
+            const response = await fetch(`${apiUrl}proxy/get-memes`);
             const data = await response.json();
             setTemplates(data.data.memes || []);
           } catch (error) {
