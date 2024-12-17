@@ -40,10 +40,16 @@
     color: #333;
     outline: none;
     transition: border-color 0.3s ease;
+    flex: 1;
   }
   
   .auth-input:focus {
     border-color: #007bff;
+  }
+
+  .password-container {
+    display: flex;
+    gap: 10px;
   }
   
   .auth-button {
