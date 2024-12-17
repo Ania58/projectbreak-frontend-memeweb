@@ -402,6 +402,54 @@
       transform: translateY(0);
     }
   }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333333; 
+      color: #ffffff; 
+    }
+  
+    .auth-card,
+    .profile-container {
+      background-color: #444444; 
+      color: #ffffff; 
+    }
+  
+    .auth-title, 
+    .profile-title {
+      color: #ffffff; 
+    }
+  
+    .auth-input,
+    .input-container input {
+      background-color: #555555; 
+      color: #ffffff; 
+      border: 1px solid #777777; 
+    }
+  
+    .auth-input::placeholder,
+    .input-container input::placeholder {
+      color: #cccccc; 
+    }
+  
+    .auth-button {
+      background-color: #007bff;
+      color: #ffffff;
+    }
+  
+    .auth-button:hover {
+      background-color: #0056b3;
+    }
+  
+    .delete-button {
+      background-color: #c9302c;
+      color: #ffffff;
+    }
+  
+    .delete-button:hover {
+      background-color: #a52a2a;
+    }
+  }
   
   @media (max-width: 768px) {
     .auth-card {
