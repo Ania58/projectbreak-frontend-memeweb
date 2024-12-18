@@ -16,6 +16,7 @@ const PendingContent = () => {
   const [error, setError] = useState(null);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [selectedContent, setSelectedContent] = useState(null); 
+  const [loading, setLoading] = useState(false);
   const [votedItems, setVotedItems] = useState(() => {
     const storedVotes = localStorage.getItem('votedItems');
     return storedVotes ? JSON.parse(storedVotes) : [];
@@ -24,6 +25,7 @@ const PendingContent = () => {
   useEffect(() => {
     const fetchPendingItems = async () => {
       try {
+        setLoading(true); 
         const response = await axios.get(`${baseUrl}/pending`);
 
         const data = response.data;
@@ -44,6 +46,8 @@ const PendingContent = () => {
       } catch (err) {
         console.error("Error fetching pending items:", err);
         setError("Failed to fetch pending items.");
+      } finally {
+        setLoading(false); 
       }
     };
 
@@ -108,8 +112,10 @@ const PendingContent = () => {
       <h2>Pending Items</h2>
       {error && <p>{error}</p>}
 
-     
-      {!selectedContent ? (
+      {loading ? ( 
+        <div className="loading">Loading...</div>
+      ) :      
+      !selectedContent ? (
         <>
           {paginatedContent.map((item) => {
             const hasVoted = votedItems.includes(item._id);
