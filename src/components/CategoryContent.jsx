@@ -15,6 +15,7 @@ const CategoryContent = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const [error, setError] = useState(null); 
+  const [loading, setLoading] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [selectedContent, setSelectedContent] = useState(null); 
   const [votedItems, setVotedItems] = useState(() => {
@@ -24,6 +25,7 @@ const CategoryContent = () => {
 
   useEffect(() => {
     const fetchContent = async () => {
+      setLoading(true);
       setContent([]);
       setError(null);
       
@@ -55,6 +57,8 @@ const CategoryContent = () => {
       } catch (error) {
         console.error('Error fetching category content:', error);
         setError('Failed to fetch content.');
+      } finally {
+        setLoading(false); 
       }
     };
     fetchContent();
@@ -116,8 +120,12 @@ const CategoryContent = () => {
     <div className="content-container">
       <h2>{category}</h2>
       {error && <p>{error}</p>}
+
+      {loading ? ( 
+        <div className="loading">Loading...</div>
+      ) :
   
-      {!selectedContent ? (
+      !selectedContent ? (
         <>
           {paginatedContent.map((item) => {
             const hasVoted = votedItems.includes(item._id);
