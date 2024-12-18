@@ -16,10 +16,12 @@ const MainPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [error, setError] = useState(null);
   const [selectedContent, setSelectedContent] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchTotalPages = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`${baseUrl}/content/page/1`);
         setTotalPages(response.data.totalPages);
         if (!pageNumber) {
@@ -28,6 +30,8 @@ const MainPage = () => {
         }
       } catch (err) {
         console.error("Error fetching total pages:", err);
+      } finally {
+        setLoading(false); 
       }
     };
     fetchTotalPages();
@@ -36,11 +40,14 @@ const MainPage = () => {
   useEffect(() => {
     const fetchContent = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(`${baseUrl}/content/page/${currentPage}`);
         setContent(response.data.content);
       } catch (err) {
         console.error("Error fetching content:", err);
         setError("Failed to fetch content.");
+      } finally {
+        setLoading(false); 
       }
     };
     if (currentPage) fetchContent();
@@ -83,7 +90,10 @@ const MainPage = () => {
   return (
     <div className="main-page">
       {error && <p>{error}</p>}
-      {selectedContent ? (
+      {loading ? ( 
+        <div className="loading">Loading...</div>
+      ) :
+      selectedContent ? (
         <div className="content-details">
           <button onClick={handleBackToList} className='comment-button'>Back to List</button>
           <h2>{selectedContent.title}</h2>
